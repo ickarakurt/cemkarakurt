@@ -1,7 +1,7 @@
 ---
 author: Cem Karakurt
-pubDatetime: 2024-10-07T18:00:00Z
-modDatetime: 2024-10-07T18:00:00Z
+pubDatetime: 2024-10-06T18:00:00Z
+modDatetime: 2024-10-06T18:00:00Z
 title: "React Rendering Techniques and NextJS Partial Prerendering"
 slug: "react-rendering-techniques-and-nextjs-partial-prerendering"
 featured: true
