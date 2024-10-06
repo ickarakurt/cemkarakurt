@@ -1,0 +1,14 @@
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+
+    Client->>Server: Request page
+    Server->>Database: Fetch data
+    Database-->>Server: Return data
+    Note over Server: Generate HTML
+    Server-->>Client: Send complete HTML
+    Note over Client: Render page
+    Note over Client: Load JavaScript
+    Note over Client: Hydrate for interactivity
+    

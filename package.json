@@ -10,7 +10,8 @@
     "astro": "astro",
     "format:check": "prettier --check . --plugin=prettier-plugin-astro",
     "format": "prettier --write . --plugin=prettier-plugin-astro",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "mermaid": "mmdc -i src/mermaids/$npm_config_filename.mmd -o public/assets/$npm_config_filename.svg"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
@@ -19,6 +20,7 @@
     "astro": "^4.14.2",
     "fuse.js": "^7.0.0",
     "lodash.kebabcase": "^4.1.1",
+    "rehype-pretty-code": "^0.14.0",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
     "satori": "^0.10.14",

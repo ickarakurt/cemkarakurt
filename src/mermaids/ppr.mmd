@@ -1,0 +1,26 @@
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Backend
+    participant BuildProcess
+
+    Note over BuildProcess: Prerender static content
+    BuildProcess->>Server: Deploy static and dynamic routes
+
+    Client->>Server: Single HTTP Request
+    Note over Server: Determine route type
+
+    alt Static Route
+        Server->>Client: Send prerendered content
+    else Dynamic Route
+        par Parallel processing
+            Server->>Client: Stream prerendered static shell
+            Server->>Backend: Fetch data for dynamic components
+            Backend-->>Server: Stream data for dynamic components
+            Note over Server: Process with React Server Components
+            Server->>Client: Stream dynamic components
+        end
+    end
+
+    Note over Client: Render static content
+    Note over Client: Progressively render dynamic components

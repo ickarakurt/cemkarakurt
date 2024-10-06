@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant Client
+    participant Server
+    participant BuildProcess
+
+    Note over BuildProcess: Generate static HTML at build time
+    BuildProcess->>Server: Deploy static files
+    Client->>Server: Request page
+    Server-->>Client: Send pre-rendered HTML
+    Note over Client: Render page
+    Note over Client: Load JavaScript
+    Note over Client: Hydrate for interactivity
+    
