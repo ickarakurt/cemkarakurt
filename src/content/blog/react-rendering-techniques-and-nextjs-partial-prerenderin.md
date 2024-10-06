@@ -232,7 +232,7 @@ NextJS Partial Prerendering is a powerful feature that combines the benefits of 
 
 The JS ecosystem is changing rapidly. It's crucial to keep up with the latest trends and technologies. Partial Prerendering is a new feature being popularized by NextJS, and you can be sure it will be widely used in the future. So, it's a good idea to learn about it and start using it in your projects. **Adapt to changes** and stay ahead of the curve.
 
-#### Sources
+### Sources
 
 - [NextJS Partial Prerendering](https://nextjs.org/docs/app/building-your-application/rendering/partial-prerendering)
 - [NextJS Streaming](https://nextjs.org/learn/dashboard-app/streaming)
