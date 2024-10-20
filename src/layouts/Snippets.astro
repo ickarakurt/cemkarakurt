@@ -1,0 +1,43 @@
+---
+import Card from "@components/Card";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import Pagination from "@components/Pagination.astro";
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  paginatedContent: CollectionEntry<"snippet">[];
+}
+
+const { currentPage, totalPages, paginatedContent } = Astro.props;
+---
+
+<Layout title={`Snippet | ${SITE.title}`}>
+  <Header activeNav="snippet" />
+  <Main
+    pageTitle="Snippet"
+    pageDesc="A collection of code snippets for web development."
+  >
+    <ul>
+      {
+        paginatedContent.map(({ data, slug }) => (
+          <Card href={`/snippets/${slug}/`} frontmatter={data} />
+        ))
+      }
+    </ul>
+  </Main>
+
+  <Pagination
+    {currentPage}
+    {totalPages}
+    prevUrl={`/snippets${currentPage - 1 !== 1 ? "/" + (currentPage - 1) : ""}/`}
+    nextUrl={`/snippets/${currentPage + 1}/`}
+  />
+
+  <Footer noMarginTop={totalPages > 1} />
+</Layout>

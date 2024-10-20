@@ -1,10 +1,13 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
-import TagPosts from "@layouts/TagPosts.astro";
-import getUniqueTags from "@utils/getUniqueTags";
-import getPostsByTag from "@utils/getPostsByTag";
+import { SITE } from "@config";
+import TagContent from "@layouts/TagContent.astro";
 import getPageNumbers from "@utils/getPageNumbers";
 import getPagination from "@utils/getPagination";
+import getPostsByTag from "@utils/getPostsByTag";
+import getSnippetsByTag from "@utils/getSnippetsByTag";
+import getSortedContent from "@utils/getSortedContent";
+import getUniqueTags from "@utils/getUniqueTags";
+import { type CollectionEntry, getCollection } from "astro:content";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -14,12 +17,16 @@ export interface Props {
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
+  const snippets = await getCollection("snippet");
 
-  const tags = getUniqueTags(posts);
-
+  const tagsFromPosts = getUniqueTags(posts);
+  const tagsFromSnippets = getUniqueTags(snippets);
+  const tags = [...tagsFromPosts, ...tagsFromSnippets];
   return tags.flatMap(({ tag, tagName }) => {
     const tagPosts = getPostsByTag(posts, tag);
-    const totalPages = getPageNumbers(tagPosts.length);
+    const tagSnippets = getSnippetsByTag(snippets, tag);
+    const allContent = [...tagPosts, ...tagSnippets];
+    const totalPages = getPageNumbers(allContent.length);
 
     return totalPages.map(page => ({
       params: { tag, page },
@@ -32,13 +39,20 @@ const { page } = Astro.params;
 const { tag, tagName } = Astro.props;
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
+const snippets = await getCollection("snippet", ({ data }) => !data.draft);
 
 const postsByTag = getPostsByTag(posts, tag);
+const snippetsByTag = getSnippetsByTag(snippets, tag);
+
+const allContent = [...postsByTag, ...snippetsByTag];
+
+const sortedContent = getSortedContent(allContent);
 
 const pagination = getPagination({
-  posts: postsByTag,
+  content: sortedContent,
   page,
+  itemPerPage: SITE.postPerPage,
 });
 ---
 
-<TagPosts {...pagination} {tag} {tagName} />
+<TagContent {...pagination} {tag} {tagName} />

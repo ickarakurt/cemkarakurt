@@ -7,7 +7,7 @@ import LinkButton from "@components/LinkButton.astro";
 import Socials from "@components/Socials.astro";
 import { SITE, SOCIALS } from "@config";
 import Layout from "@layouts/Layout.astro";
-import getSortedPosts from "@utils/getSortedPosts";
+import getSortedPosts from "@utils/getSortedContent";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");

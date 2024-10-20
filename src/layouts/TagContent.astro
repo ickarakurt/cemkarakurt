@@ -11,12 +11,12 @@ import { SITE } from "@config";
 export interface Props {
   currentPage: number;
   totalPages: number;
-  paginatedPosts: CollectionEntry<"blog">[];
+  paginatedContent: CollectionEntry<"blog" | "snippet">[];
   tag: string;
   tagName: string;
 }
 
-const { currentPage, totalPages, paginatedPosts, tag, tagName } = Astro.props;
+const { currentPage, totalPages, paginatedContent, tag, tagName } = Astro.props;
 ---
 
 <Layout title={`Tag: ${tagName} | ${SITE.title}`}>
@@ -24,13 +24,17 @@ const { currentPage, totalPages, paginatedPosts, tag, tagName } = Astro.props;
   <Main
     pageTitle={[`Tag:`, `${tagName}`]}
     titleTransition={tag}
-    pageDesc={`All the articles with the tag "${tagName}".`}
+    pageDesc={`All the articles and snippets with the tag "${tagName}".`}
   >
     <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
     <ul>
       {
-        paginatedPosts.map(({ data, slug }) => (
-          <Card href={`/blog/${slug}/`} frontmatter={data} />
+        paginatedContent.map(({ data, slug, collection }) => (
+          <Card
+            href={`/${collection === "blog" ? "blog" : "snippets"}/${slug}/`}
+            collection={collection}
+            frontmatter={data}
+          />
         ))
       }
     </ul>

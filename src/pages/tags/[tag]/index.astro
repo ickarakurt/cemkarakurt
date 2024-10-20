@@ -1,32 +1,45 @@
 ---
-import { getCollection } from "astro:content";
-import TagPosts from "@layouts/TagPosts.astro";
-import getPostsByTag from "@utils/getPostsByTag";
+import { SITE } from "@config";
+import TagContent from "@layouts/TagContent.astro";
 import getPagination from "@utils/getPagination";
+import getPostsByTag from "@utils/getPostsByTag";
+import getSnippetsByTag from "@utils/getSnippetsByTag";
+import getSortedContent from "@utils/getSortedContent";
 import getUniqueTags from "@utils/getUniqueTags";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
+  const snippets = await getCollection("snippet");
 
-  const tags = getUniqueTags(posts);
+  const tagsFromPosts = getUniqueTags(posts);
+  const tagsFromSnippets = getUniqueTags(snippets);
+
+  const tags = [...tagsFromPosts, ...tagsFromSnippets];
 
   return tags.map(({ tag, tagName }) => {
     return {
       params: { tag },
-      props: { tag, tagName, posts },
+      props: { tag, tagName, posts, snippets },
     };
   });
 }
 
-const { tag, tagName, posts } = Astro.props;
+const { tag, tagName, posts, snippets } = Astro.props;
 
 const postsByTag = getPostsByTag(posts, tag);
+const snippetsByTag = getSnippetsByTag(snippets, tag);
+
+const allContent = [...postsByTag, ...snippetsByTag];
+
+const sortedContent = getSortedContent(allContent);
 
 const pagination = getPagination({
-  posts: postsByTag,
+  content: sortedContent,
   page: 1,
   isIndex: true,
+  itemPerPage: SITE.postPerPage,
 });
 ---
 
-<TagPosts {...pagination} {tag} {tagName} />
+<TagContent {...pagination} {tag} {tagName} />

@@ -1,14 +1,20 @@
 import { slugifyStr } from "@utils/slugify";
-import Datetime from "./Datetime";
 import type { CollectionEntry } from "astro:content";
+import Datetime from "./Datetime";
 
 export interface Props {
   href?: string;
   frontmatter: CollectionEntry<"blog">["data"];
   secHeading?: boolean;
+  collection?: string;
 }
 
-export default function Card({ href, frontmatter, secHeading = true }: Props) {
+export default function Card({
+  href,
+  frontmatter,
+  secHeading = true,
+  collection,
+}: Props) {
   const { title, pubDatetime, modDatetime, description } = frontmatter;
 
   const headerProps = {
@@ -28,7 +34,16 @@ export default function Card({ href, frontmatter, secHeading = true }: Props) {
           <h3 {...headerProps}>{title}</h3>
         )}
       </a>
-      <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
+      <div className="flex gap-2">
+        <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
+        {collection && (
+           <> | <span
+            className={`text-xs italic p-1 rounded ${collection === "blog" ? "bg-blue-600 text-white" : "bg-yellow-600 text-white"}`}
+          >
+           {collection === "blog" ? "Blog Post" : "Snippet"}
+          </span></>
+        )}
+      </div>
       <p>{description}</p>
     </li>
   );

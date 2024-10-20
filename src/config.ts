@@ -5,13 +5,14 @@ export const SITE: Site = {
   website: "https://cemkarakurt.com",
   author: "Cem Karakurt",
   profile: "https://cemkarakurt.com",
-  desc: "Website of an accomplished software engineer, featuring insightful blog posts on web development, coding trends, and technical insights",
+  desc: "Website of a senior software engineer, featuring insightful blog posts on web development, coding trends, and technical insights",
   title: "Cem Karakurt",
   titlePostfix: "| Software Engineer",
   ogImage: "social_img.png",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 6,
+  snippetPerPage: 6,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
 };
 

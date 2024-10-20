@@ -1,18 +1,19 @@
-import { SITE } from "@config";
 import getPageNumbers from "./getPageNumbers";
 
 interface GetPaginationProps<T> {
-  posts: T;
+  content: T;
   page: string | number;
   isIndex?: boolean;
+  itemPerPage: number;
 }
 
 const getPagination = <T>({
-  posts,
+  content,
   page,
   isIndex = false,
+  itemPerPage,
 }: GetPaginationProps<T[]>) => {
-  const totalPagesArray = getPageNumbers(posts.length);
+  const totalPagesArray = getPageNumbers(content.length);
   const totalPages = totalPagesArray.length;
 
   const currentPage = isIndex
@@ -21,14 +22,14 @@ const getPagination = <T>({
       ? Number(page)
       : 0;
 
-  const lastPost = isIndex ? SITE.postPerPage : currentPage * SITE.postPerPage;
-  const startPost = isIndex ? 0 : lastPost - SITE.postPerPage;
-  const paginatedPosts = posts.slice(startPost, lastPost);
+  const lastContent = isIndex ? itemPerPage : currentPage * itemPerPage;
+  const firstContent = isIndex ? 0 : lastContent - itemPerPage;
+  const paginatedContent = content.slice(firstContent, lastContent);
 
   return {
     totalPages,
     currentPage,
-    paginatedPosts,
+    paginatedContent,
   };
 };
 

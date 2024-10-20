@@ -1,0 +1,43 @@
+---
+import Snippets from "@layouts/Snippets.astro";
+import SnippetDetails from "@layouts/SnippetDetails.astro";
+import getPageNumbers from "@utils/getPageNumbers";
+import getPagination from "@utils/getPagination";
+import { type CollectionEntry, getCollection } from "astro:content";
+import getSortedContent from "@utils/getSortedContent";
+import { SITE } from "@config";
+
+export interface Props {
+  snippet: CollectionEntry<"snippet">;
+}
+
+export async function getStaticPaths() {
+  const snippets = await getCollection("snippet", ({ data }) => !data.draft);
+
+  const snippetResult = snippets.map(snippet => ({
+    params: { slug: snippet.slug },
+    props: { snippet },
+  }));
+
+  const pagePaths = getPageNumbers(snippets.length).map(pageNum => ({
+    params: { slug: String(pageNum) },
+  }));
+
+  return [...snippetResult, ...pagePaths];
+}
+
+const { slug } = Astro.params;
+const { snippet } = Astro.props;
+
+const snippets = await getCollection("snippet");
+
+const sortedContent = getSortedContent(snippets);
+
+const pagination = getPagination({
+  content: sortedContent,
+  page: slug,
+  itemPerPage: SITE.postPerPage,
+});
+---
+
+{snippet ? <SnippetDetails snippet={snippet} /> : <Snippets {...pagination} />}

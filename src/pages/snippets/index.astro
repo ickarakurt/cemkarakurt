@@ -1,0 +1,20 @@
+---
+import { SITE } from "@config";
+import Snippets from "@layouts/Snippets.astro";
+import getPagination from "@utils/getPagination";
+import getSortedPosts from "@utils/getSortedContent";
+import { getCollection } from "astro:content";
+
+const snippet = await getCollection("snippet");
+
+const sortedContent = getSortedPosts(snippet);
+
+const pagination = getPagination({
+  content: sortedContent,
+  page: 1,
+  isIndex: true,
+  itemPerPage: SITE.snippetPerPage,
+});
+---
+
+<Snippets {...pagination} />
