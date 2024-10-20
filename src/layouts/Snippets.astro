@@ -6,15 +6,14 @@ import Pagination from "@components/Pagination.astro";
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
+import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-  currentPage: number;
-  totalPages: number;
-  paginatedContent: CollectionEntry<"snippet">[];
+  page: Page<CollectionEntry<"snippet">>;
 }
 
-const { currentPage, totalPages, paginatedContent } = Astro.props;
+const { page } = Astro.props;
 ---
 
 <Layout title={`Snippet | ${SITE.title}`}>
@@ -25,19 +24,14 @@ const { currentPage, totalPages, paginatedContent } = Astro.props;
   >
     <ul>
       {
-        paginatedContent.map(({ data, slug }) => (
+        page.data.map(({ data, slug }) => (
           <Card href={`/snippets/${slug}/`} frontmatter={data} />
         ))
       }
     </ul>
   </Main>
 
-  <Pagination
-    {currentPage}
-    {totalPages}
-    prevUrl={`/snippets${currentPage - 1 !== 1 ? "/" + (currentPage - 1) : ""}/`}
-    nextUrl={`/snippets/${currentPage + 1}/`}
-  />
+  <Pagination page={page} />
 
-  <Footer noMarginTop={totalPages > 1} />
+  <Footer noMarginTop={page.lastPage > 1} />
 </Layout>

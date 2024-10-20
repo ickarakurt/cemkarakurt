@@ -1,0 +1,13 @@
+---
+import { SITE } from "@config";
+import Snippets from "@layouts/Snippets.astro";
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+export const getStaticPaths = (async ({ paginate }) => {
+  const snippets = await getCollection("snippet", ({ data }) => !data.draft);
+  return paginate(snippets, { pageSize: SITE.snippetPerPage });
+}) satisfies GetStaticPaths;
+const { page } = Astro.props;
+---
+
+<Snippets {page} />

@@ -37,11 +37,15 @@ export default function Card({
       <div className="flex gap-2">
         <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
         {collection && (
-           <> | <span
-            className={`text-xs italic p-1 rounded ${collection === "blog" ? "bg-blue-600 text-white" : "bg-yellow-600 text-white"}`}
-          >
-           {collection === "blog" ? "Blog Post" : "Snippet"}
-          </span></>
+          <>
+            {" "}
+            |{" "}
+            <span
+              className={`text-xs italic p-1 rounded ${collection === "blog" ? "bg-blue-600 text-white" : "bg-yellow-600 text-white"}`}
+            >
+              {collection === "blog" ? "Blog Post" : "Snippet"}
+            </span>
+          </>
         )}
       </div>
       <p>{description}</p>
