@@ -5,20 +5,20 @@
 @layer base {
   :root,
   html[data-theme="light"] {
-    --color-fill: 255, 255, 255; /* White background */
-    --color-text-base: 0, 0, 0; /* Black text for high contrast */
-    --color-accent: 50, 50, 50; /* Dark gray accent */
+    --color-fill: 245, 245, 245; /* Slightly off-white background */
+    --color-text-base: 30, 30, 30; /* Dark gray text for better readability */
+    --color-accent: 70, 70, 70; /* Medium gray accent */
     --color-card: 240, 240, 240; /* Light gray card */
-    --color-card-muted: 220, 220, 220; /* Muted light gray for cards */
-    --color-border: 200, 200, 200; /* Light gray border */
+    --color-card-muted: 200, 200, 200; /* Muted light gray for cards */
+    --color-border: 180, 180, 180; /* Light gray border */
   }
   html[data-theme="dark"] {
-    --color-fill: 0, 0, 0; /* Black background */
-    --color-text-base: 255, 255, 255; /* White text for contrast */
-    --color-accent: 200, 200, 200; /* Light gray accent */
-    --color-card: 30, 30, 30; /* Dark gray card */
-    --color-card-muted: 50, 50, 50; /* Slightly lighter gray for muted cards */
-    --color-border: 80, 80, 80; /* Darker gray border */
+    --color-fill: 18, 18, 18; /* Very dark gray background */
+    --color-text-base: 240, 240, 240; /* Light gray text for contrast */
+    --color-accent: 180, 180, 180; /* Medium gray accent */
+    --color-card: 40, 40, 40; /* Dark gray card */
+    --color-card-muted: 70, 70, 70; /* Slightly lighter gray for muted cards */
+    --color-border: 100, 100, 100; /* Darker gray border */
   }
   #sun-svg,
   html[data-theme="dark"] #moon-svg {
