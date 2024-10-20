@@ -1,3 +1,4 @@
+import type { GiscusProps } from "@giscus/react";
 import type { Site, SocialObjects } from "./types";
 
 export const SITE: Site = {
@@ -70,3 +71,16 @@ export const SOCIALS: SocialObjects = [
     active: true,
   },
 ];
+
+export const GISCUS: GiscusProps = {
+  repo: "ickarakurt/cemkarakurt",
+  repoId: "R_kgDOK0XMfw",
+  category: "Announcements",
+  categoryId: "DIC_kwDOK0XMf84CjiCs",
+  mapping: "pathname",
+  reactionsEnabled: "1",
+  emitMetadata: "0",
+  inputPosition: "top",
+  lang: "en",
+  loading: "lazy",
+};
