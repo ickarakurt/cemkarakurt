@@ -189,5 +189,5 @@ Most of datetime libraries like `date-fns`, `moment.js`, `luxon`, etc. have buil
 - [Daylight Saving Time](https://en.wikipedia.org/wiki/Daylight_saving_time)
 - [Leap Year](https://en.wikipedia.org/wiki/Leap_year)
 - [Time Zone](https://en.wikipedia.org/wiki/Time_zone)
-- [Time Precision](<https://en.wikipedia.org/wiki/Precision_(time)>)
+- [Time Precision](<https://en.wikipedia.org/wiki/Precision_Time_Protocol>)
 - [Date-fns](https://date-fns.org/)
