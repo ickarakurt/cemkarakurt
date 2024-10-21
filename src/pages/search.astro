@@ -5,18 +5,15 @@ import SearchBar from "@components/Search";
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
-import getSortedPosts from "@utils/getSortedContent";
+import getSortedContent from "@utils/getSortedContent";
 import { getCollection } from "astro:content";
 
 // Retrieve all published articles
 const posts = await getCollection("blog", ({ data }) => !data.draft);
-const sortedPosts = getSortedPosts(posts);
-
 const notes = await getCollection("note", ({ data }) => !data.draft);
-const sortedNotes = getSortedPosts(notes);
 
 // Combine all articles and notes
-const allContent = [...sortedPosts, ...sortedNotes];
+const allContent = getSortedContent([...posts, ...notes]);
 
 // List of items to search in
 const searchList = allContent.map(({ data, slug, collection }) => ({

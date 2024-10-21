@@ -1,5 +1,5 @@
 import type { CollectionEntry } from "astro:content";
-import contentFilter from "./postFilter";
+import contentFilter from "./contentFilter";
 
 const getSortedContent = <
   T extends CollectionEntry<"blog"> | CollectionEntry<"note">,
