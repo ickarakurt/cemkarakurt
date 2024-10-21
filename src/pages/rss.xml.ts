@@ -7,8 +7,8 @@ export async function GET() {
   const posts = await getCollection("blog");
   const sortedPosts = getSortedContent(posts);
 
-  const snippets = await getCollection("snippet");
-  const sortedSnippets = getSortedContent(snippets);
+  const notes = await getCollection("note");
+  const sortedNotes = getSortedContent(notes);
 
   return rss({
     title: SITE.title,
@@ -21,8 +21,8 @@ export async function GET() {
         description: data.description,
         pubDate: new Date(data.modDatetime ?? data.pubDatetime),
       })),
-      ...sortedSnippets.map(({ data, slug }) => ({
-        link: `snippets/${slug}/`,
+      ...sortedNotes.map(({ data, slug }) => ({
+        link: `notes/${slug}/`,
         title: data.title,
         description: data.description,
         pubDate: new Date(data.modDatetime ?? data.pubDatetime),

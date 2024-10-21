@@ -7,7 +7,6 @@ slug: sonarqube-mac-installation-in-5-minutes
 featured: false
 draft: false
 tags:
-  - sonarqube
   - docker
   - mac
 description:
@@ -15,7 +14,7 @@ description:
   guide walks you through the process, from container setup to code analysis.
 ---
 
-**SonarQube** is a perfect tool to **analyze** your code. And, community version is free and open-source. You can install SonarQube to your server or your computer. In this article, I will share how I installed SonarQube to my Mac M1 with Docker.
+**SonarQube** is a perfect tool to **analyze** your code. And, community version is free and open-source. You can install SonarQube to your server or your computer. In this article, I will share how I installed SonarQube to my [mac](https://cemkarakurt.com/tags/mac "Mac OS") M1 with [Docker](https://cemkarakurt.com/tags/docker "Docker").
 
 The first thing you need to do is create a container with a SonarQube image. The below line will pull the image and start SonarQube in port 8084.
 

@@ -4,6 +4,7 @@ import PostDetails from "@layouts/PostDetails.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
+  posts: CollectionEntry<"blog">[];
 }
 
 export async function getStaticPaths() {
@@ -11,13 +12,13 @@ export async function getStaticPaths() {
 
   const postResult = posts.map(post => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, posts },
   }));
 
   return postResult;
 }
 
-const { post } = Astro.props;
+const { post, posts } = Astro.props;
 ---
 
-<PostDetails post={post} />
+<PostDetails post={post} posts={posts} />

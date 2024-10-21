@@ -8,18 +8,14 @@ featured: true
 draft: false
 tags:
   - nextjs
-  - ppr
   - react
   - streaming
   - seo
-  - ux
-  - partial-prerendering
   - performance
   - streaming
-  - server-side-rendering
-  - static-site-generation
   - web-development
   - user-experience
+  - frontend
 description: Learn about React rendering techniques and how NextJS Partial Prerendering combines static content with dynamic content to improve SEO and user experience.
 ---
 
@@ -34,7 +30,7 @@ description: Learn about React rendering techniques and how NextJS Partial Prere
 
 ## Introduction
 
-NextJS is working on a feature called **Partial Prerendering**. It allows you to **prerender static content** at build time and then **stream dynamic content** at request time. This feature is beneficial for **SEO** and **UX** because users can see the static content quickly while dynamic content loads in the background, improving the user experience and making the website more search engine friendly.
+[NextJS](https://cemkarakurt.com/tags/nextjs/ "NextJS") is working on a feature called **Partial Prerendering**. It allows you to **prerender static content** at build time and then **stream dynamic content** at request time. This feature is beneficial for [**SEO**](https://cemkarakurt.com/tags/nextjs/ "Search Engine Optimization") and [**UX**](https://cemkarakurt.com/tags/user-experience/ "User Experience") because users can see the static content quickly while dynamic content loads in the background, improving the user experience and making the website more search engine friendly.
 
 ### Rendering Techniques
 
@@ -90,7 +86,7 @@ This is similar to Partial Prerendering: you get the "keys" to your website (sta
 
 #### From Technical Perspective
 
-When a user visits a website using Partial Prerendering, they receive an **initial HTML document** containing pre-rendered static content. This static content is generated during the **build process**. Simultaneously, the dynamic content is fetched and rendered in segments. These dynamic segments gradually replace **placeholder elements** within the initial HTML. This approach enables users to view and interact with the static content immediately, while the dynamic elements load progressively in the background. And all this is done in a **single request** without additional round trips to the server by using **streaming**.
+When a user visits a website using Partial Prerendering, they receive an **initial HTML document** containing pre-rendered static content. This static content is generated during the **build process**. Simultaneously, the dynamic content is fetched and rendered in segments. These dynamic segments gradually replace **placeholder elements** within the initial HTML. This approach enables users to view and interact with the static content immediately, while the dynamic elements load progressively in the background. And all this is done in a **single request** without additional round trips to the server by using [**streaming**](https://cemkarakurt.com/tags/streaming/ "streaming").
 
 The below pseudo code explains the process of Partial Prerendering:
 
@@ -167,7 +163,7 @@ export default nextConfig;
 
 #### Use Suspense in your dynamic component
 
-`Suspense` is a React feature that allows you to **wait for a component to load** before rendering it. You can use Suspense to fetch data for your dynamic component and show a loading indicator while the data is being fetched.
+`Suspense` is a [**React**](https://cemkarakurt.com/tags/react/ "React") feature that allows you to **wait for a component to load** before rendering it. You can use Suspense to fetch data for your dynamic component and show a loading indicator while the data is being fetched.
 
 ```tsx
 // page.tsx
@@ -224,13 +220,13 @@ export default function Page() {
 }
 ```
 
-This way, you can incrementally adopt Partial Prerendering in your Next.js application and observe how it improves the user experience and SEO.
+This way, you can incrementally adopt Partial Prerendering in your Next.js application and observe how it improves the [**user experience**](https://cemkarakurt.com/tags/user-experience/ "User Experience") and [**SEO**](https://cemkarakurt.com/tags/seo/ "Search Engine Optimization").
 
 ### Conclusion
 
-NextJS Partial Prerendering is a powerful feature that combines the benefits of static site generation and server-side rendering. It allows you to serve static content quickly while streaming dynamic content, providing a better user experience and improving SEO.
+[**NextJS**](https://cemkarakurt.com/tags/nextjs/ "NextJS") Partial Prerendering is a powerful feature that combines the benefits of static site generation and server-side rendering. It allows you to serve static content quickly while streaming dynamic content, providing a better [**user experience**](https://cemkarakurt.com/tags/user-experience/ "User Experience") and improving [**SEO**](https://cemkarakurt.com/tags/seo/ "Search Engine Optimization").
 
-The JS ecosystem is changing rapidly. It's crucial to keep up with the latest trends and technologies. Partial Prerendering is a new feature being popularized by NextJS, and you can be sure it will be widely used in the future. So, it's a good idea to learn about it and start using it in your projects. **Adapt to changes** and stay ahead of the curve.
+The [**JS**](https://cemkarakurt.com/tags/javascript/ "Javascript") ecosystem is changing rapidly. It's crucial to keep up with the latest trends and technologies. Partial Prerendering is a new feature being popularized by NextJS, and you can be sure it will be widely used in the future. So, it's a good idea to learn about it and start using it in your projects. **Adapt to changes** and stay ahead of the curve.
 
 ### Sources
 

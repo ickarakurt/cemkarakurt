@@ -9,14 +9,14 @@ import getUniqueTags from "@utils/getUniqueTags";
 import { SITE } from "@config";
 
 const posts = await getCollection("blog");
-const snippets = await getCollection("snippet");
+const notes = await getCollection("note");
 
-const tags = getUniqueTags([...posts, ...snippets]);
+const tags = getUniqueTags([...posts, ...notes]);
 ---
 
 <Layout title={`Tags | ${SITE.title}`}>
   <Header activeNav="tags" />
-  <Main pageTitle="Tags" pageDesc="All the tags used in posts and snippets">
+  <Main pageTitle="Tags" pageDesc="All the tags used in posts and notes">
     <ul>
       {tags.map(({ tag }) => <Tag {tag} size="lg" />)}
     </ul>

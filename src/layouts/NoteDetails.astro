@@ -11,10 +11,11 @@ import { SITE } from "@config";
 import Comments from "@components/Comments";
 
 export interface Props {
-  snippet: CollectionEntry<"snippet">;
+  note: CollectionEntry<"note">;
+  notes: CollectionEntry<"note">[];
 }
 
-const { snippet } = Astro.props;
+const { note, notes } = Astro.props;
 
 const {
   title,
@@ -25,13 +26,13 @@ const {
   pubDatetime,
   modDatetime,
   tags,
-} = snippet.data;
+} = note.data;
 
-const { Content } = await snippet.render();
+const { Content } = await note.render();
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
-  ogImageUrl ?? `/snippets/${slugifyStr(title)}.png`,
+  ogImageUrl ?? `/notes/${slugifyStr(title)}.png`,
   Astro.url.origin
 ).href;
 
@@ -45,6 +46,19 @@ const layoutProps = {
   ogImage: ogUrl,
   scrollSmooth: true,
 };
+
+/* ========== Prev/Next Notes ========== */
+
+const allNotes = notes.map(({ data: { title }, slug }) => ({
+  slug,
+  title,
+}));
+
+const currentNoteIndex = allNotes.findIndex(a => a.slug === note.slug);
+
+const prevNote = currentNoteIndex !== 0 ? allNotes[currentNoteIndex - 1] : null;
+const nextNote =
+  currentNoteIndex !== allNotes.length ? allNotes[currentNoteIndex + 1] : null;
 ---
 
 <Layout {...layoutProps}>
@@ -63,7 +77,7 @@ const layoutProps = {
     </button>
   </div>
   <main id="main-content">
-    <h1 transition:name={slugifyStr(title)} class="snippet-title">{title}</h1>
+    <h1 transition:name={slugifyStr(title)} class="note-title">{title}</h1>
     <Datetime
       pubDatetime={pubDatetime}
       modDatetime={modDatetime}
@@ -95,6 +109,69 @@ const layoutProps = {
 
       <ShareLinks />
     </div>
+    <!-- Previous/Next Note Buttons -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {
+        prevNote && (
+          <a
+            href={`/notes/${prevNote.slug}`}
+            class="flex w-full gap-1 hover:opacity-75"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none"
+            >
+              <>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M15 6l-6 6l6 6" />
+              </>
+            </svg>
+            <div>
+              <span>Previous Note</span>
+              <div class="text-sm text-skin-accent/85">{prevNote.title}</div>
+            </div>
+          </a>
+        )
+      }
+      {
+        nextNote && (
+          <a
+            href={`/notes/${nextNote.slug}`}
+            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+          >
+            <div>
+              <span>Next Note</span>
+              <div class="text-sm text-skin-accent/85">{nextNote.title}</div>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none"
+            >
+              <>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 6l6 6l-6 6" />
+              </>
+            </svg>
+          </a>
+        )
+      }
+    </div>
     <Comments client:only="react" />
   </main>
   <Footer />
@@ -104,7 +181,7 @@ const layoutProps = {
   main {
     @apply mx-auto w-full max-w-3xl px-4 pb-12;
   }
-  .snippet-title {
+  .note-title {
     @apply text-2xl font-semibold text-skin-accent;
   }
 </style>

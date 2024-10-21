@@ -10,22 +10,22 @@ import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-  page: Page<CollectionEntry<"snippet">>;
+  page: Page<CollectionEntry<"note">>;
 }
 
 const { page } = Astro.props;
 ---
 
-<Layout title={`Snippet | ${SITE.title}`}>
-  <Header activeNav="snippet" />
+<Layout title={`Note | ${SITE.title}`}>
+  <Header activeNav="note" />
   <Main
-    pageTitle="Snippet"
-    pageDesc="A collection of code snippets for web development."
+    pageTitle="Note"
+    pageDesc="A collection of code notes for web development."
   >
     <ul>
       {
         page.data.map(({ data, slug }) => (
-          <Card href={`/snippets/${slug}/`} frontmatter={data} />
+          <Card href={`/notes/${slug}/`} frontmatter={data} />
         ))
       }
     </ul>

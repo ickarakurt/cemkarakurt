@@ -1,23 +1,24 @@
 ---
 import { SITE } from "@config";
 import TagContent from "@layouts/TagContent.astro";
+import getNotesByTag from "@utils/getNotesByTag";
 import getPostsByTag from "@utils/getPostsByTag";
-import getSnippetsByTag from "@utils/getSnippetsByTag";
+import getSortedContent from "@utils/getSortedContent";
 import getUniqueTags from "@utils/getUniqueTags";
 import type { GetStaticPathsOptions } from "astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("blog");
-  const snippets = await getCollection("snippet");
-  const tags = getUniqueTags([...posts, ...snippets]);
+  const notes = await getCollection("note");
+  const tags = getUniqueTags([...posts, ...notes]);
 
   return tags.flatMap(({ tag, tagName }) => {
     const tagPosts = getPostsByTag(posts, tag);
-    const tagSnippets = getSnippetsByTag(snippets, tag);
-    const tags = [...tagPosts, ...tagSnippets];
+    const tagNotes = getNotesByTag(notes, tag);
+    const tags = [...tagPosts, ...tagNotes];
 
-    return paginate(tags, {
+    return paginate(getSortedContent(tags), {
       params: { tag },
       props: { tagName },
       pageSize: SITE.postPerPage,

@@ -8,14 +8,14 @@ featured: false
 draft: false
 tags:
   - react
-  - hooks
   - testing
+  - frontend
 description:
   Explore React hooks testing through UI interactions and direct calls with the
   React Testing Library. Get started with clear, practical examples.
 ---
 
-Testing React hooks doesn't have to be daunting. Today, I'm thrilled to walk you through two approaches that will elevate your testing game. Whether you're a fan of direct engagement with the UI or prefer the straightforward path of calling hook methods directly, I've got you covered. Let's embark on this journey together.
+Testing [**React**](https://cemkarakurt.com/tags/react/ "React") hooks doesn't have to be daunting. Today, I'm thrilled to walk you through two approaches that will elevate your [**testing**](https://cemkarakurt.com/tags/testing/ "testing") game. Whether you're a fan of direct engagement with the UI or prefer the straightforward path of calling hook methods directly, I've got you covered. Let's embark on this journey together.
 
 **Rendering a Component And Interacting with UI Elements**
 

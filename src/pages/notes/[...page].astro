@@ -1,13 +1,13 @@
 ---
 import { SITE } from "@config";
-import Snippets from "@layouts/Snippets.astro";
+import Notes from "@layouts/Notes.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 export const getStaticPaths = (async ({ paginate }) => {
-  const snippets = await getCollection("snippet", ({ data }) => !data.draft);
-  return paginate(snippets, { pageSize: SITE.snippetPerPage });
+  const notes = await getCollection("note", ({ data }) => !data.draft);
+  return paginate(notes, { pageSize: SITE.notePerPage });
 }) satisfies GetStaticPaths;
 const { page } = Astro.props;
 ---
 
-<Snippets {page} />
+<Notes {page} />

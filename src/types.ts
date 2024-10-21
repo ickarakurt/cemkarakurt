@@ -11,7 +11,7 @@ export type Site = {
   lightAndDarkMode: boolean;
   postPerIndex: number;
   postPerPage: number;
-  snippetPerPage: number;
+  notePerPage: number;
   scheduledPostMargin: number;
 };
 

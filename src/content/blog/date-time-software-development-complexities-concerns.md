@@ -4,24 +4,18 @@ pubDatetime: 2024-06-11T00:00:00Z
 modDatetime: 2024-06-11T00:00:00Z
 title: "Date and Time in Software Development: Complexities and Concerns"
 slug: date-time-software-development-complexities-concerns
-featured: true
+featured: false
 draft: false
 tags:
-  - date
-  - time
-  - edge-cases
-  - concerns
-  - daylight-saving-time
-  - leap-seconds
-  - leap-years
-  - time-zones
-  - time-precision
+  - software-development
+  - backend
+  - frontend
 description:
   Learn about concerns, possible problems, and edge cases with date and time in
   software development.
 ---
 
-If you are a software developer, you have probably worked with dates and times at some point in your career. Dates and times are important concepts in software development, and there are many concerns and `edge cases` that you need to be aware of when working with them. Specifically, if you are working on a project that involves `time-sensitive` data, such as financial transactions, event scheduling, real-time monitoring, booking, etc., you need to be extra careful with how you handle dates and times.
+If you are a software developer, you have probably worked with dates and times at some point in your career. Dates and times are important concepts in [**software development**](https://cemkarakurt.com/tags/software-development/ "software development"), and there are many concerns and `edge cases` that you need to be aware of when working with them. Specifically, if you are working on a project that involves `time-sensitive` data, such as financial transactions, event scheduling, real-time monitoring, booking, etc., you need to be extra careful with how you handle dates and times.
 
 ## Table of Contents
 
@@ -143,7 +137,7 @@ Time zones are divisions of the Earth that follow the same standard time. They h
 
 ### Example: Saving the Date Submitted by the User
 
-You need to save the date submitted by the user. In frontend, you use the below code to get the current date and time:
+You need to save the date submitted by the user. In [**frontend**](https://cemkarakurt.com/tags/frontend/ "frontend"), you use the below code to get the current date and time:
 
 ```ts
 function getFormattedDate() {

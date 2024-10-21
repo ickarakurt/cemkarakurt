@@ -8,12 +8,11 @@ featured: false
 draft: false
 tags:
   - aws
-  - sqs
-  - sns
-  - kinesis
-  - eventbridge
   - messaging
   - distributed-systems
+  - backend
+  - system-architecture
+  - event-driven-architecture
 description:
   Explore AWS messaging services like SNS, SQS, Kinesis, and EventBridge, and
   learn how to choose the right one for your distributed system.
@@ -30,7 +29,7 @@ description:
 
 ## Introduction
 
-Messaging is vital in distributed systems, ensuring smooth communication between decoupled components. Choosing the right AWS messaging service like `SNS`, `SQS`, `Kinesis`, and `EventBridge` is crucial to prevent issues such as message loss, duplication, and budget overruns. This article delves into their features and ideal use cases.
+Messaging is vital in distributed systems, ensuring smooth communication between decoupled components. Choosing the right [**AWS**](https://cemkarakurt.com/tags/aws/ "Amazon Web Services") messaging service like `SNS`, `SQS`, `Kinesis`, and `EventBridge` is crucial to prevent issues such as message loss, duplication, and budget overruns. This article delves into their features and ideal use cases.
 
 ## Simple Queue Service (SQS)
 
@@ -77,7 +76,7 @@ Kinesis is designed for `high-volume`, `real-time` message processing, a robust 
 
 ## EventBridge
 
-EventBridge serves as a scalable `event bus`, connecting applications with AWS services and SaaS platforms seamlessly.
+EventBridge serves as a scalable `event bus`, connecting applications with [**AWS**](https://cemkarakurt.com/tags/aws/ "Amazon Web Services") services and SaaS platforms seamlessly.
 
 **Key Features:**
 
@@ -96,7 +95,7 @@ EventBridge serves as a scalable `event bus`, connecting applications with AWS s
 
 # System Design Example
 
-Consider a hypothetical e-commerce application integrating these AWS services for varied operations such as order processing, inventory management, notifications, and real-time analytics.
+Consider a hypothetical e-commerce application integrating these [**AWS**](https://cemkarakurt.com/tags/aws/ "Amazon Web Services") services for varied operations such as order processing, inventory management, notifications, and real-time analytics.
 
 ### Components
 
@@ -124,7 +123,7 @@ Each AWS messaging service offers distinct benefits:
 
 - **SQS:** Ideal for decoupling and ensuring ordered processing.
 - **SNS:** Best for multi-subscriber message distribution.
-- **Kinesis:** Suited for high-volume data streaming.
-- **EventBridge:** Excellent for complex event-driven architectures.
+- **Kinesis:** Suited for high-volume data [**streaming**](https://cemkarakurt.com/tags/streaming/ "streaming").
+- **EventBridge:** Excellent for complex [**event-driven architectures**](https://cemkarakurt.com/tags/event-driven-architecture/ "event driven architectures").
 
-**Note:** The details provided about AWS services (SQS, SNS, Kinesis, and EventBridge) such as message retention periods, throughput limits, and queue types, are subject to change. AWS continuously updates its services, so it's essential to refer to the [official AWS Documentation](https://aws.amazon.com/documentation/) for the most current and accurate information. This will ensure that you have up-to-date data for your system architecture and planning.
+**Note:** The details provided about [**AWS**](https://cemkarakurt.com/tags/aws/ "Amazon Web Services") services (SQS, SNS, Kinesis, and EventBridge) such as message retention periods, throughput limits, and queue types, are subject to change. AWS continuously updates its services, so it's essential to refer to the [official AWS Documentation](https://aws.amazon.com/documentation/) for the most current and accurate information. This will ensure that you have up-to-date data for your [**system architecture**](https://cemkarakurt.com/tags/system-architecture/ "system architecture") and planning.

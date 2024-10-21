@@ -1,22 +1,22 @@
 ---
-import { getCollection } from "astro:content";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import SearchBar from "@components/Search";
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import SearchBar from "@components/Search";
 import getSortedPosts from "@utils/getSortedContent";
+import { getCollection } from "astro:content";
 
 // Retrieve all published articles
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 const sortedPosts = getSortedPosts(posts);
 
-const snippets = await getCollection("snippet", ({ data }) => !data.draft);
-const sortedSnippets = getSortedPosts(snippets);
+const notes = await getCollection("note", ({ data }) => !data.draft);
+const sortedNotes = getSortedPosts(notes);
 
-// Combine all articles and snippets
-const allContent = [...sortedPosts, ...sortedSnippets];
+// Combine all articles and notes
+const allContent = [...sortedPosts, ...sortedNotes];
 
 // List of items to search in
 const searchList = allContent.map(({ data, slug, collection }) => ({

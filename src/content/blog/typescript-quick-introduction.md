@@ -9,13 +9,14 @@ draft: false
 tags:
   - typescript
   - javascript
+  - frontend
 description:
   Do you hate errors in production? If yes, use TypeScript for type-safe
   development. Learn about types, advanced types, and utilities in this quick
   introduction.
 ---
 
-Do you hate errors in production ? If yes use typescript for type-safety development.
+Do you hate errors in production ? If yes use [**typescript**](https://cemkarakurt.com/tags/typescript "typescript") for type-safety development.
 
 **_TypeScript_** is an [open-source](https://github.com/microsoft/TypeScript) strongly typed programming language built over JavaScript.
 
@@ -47,7 +48,7 @@ If you are seeing a version of typescript it means, it installed successfully.
 
 ### String
 
-For texts, we use the “string” type. Just like JavaScript, TypeScript also uses double quotes (“) or single quotes (‘) or backquote (`) characters to surround string data.
+For texts, we use the “string” type. Just like [**javascript**](https://cemkarakurt.com/tags/javascript "javascript"), [**typescript**](https://cemkarakurt.com/tags/typescript "typescript") also uses double quotes (“) or single quotes (‘) or backquote (`) characters to surround string data.
 
 ```ts
 let language: string = "Javascript";
@@ -193,7 +194,7 @@ let getUser = (id: number): User | null => {
 
 ## Advanced Types and Utilities
 
-TypeScript offers powerful type utilities like `Partial<T>`, `Readonly<T>`, and `Record<K, T>`, which allow for more flexible and safe type transformations. For example:
+[**Typescript**](https://cemkarakurt.com/tags/typescript "typescript") offers powerful type utilities like `Partial<T>`, `Readonly<T>`, and `Record<K, T>`, which allow for more flexible and safe type transformations. For example:
 
 ```ts
 type PartialUser = Partial<User>;
@@ -237,7 +238,7 @@ type Flags = { [K in Keys]: boolean };`
 
 ## Final
 
-If you are familiar with any statically typed language(java, c, etc.), learning typescript is really easy. And typescript helps us catch errors on development by assigning types to variables. For less bug on production, use typescript.
+If you are familiar with any statically typed language(java, c, etc.), learning typescript is really easy. And typescript helps us catch errors on [**development**](https://cemkarakurt.com/tags/software-development "software development") by assigning types to variables. For less bug on production, use typescript.
 
 ## Source
 

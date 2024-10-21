@@ -7,13 +7,16 @@ import LinkButton from "@components/LinkButton.astro";
 import Socials from "@components/Socials.astro";
 import { SITE, SOCIALS } from "@config";
 import Layout from "@layouts/Layout.astro";
-import getSortedPosts from "@utils/getSortedContent";
+import getSortedContent from "@utils/getSortedContent";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");
+const notes = await getCollection("note");
 
-const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
+const sortedPosts = getSortedContent(posts);
+
+const sortedContent = getSortedContent([...posts, ...notes]);
+const featuredPosts = sortedContent.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
 const socialCount = SOCIALS.filter(social => social.active).length;
@@ -65,9 +68,10 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           <section id="featured">
             <h2>Featured</h2>
             <ul>
-              {featuredPosts.map(({ data, slug }) => (
+              {featuredPosts.map(({ data, slug, collection }) => (
                 <Card
-                  href={`/blog/${slug}/`}
+                  collection={collection}
+                  href={`/${collection === "blog" ? "blog" : "notes"}/${slug}/`}
                   frontmatter={data}
                   secHeading={false}
                 />

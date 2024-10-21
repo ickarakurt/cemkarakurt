@@ -25,9 +25,9 @@ const blog = defineCollection({
     }),
 });
 
-const snippet = defineCollection({
+const note = defineCollection({
   type: "content_layer",
-  loader: glob({ pattern: "**/*.md", base: "./src/content/snippet" }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/note" }),
   schema: ({ image }) =>
     z.object({
       author: z.string().default(SITE.author),
@@ -48,4 +48,4 @@ const snippet = defineCollection({
     }),
 });
 
-export const collections = { blog, snippet };
+export const collections = { blog, note };

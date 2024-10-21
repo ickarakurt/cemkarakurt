@@ -4,7 +4,7 @@ import LinkButton from "./LinkButton.astro";
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-  page: Page<CollectionEntry<"blog" | "snippet">>;
+  page: Page<CollectionEntry<"blog" | "note">>;
 }
 
 const { page } = Astro.props;

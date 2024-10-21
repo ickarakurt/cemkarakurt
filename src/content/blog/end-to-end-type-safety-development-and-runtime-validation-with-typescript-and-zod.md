@@ -8,14 +8,15 @@ featured: false
 draft: false
 tags:
   - typescript
-  - zod
-  - validation
+  - frontend
+  - backend
+  - api
 description:
   TypeScript is only half the battle. Learn how to achieve end-to-end type safety
   with runtime validation using Zod.
 ---
 
-TypeScript has revolutionized `type validation` in development, functioning primarily as a sophisticated linter to ensure type safety during this phase. However, TypeScript's capabilities don't extend to runtime. To bridge this gap, runtime validators like **yup**, **io-ts**, and **zod** come into play. This guide delves into leveraging these tools for a comprehensive validation strategy.
+[**Typescript**](https://cemkarakurt.com/tags/typescript/ "Typescript") has revolutionized `type validation` in development, functioning primarily as a sophisticated linter to ensure type safety during this phase. However, TypeScript's capabilities don't extend to runtime. To bridge this gap, runtime validators like **yup**, **io-ts**, and **zod** come into play. This guide delves into leveraging these tools for a comprehensive validation strategy.
 
 ### Advanced Type Definition for a Todo Item
 
@@ -63,6 +64,8 @@ const TodoItemValidator = z.object({
 
 #### 2. Implement Granular Request and Response Validations
 
+For [**backend**](https://cemkarakurt.com/tags/backend/ "backend") [**APIs**](https://cemkarakurt.com/tags/api/ "API"), use specific validators for request and response payloads.
+
 ```ts
 // Define specific attributes for the create API request
 const TodoItemCreateRequestValidator = TodoItemValidator.pick({
@@ -105,7 +108,7 @@ axios
 
 #### 5\. Apply Validators in Form Submissions and Backend API
 
-For frontend form submissions and backend API interactions, employ the validators to ensure data integrity.
+For [**frontend**](https://cemkarakurt.com/tags/frontend/ "frontend") form submissions and backend API interactions, employ the validators to ensure data integrity.
 
 ```ts
 // Validate incoming request payload
@@ -120,4 +123,4 @@ const validateResponse = TodoItemGetByIdResponseValidator.safeParse(response);
 
 ### In-Depth Conclusion
 
-We began with the creation of a comprehensive entity validator, a critical step in our type safety journey. Building upon this, we specified request and response validators, each with their distinct types derived from Zod schemas. This approach not only guarantees consistency between TypeScript's compile-time checks and Zod's runtime validation but also ensures a robust, error-resistant application. By meticulously implementing these strategies, developers can achieve unparalleled levels of type safety and data integrity in both frontend and backend environments.
+We began with the creation of a comprehensive entity validator, a critical step in our type safety journey. Building upon this, we specified request and response validators, each with their distinct types derived from Zod schemas. This approach not only guarantees consistency between TypeScript's compile-time checks and Zod's runtime validation but also ensures a robust, error-resistant application. By meticulously implementing these strategies, developers can achieve unparalleled levels of type safety and data integrity in both [**frontend**](https://cemkarakurt.com/tags/frontend/ "frontend") and [**backend**](https://cemkarakurt.com/tags/backend/ "backend") environments.

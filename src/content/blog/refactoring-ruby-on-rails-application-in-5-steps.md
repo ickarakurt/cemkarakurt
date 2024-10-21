@@ -8,15 +8,16 @@ featured: false
 draft: false
 tags:
   - ruby
-  - rails
+  - ruby-on-rails
   - refactoring
+  - backend
 description:
   No one likes a messy codebase. Learn how to refactor your Ruby on Rails
   application in 5 steps. Keep your app running smoothly and make it easy for
   you and others to work on.
 ---
 
-Improving your **Ruby on Rails** app is essential for keeping it running smoothly and making it easy for you and others to work on. This guide breaks down some smart ways to tidy up your code and make your app better.
+Improving your [**Ruby on Rails**](https://cemkarakurt.com/tags/ruby-on-rails/ "ruby-on-rails") app is essential for keeping it running smoothly and making it easy for you and others to work on. This guide breaks down some smart ways to tidy up your code and make your app better.
 
 ## Step 1: Set Clear Rules for Your Project
 
