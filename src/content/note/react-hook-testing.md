@@ -4,7 +4,7 @@ pubDatetime: 2024-10-20T08:00:00Z
 modDatetime: 2024-10-20T08:00:00Z
 title: React Testing Hooks with `renderHook`
 slug: react-hook-testing
-featured: true
+featured: false
 draft: false
 tags:
   - react
@@ -22,11 +22,15 @@ description: A cheat sheet for testing React hooks.
    npm install @testing-library/react-hooks
    ```
 
+   **Note:** This library provides utilities to test custom React hooks effectively.
+
 2. Import `renderHook` and `act` in your test file:
 
    ```javascript
    import { renderHook, act } from "@testing-library/react-hooks";
    ```
+
+   **Tip:** `act` is essential for ensuring that all updates related to state and effects are processed correctly.
 
 ## Basic Usage
 
@@ -37,6 +41,8 @@ description: A cheat sheet for testing React hooks.
 
   expect(result.current.someValue).toBe(initialValue);
   ```
+
+  **Detail:** `result.current` gives you access to the current state of the hook.
 
 ## Updating Hook State
 
@@ -51,6 +57,8 @@ description: A cheat sheet for testing React hooks.
 
   expect(result.current.count).toBe(1);
   ```
+
+  **Best Practice:** Always wrap state updates in `act` to ensure proper state management.
 
 ## Testing with Props
 
@@ -68,6 +76,8 @@ description: A cheat sheet for testing React hooks.
   expect(result.current.value).toBe(1);
   ```
 
+  **Tip:** Use `rerender` to simulate prop changes and test how the hook responds.
+
 ## Testing Async Hooks
 
 - Handling asynchronous code with hooks:
@@ -84,6 +94,8 @@ description: A cheat sheet for testing React hooks.
   expect(result.current.data).toEqual(expectedData);
   ```
 
+  **Detail:** `waitForNextUpdate` is crucial for testing hooks that perform asynchronous operations.
+
 ## Using `waitFor`
 
 - For hooks that might update multiple times:
@@ -98,6 +110,8 @@ description: A cheat sheet for testing React hooks.
   });
   ```
 
+  **Note:** `waitFor` allows you to wait for a specific condition to be met, which is useful for debounced values.
+
 ## Cleaning Up After Tests
 
 - To ensure proper cleanup between tests:
@@ -109,6 +123,8 @@ description: A cheat sheet for testing React hooks.
   });
   ```
 
+  **Best Practice:** Always clean up after tests to prevent side effects from affecting other tests.
+
 ## Mocking External Dependencies
 
 - Example with `jest.mock`:
@@ -118,6 +134,8 @@ description: A cheat sheet for testing React hooks.
     someFunction: jest.fn().mockReturnValue(mockValue),
   }));
   ```
+
+  **Tip:** Mocking external dependencies helps isolate your tests and avoid side effects from real implementations.
 
 ## Summary of Methods
 

@@ -1,5 +1,6 @@
 ---
 import NoteDetails from "@layouts/NoteDetails.astro";
+import getSortedContent from "@utils/getSortedContent";
 import { type CollectionEntry, getCollection } from "astro:content";
 
 export interface Props {
@@ -10,7 +11,7 @@ export interface Props {
 export async function getStaticPaths() {
   const notes = await getCollection("note", ({ data }) => !data.draft);
 
-  const notesResult = notes.map(note => ({
+  const notesResult = getSortedContent(notes).map(note => ({
     params: { slug: note.slug },
     props: { note, notes },
   }));
