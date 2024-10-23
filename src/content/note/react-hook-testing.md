@@ -12,8 +12,6 @@ tags:
 description: A cheat sheet for testing React hooks.
 ---
 
-# React Hook Testing with `renderHook`
-
 ## Basic Setup
 
 1. Install the testing library for hooks:
@@ -148,4 +146,3 @@ description: A cheat sheet for testing React hooks.
 ## References
 
 - [React Testing Library Documentation](https://testing-library.com/docs/react-testing-library/intro)
-- [@testing-library/react-hooks GitHub](https://github.com/testing-library/react-hooks-testing-library)

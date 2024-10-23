@@ -11,8 +11,6 @@ tags:
 description: A cheat sheet for different ways to mock with Jest.
 ---
 
-# Jest Mocking Cheat Sheet
-
 ## Basic Mocking
 
 1. **Mocking a function:**

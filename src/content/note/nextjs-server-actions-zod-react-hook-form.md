@@ -14,8 +14,6 @@ tags:
 description: Simple usage of Zod and React Hook Form with NextJS server actions.
 ---
 
-# NextJS Server Actions with Zod and React Hook Form
-
 When building forms in [NextJS](https://cemkarakurt.com/tags/nextjs/ "NextJS"), it's essential to handle both client-side and server-side validations. By combining Zod with React Hook Form, you can ensure that your forms are validated on the client-side and then processed securely on the server-side.
 
 ## Version Compatibility
