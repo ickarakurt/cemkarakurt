@@ -93,7 +93,7 @@ EventBridge serves as a scalable `event bus`, connecting applications with [**AW
 | **Message Retention** | Up to 14 days         | Immediate delivery   | 24 hours to 365 days | Immediate routing      |
 | **Use Case**          | Decoupling components | Broadcasting to many | Real-time processing | Event-driven workflows |
 
-# System Design Example
+## System Design Example
 
 Consider a hypothetical e-commerce application integrating these [**AWS**](https://cemkarakurt.com/tags/aws/ "Amazon Web Services") services for varied operations such as order processing, inventory management, notifications, and real-time analytics.
 

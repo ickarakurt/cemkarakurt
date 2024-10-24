@@ -73,20 +73,6 @@ export default async (post: CollectionEntry<"blog">) => {
               fontSize: 28,
             }}
           >
-            <span>
-              by{" "}
-              <span
-                style={{
-                  color: "transparent",
-                }}
-              >
-                "
-              </span>
-              <span style={{ overflow: "hidden", fontWeight: "bold" }}>
-                {post.data.author}
-              </span>
-            </span>
-
             <span style={{ overflow: "hidden", fontWeight: "bold" }}>
               {SITE.title}
             </span>

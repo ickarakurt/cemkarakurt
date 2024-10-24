@@ -16,13 +16,13 @@ description:
   introduction.
 ---
 
-Do you hate errors in production ? If yes use [**typescript**](https://cemkarakurt.com/tags/typescript "typescript") for type-safety development.
+Do you hate errors in production ? If yes use [**typescript**](https://cemkarakurt.com/tags/typescript/ "typescript") for type-safety development.
 
 **_TypeScript_** is an [open-source](https://github.com/microsoft/TypeScript) strongly typed programming language built over JavaScript.
 
 With typescript, we define a type for variables and functions, after that by using a typescript compiler, we compile typescript code to javascript code. We use typescript for development, but for production, javascript is the latest output.
 
-![](https://cdn-images-1.medium.com/max/2000/1*mqPkWg2RtbzJ5irB5FCTbg.png)
+![Typescript](/assets/typescript-compiler.png)
 
 ## Installation
 
@@ -42,13 +42,13 @@ tsc -v
 
 If you are seeing a version of typescript it means, it installed successfully.
 
-![](https://cdn-images-1.medium.com/max/2568/1*L42ZIw2V4-xVtgb1t6jgKA.png)
+![Typescript](/assets/tsc-console.png)
 
 ## Types
 
 ### String
 
-For texts, we use the “string” type. Just like [**javascript**](https://cemkarakurt.com/tags/javascript "javascript"), [**typescript**](https://cemkarakurt.com/tags/typescript "typescript") also uses double quotes (“) or single quotes (‘) or backquote (`) characters to surround string data.
+For texts, we use the “string” type. Just like [**javascript**](https://cemkarakurt.com/tags/javascript/ "javascript"), [**typescript**](https://cemkarakurt.com/tags/typescript/ "typescript") also uses double quotes (“) or single quotes (‘) or backquote (`) characters to surround string data.
 
 ```ts
 let language: string = "Javascript";
@@ -194,7 +194,7 @@ let getUser = (id: number): User | null => {
 
 ## Advanced Types and Utilities
 
-[**Typescript**](https://cemkarakurt.com/tags/typescript "typescript") offers powerful type utilities like `Partial<T>`, `Readonly<T>`, and `Record<K, T>`, which allow for more flexible and safe type transformations. For example:
+[**Typescript**](https://cemkarakurt.com/tags/typescript/ "typescript") offers powerful type utilities like `Partial<T>`, `Readonly<T>`, and `Record<K, T>`, which allow for more flexible and safe type transformations. For example:
 
 ```ts
 type PartialUser = Partial<User>;
@@ -238,7 +238,7 @@ type Flags = { [K in Keys]: boolean };`
 
 ## Final
 
-If you are familiar with any statically typed language(java, c, etc.), learning typescript is really easy. And typescript helps us catch errors on [**development**](https://cemkarakurt.com/tags/software-development "software development") by assigning types to variables. For less bug on production, use typescript.
+If you are familiar with any statically typed language(java, c, etc.), learning typescript is really easy. And typescript helps us catch errors on [**development**](https://cemkarakurt.com/tags/software-development/ "software development") by assigning types to variables. For less bug on production, use typescript.
 
 ## Source
 

@@ -14,7 +14,7 @@ description:
   guide walks you through the process, from container setup to code analysis.
 ---
 
-**SonarQube** is a perfect tool to **analyze** your code. And, community version is free and open-source. You can install SonarQube to your server or your computer. In this article, I will share how I installed SonarQube to my [mac](https://cemkarakurt.com/tags/mac "Mac OS") M1 with [Docker](https://cemkarakurt.com/tags/docker "Docker").
+**SonarQube** is a perfect tool to **analyze** your code. And, community version is free and open-source. You can install SonarQube to your server or your computer. In this article, I will share how I installed SonarQube to my [mac](https://cemkarakurt.com/tags/mac/ "Mac OS") M1 with [Docker](https://cemkarakurt.com/tags/docker/ "Docker").
 
 The first thing you need to do is create a container with a SonarQube image. The below line will pull the image and start SonarQube in port 8084.
 
@@ -24,26 +24,26 @@ After container creation ended, you can access the SonarQubeUI with 127.0.0.1:80
 
 The next step is clicking the “Add Project” button.
 
-<img src="https://cdn-images-1.medium.com/max/6316/1*f3NAWSM4urdt1WegP9kMmw.png" alt="drawing" width="800"/>
+![SonarQube](/assets/sonarQube-1.png)
 
 Fill in the required fields.
 
-<img src="https://cdn-images-1.medium.com/max/3840/1*MJHu8OdIMF4dqoyNFBVr2A.png" alt="drawing" width="800"/>
+![SonarQube](/assets/sonarQube-2.png)
 
 And click the “Set Up” button. Now, you should enter a name for the token.
 
-<img src="https://cdn-images-1.medium.com/max/3840/1*E-UF9c81S9-DOCxsZ7Ogfg.png" alt="drawing" width="800"/>
+![SonarQube](/assets/sonarQube-3.png)
 
 And, you will see the below page.
 
-<img src="https://cdn-images-1.medium.com/max/3840/1*9YeWAg4Dc4mfgYva7JwRqg.png" alt="drawing" width="800"/>
+![SonarQube](/assets/sonarQube-4.png)
 
 Now, our project is ready on the SonarQube server and you are seeing the command you need to run to analyze your code. It is time to use SonarQube CLI.
 
 Enter => [https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
 link to download sonar scanner CLI.
 
-<img src="https://cdn-images-1.medium.com/max/5360/1*IqUODoJpYez3A7DS_gEYOQ.png" alt="drawing" width="800"/>
+![SonarQube](/assets/sonarQube-5.png)
 
 After you click the link in the above screenshot, the file will be downloaded automatically.
 
@@ -61,17 +61,17 @@ Now, you should enter the project path via the terminal and run the above comman
 
 But, you will see the below error, because we downloaded the sonar scanner CLI to a different path.
 
-<img src="https://cdn-images-1.medium.com/max/2608/1*sUEAu5MZABtcc_9pyIBDDQ.png" alt="drawing" width="800"/>
+![SonarQube](/assets/sonarQube-6.png)
 
 So, I just updated the command and used the path I downloaded the sonar scanner. Also, you can define an alias for your terminal. I added an alias to my ”~/.zshrc” file.
 
     alias sonar-scanner=”~/sonar-scanner/bin/sonar-scanner”
 
-<img src="https://cdn-images-1.medium.com/max/3840/1*brQYMtgvpPCJHuSFbuH57w.png" alt="drawing" width="800"/>
+![SonarQube](/assets/sonarQube-7.png)
 
 Now, you can go to the dashboard again and check the result of the analyses
 
-<img src="https://cdn-images-1.medium.com/max/3840/1*5dPmRO0KJMuUhkVYDutPsw.png" alt="drawing" width="800"/>
+![SonarQube](/assets/sonarQube-8.png)
 
 ### In Conclusion,
 
