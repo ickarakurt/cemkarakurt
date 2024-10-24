@@ -11,11 +11,12 @@ export interface Props {
   profile?: string;
   description?: string;
   ogImage?: string;
-  ogType?: "website" | "article" | "blog" | "note";
+  ogType?: string;
   canonicalURL?: string;
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  children?: any[];
 }
 
 const currentPath = Astro.url.pathname;
