@@ -25,39 +25,51 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 <Layout>
   <Header />
   <main id="main-content">
-    <section id="hero">
-      <h1>Cem Karakurt</h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="rss-link"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
-          ><path
-            d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
-          ></path><path
-            d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
-          ></path><circle cx="6" cy="18" r="2"></circle>
-        </svg>
-        <span class="sr-only">RSS Feed</span>
-      </a>
-
-      <p>
-        Senior Software Engineer specializing in full-stack web development.
-        Currently expanding my expertise in System Design, Amazon Web Services
-        (AWS), and Micro-Frontend (MFE).
-      </p>
-      {
-        // only display if at least one social link is enabled
-        socialCount > 0 && (
-          <div class="social-wrapper">
-            <div class="social-links">Social Links:</div>
-            <Socials />
+    <section id="hero" class="relative">
+      {/* Profile Section */}
+      <div class="space-y-6">
+        <div class="flex items-center justify-between">
+          <h1 class="bg-gradient-to-br from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400 bg-clip-text text-4xl font-bold text-transparent sm:text-5xl">
+            Cem Karakurt
+          </h1>
+          <a
+            target="_blank"
+            href="/rss.xml"
+            class="rounded-md p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200"
+            aria-label="rss feed"
+            title="RSS Feed"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6">
+              <path
+                d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
+              ></path>
+              <path
+                d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
+              ></path>
+              <circle cx="6" cy="18" r="2"></circle>
+            </svg>
+          </a>
+        </div>
+        {/* Bio */}
+        <p class="text-gray-800 dark:text-gray-200 leading-relaxed max-w-2xl">
+          Senior Software Engineer specializing in full-stack web development.
+          Currently expanding my expertise in <span class="font-medium">System Design</span>, 
+          <span class="font-medium">Amazon Web Services (AWS)</span>, and 
+          <span class="font-medium">Micro-Frontend (MFE)</span>.
+        </p>
+        
+        {/* Social Links */}
+        {socialCount > 0 && (
+          <div class="flex items-center gap-4 pt-4">
+            <span class="text-sm font-medium text-gray-600 dark:text-gray-400">
+              Connect with me:
+            </span>
+            <div class="flex gap-3">
+              <Socials />
+            </div>
           </div>
-        )
-      }
+        )}
+      </div>
     </section>
 
     <Hr />

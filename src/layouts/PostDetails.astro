@@ -66,116 +66,131 @@ const nextPost =
 
   <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
     <button
-      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
+      class="focus-outline mb-2 mt-8 flex items-center gap-1 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200"
       onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
     >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
+        <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+      </svg>
+      <span class="text-sm font-medium">Go back</span>
     </button>
   </div>
+
   <main id="main-content">
-    <h1 transition:name={slugifyStr(title)} class="post-title">{title}</h1>
-    <Datetime
-      pubDatetime={pubDatetime}
-      modDatetime={modDatetime}
-      size="lg"
-      className="my-2"
-    />
-    <article id="article" class="prose mx-auto mt-8 max-w-3xl overflow-x-auto">
+    {/* Title and Meta Section */}
+    <div class="mb-8">
+      <h1 
+        transition:name={slugifyStr(title)} 
+        class="mb-3 text-3xl font-bold text-gray-900 dark:text-gray-100"
+      >
+        {title}
+      </h1>
+      <Datetime
+        pubDatetime={pubDatetime}
+        modDatetime={modDatetime}
+        size="lg"
+        className="text-sm text-gray-600 dark:text-gray-400"
+      />
+    </div>
+
+    {/* Article Content */}
+    <article 
+      id="article" 
+      class="prose prose-gray dark:prose-invert mx-auto max-w-3xl 
+        prose-headings:scroll-mt-20 prose-headings:font-semibold
+        prose-a:text-skin-accent prose-a:decoration-dashed prose-a:underline-offset-4
+        prose-img:rounded-lg prose-img:shadow-md
+        prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-gray-800"
+    >
       <Content />
     </article>
 
-    <ul class="my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
-    </ul>
-
-    <div
-      class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
-    >
-      <button
-        id="back-to-top"
-        class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
-          <path
-            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-          ></path>
-        </svg>
-        <span>Back to Top</span>
-      </button>
-
-      <ShareLinks />
+    {/* Tags Section */}
+    <div class="mt-12 mb-8">
+      <ul class="flex flex-wrap gap-2">
+        {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
+      </ul>
     </div>
-    <hr class="my-6 border-dashed" />
 
-    <!-- Previous/Next Post Buttons -->
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-      {
-        prevPost && (
+    {/* Bottom Navigation */}
+    <div class="space-y-8">
+      <div class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4">
+        <button
+          id="back-to-top"
+          class="flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium
+            text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100
+            transition-colors duration-200"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 rotate-90">
+            <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+          </svg>
+          <span>Back to Top</span>
+        </button>
+        <ShareLinks />
+      </div>
+
+      <hr class="border-gray-200 dark:border-gray-800" />
+
+      {/* Previous/Next Posts */}
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {prevPost && (
           <a
             href={`/blog/${prevPost.slug}/`}
-            class="flex w-full gap-1 hover:opacity-75"
+            title={prevPost.title}
+            class="group flex items-center gap-2 rounded-lg border border-gray-200 p-4 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-colors duration-200"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              class="h-5 w-5 flex-none text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none"
             >
-              <>
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M15 6l-6 6l6 6" />
-              </>
+              <path d="M15 6l-6 6l6 6" />
             </svg>
-            <div>
-              <span>Previous Post</span>
-              <div class="text-sm text-skin-accent/85">{prevPost.title}</div>
+            <div class="flex-1 text-sm">
+              <div class="text-gray-600 dark:text-gray-400 font-medium mb-0.5">Previous Post</div>
+              <div class="text-gray-900 dark:text-gray-100 font-semibold line-clamp-1">{prevPost.title}</div>
             </div>
           </a>
-        )
-      }
-      {
-        nextPost && (
+        )}
+
+        {nextPost && (
           <a
             href={`/blog/${nextPost.slug}/`}
-            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+            title={nextPost.title}
+            class="group flex items-center gap-2 rounded-lg border border-gray-200 p-4 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-colors duration-200 sm:col-start-2"
           >
-            <div>
-              <span>Next Post</span>
-              <div class="text-sm text-skin-accent/85">{nextPost.title}</div>
+            <div class="flex-1 text-right text-sm">
+              <div class="text-gray-600 dark:text-gray-400 font-medium mb-0.5">Next Post</div>
+              <div class="text-gray-900 dark:text-gray-100 font-semibold line-clamp-1">{nextPost.title}</div>
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              class="h-5 w-5 flex-none text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none"
             >
-              <>
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M9 6l6 6l-6 6" />
-              </>
+              <path d="M9 6l6 6l-6 6" />
             </svg>
           </a>
-        )
-      }
+        )}
+      </div>
+
+      {/* Comments Section */}
+      <div class="mt-8">
+        <Comments client:only="react" />
+      </div>
     </div>
-    <Comments client:only="react" />
   </main>
+
   <Footer />
 </Layout>
 

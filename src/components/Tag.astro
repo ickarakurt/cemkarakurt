@@ -10,6 +10,7 @@ const { tag, size = "sm" } = Astro.props;
 <li class="inline-block mx-1.5 my-1">
   <a
     href={`/tags/${tag}/`}
+    title={tag}
     transition:name={tag}
     class={`
       inline-flex items-center gap-1.5

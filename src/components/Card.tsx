@@ -17,75 +17,142 @@ export default function Card({
 }: Props) {
   const { title, pubDatetime, modDatetime, description } = frontmatter;
 
-  const headerProps = {
-    style: { viewTransitionName: slugifyStr(title) },
-    className: "text-lg font-medium decoration-dashed hover:underline",
-  };
-
   return (
-    <li className="my-6">
-      <a
-        href={href}
-        className="inline-block text-lg font-medium text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
-      >
-        {secHeading ? (
-          <h2 {...headerProps}>{title}</h2>
-        ) : (
-          <h3 {...headerProps}>{title}</h3>
-        )}
-      </a>
-      <div className="flex gap-2">
-        <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
-        {collection && (
-          <>
-            {" "}
-            |{" "}
+    <li className="group relative mt-2">
+      <article className="
+        flex flex-col gap-2 
+        p-4 rounded-lg
+        border border-gray-200 dark:border-gray-800
+        hover:border-gray-300 dark:hover:border-gray-700
+        transition-all duration-200
+        hover:shadow-sm
+      ">
+        {/* Title with hover effect */}
+        <a href={href} className="relative">
+          {secHeading ? (
+            <h2
+              style={{ viewTransitionName: slugifyStr(title) }}
+              className="
+                text-xl font-semibold 
+                text-gray-900 dark:text-gray-100
+                group-hover:text-black dark:group-hover:text-white
+                mb-1 transition-colors duration-200
+              "
+            >
+              {title}
+            </h2>
+          ) : (
+            <h3
+              style={{ viewTransitionName: slugifyStr(title) }}
+              className="
+                text-xl font-semibold 
+                text-gray-900 dark:text-gray-100
+                group-hover:text-black dark:group-hover:text-white
+                mb-1 transition-colors duration-200
+              "
+            >
+              {title}
+            </h3>
+          )}
+        </a>
+
+        {/* Meta information row */}
+        <div className="flex items-center gap-3 text-sm">
+          {/* Date */}
+          <div className="text-gray-600 dark:text-gray-400">
+            <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
+          </div>
+
+          {/* Separator */}
+          {collection && (
+            <div className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700" />
+          )}
+
+          {/* Collection Badge */}
+          {collection && (
             <span
-  className={`
-    inline-flex items-center px-2 py-0.5 text-xs font-medium
-    rounded-md border
-    ${collection === "blog" 
-      ? "bg-black text-white border-black dark:bg-white dark:text-black" 
-      : "bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700"
-    }
-    transition-colors duration-200
-  `}
->
-  {collection === "blog" ? (
-    <>
-      <svg 
-        className="w-3 h-3 mr-1" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2"
-      >
-        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-      </svg>
-      Blog
-    </>
-  ) : (
-    <>
-      <svg 
-        className="w-3 h-3 mr-1" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2"
-      >
-        <path d="M9 12h6" />
-        <path d="M12 9v6" />
-        <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0" />
-      </svg>
-      Note
-    </>
-  )}
-</span>
-          </>
-        )}
-      </div>
-      <p>{description}</p>
+              className={`
+                inline-flex items-center gap-1.5 
+                px-2 py-0.5 text-xs font-medium rounded
+                ${
+                  collection === "blog"
+                    ? "bg-black text-white dark:bg-white dark:text-black"
+                    : "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
+                }
+              `}
+            >
+              {collection === "blog" ? (
+                <>
+                  <svg
+                    className="w-3 h-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                    />
+                  </svg>
+                  <span>Blog</span>
+                </>
+              ) : (
+                <>
+                  <svg
+                    className="w-3 h-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                    />
+                  </svg>
+                  <span>Note</span>
+                </>
+              )}
+            </span>
+          )}
+        </div>
+
+        {/* Description */}
+        <p className="
+          text-gray-600 dark:text-gray-400 
+          text-sm leading-relaxed
+          line-clamp-2
+        ">
+          {description}
+        </p>
+
+        {/* Read more indicator */}
+        <div className="
+          flex items-center gap-1
+          text-sm font-medium
+          text-gray-600 dark:text-gray-400
+          group-hover:text-black dark:group-hover:text-white
+          transition-colors duration-200
+        ">
+          <span>Read more</span>
+          <svg
+            className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </div>
+      </article>
     </li>
   );
 }
