@@ -128,30 +128,6 @@ export default function Card({
         ">
           {description}
         </p>
-
-        {/* Read more indicator */}
-        <div className="
-          flex items-center gap-1
-          text-sm font-medium
-          text-gray-600 dark:text-gray-400
-          group-hover:text-black dark:group-hover:text-white
-          transition-colors duration-200
-        ">
-          <span>Read more</span>
-          <svg
-            className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </div>
       </article>
     </li>
   );
