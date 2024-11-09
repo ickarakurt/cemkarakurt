@@ -5,21 +5,22 @@
 @layer base {
   :root,
   html[data-theme="light"] {
-    --color-fill: 255, 255, 224; /* Light yellow background */
-    --color-text-base: 20, 20, 20; /* Almost black text for better readability */
-    --color-accent: 255, 165, 0; /* Bright orange accent */
-    --color-card: 255, 255, 255; /* Pure white card */
-    --color-card-muted: 240, 240, 240; /* Light gray for cards */
-    --color-border: 200, 200, 200; /* Light gray border */
+    --color-fill: 255, 255, 255;
+    --color-text-base: 40, 40, 40; /* Deep gray for better readability */
+    --color-accent: 0, 0, 0; /* Pure black accent */
+    --color-card: 245, 245, 245; /* Very light gray card */
+    --color-card-muted: 230, 230, 230; /* Slightly darker gray for muted cards */
+    --color-border: 200, 200, 200; /* Medium gray border */
   }
   html[data-theme="dark"] {
-    --color-fill: 30, 30, 30; /* Dark gray background */
-    --color-text-base: 255, 255, 255; /* White text for contrast */
-    --color-accent: 100, 149, 237; /* Bright blue accent */
-    --color-card: 50, 50, 50; /* Darker gray card */
-    --color-card-muted: 90, 90, 90; /* Slightly lighter gray for muted cards */
-    --color-border: 150, 150, 150; /* Medium gray border */
+    --color-fill: 12, 10, 9;
+    --color-text-base: 230, 230, 230; /* Light gray text for softer contrast */
+    --color-accent: 255, 255, 255; /* Pure white accent */
+    --color-card: 30, 30, 30; /* Dark gray card */
+    --color-card-muted: 45, 45, 45; /* Slightly lighter gray for muted cards */
+    --color-border: 70, 70, 70; /* Darker gray border */
   }
+
   #sun-svg,
   html[data-theme="dark"] #moon-svg {
     display: none;
@@ -29,7 +30,7 @@
     display: block;
   }
   body {
-    @apply flex min-h-[100svh] flex-col bg-skin-fill font-mono text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
+    @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
   }
   section,
   footer {

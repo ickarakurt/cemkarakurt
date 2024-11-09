@@ -7,32 +7,40 @@ export interface Props {
 const { tag, size = "sm" } = Astro.props;
 ---
 
-<li
-  class={`inline-block ${
-    size === "sm" ? "my-1 underline-offset-4" : "my-3 mx-1 underline-offset-8"
-  }`}
->
+<li class="inline-block mx-1.5 my-1">
   <a
     href={`/tags/${tag}/`}
     transition:name={tag}
-    class={`${size === "sm" ? "text-sm" : "text-lg"} pr-2 group`}
+    class={`
+      inline-flex items-center gap-1.5
+      ${size === "sm" ? "text-xs" : "text-sm"} font-medium
+      px-2 py-1 rounded-md
+      border border-gray-200 dark:border-gray-700
+      bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200
+      hover:bg-black hover:text-white hover:border-black
+      dark:hover:bg-white dark:hover:text-black dark:hover:border-white
+      transition-all duration-200
+    `}
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class={`${size === "sm" ? " scale-75" : "scale-110"}`}
-      ><path
-        d="M16.018 3.815 15.232 8h-4.966l.716-3.815-1.964-.37L8.232 8H4v2h3.857l-.751 4H3v2h3.731l-.714 3.805 1.965.369L8.766 16h4.966l-.714 3.805 1.965.369.783-4.174H20v-2h-3.859l.751-4H21V8h-3.733l.716-3.815-1.965-.37zM14.106 14H9.141l.751-4h4.966l-.752 4z"
-      ></path>
+      class={`${size === "sm" ? "h-3 w-3" : "h-3.5 w-3.5"}`}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M7 7h.01" />
+      <path d="M7 20.235V7a4 4 0 0 1 4-4h2.161c1.14 0 2.233.45 3.039 1.255l4.545 4.545a4 4 0 0 1 1.255 3.039V17a4 4 0 0 1-4 4h-7a4 4 0 0 1-4-4" />
     </svg>
-    &nbsp;<span>{tag}</span>
+    <span>{tag}</span>
   </a>
 </li>
 
 <style>
   a {
-    @apply relative underline decoration-dashed hover:-top-0.5 hover:text-skin-accent focus-visible:p-1;
-  }
-  a svg {
-    @apply -mr-5 h-6 w-6 scale-95 text-skin-base opacity-80 group-hover:fill-skin-accent;
+    @apply no-underline;
   }
 </style>
