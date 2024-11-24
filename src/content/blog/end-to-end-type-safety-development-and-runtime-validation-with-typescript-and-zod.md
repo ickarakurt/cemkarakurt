@@ -16,7 +16,7 @@ description:
   with runtime validation using Zod.
 ---
 
-[**Typescript**](https://cemkarakurt.com/tags/typescript/ "Typescript") has revolutionized `type validation` in development, functioning primarily as a sophisticated linter to ensure type safety during this phase. However, TypeScript's capabilities don't extend to runtime. To bridge this gap, runtime validators like **yup**, **io-ts**, and **zod** come into play. This guide delves into leveraging these tools for a comprehensive validation strategy.
+[**Typescript**](https://cemkarakurt.com/tags/typescript/ "Typescript") has revolutionized **type validation** in development, functioning primarily as a sophisticated linter to ensure type safety during this phase. However, TypeScript's capabilities don't extend to runtime. To bridge this gap, runtime validators like **yup**, **io-ts**, and **zod** come into play. This guide delves into leveraging these tools for a comprehensive validation strategy.
 
 ### Advanced Type Definition for a Todo Item
 

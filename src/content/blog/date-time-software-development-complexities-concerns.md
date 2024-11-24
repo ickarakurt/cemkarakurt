@@ -13,7 +13,7 @@ tags:
 description: Explore the complexities and concerns of handling date and time in software development, including edge cases and potential pitfalls.
 ---
 
-If you are a software developer, you have probably worked with dates and times at some point in your career. Dates and times are important concepts in [**software development**](https://cemkarakurt.com/tags/software-development/ "software development"), and there are many concerns and `edge cases` that you need to be aware of when working with them. Specifically, if you are working on a project that involves `time-sensitive` data, such as financial transactions, event scheduling, real-time monitoring, booking, etc., you need to be extra careful with how you handle dates and times.
+If you are a software developer, you have probably worked with dates and times at some point in your career. Dates and times are important concepts in [**software development**](https://cemkarakurt.com/tags/software-development/ "software development"), and there are many concerns and **edge cases** that you need to be aware of when working with them. Specifically, if you are working on a project that involves **time-sensitive** data, such as financial transactions, event scheduling, real-time monitoring, booking, etc., you need to be extra careful with how you handle dates and times.
 
 ## Table of Contents
 
@@ -32,7 +32,7 @@ Daylight saving time (DST) is the practice of setting the clock forward by one h
 
 The main concern with DST is that it can cause problems with time calculations, time comparisons, and time intervals. For example, if you have a time interval that spans the DST transition, you may get unexpected results when calculating the duration of the interval.
 
-For example, in Berlin, Germany, DST starts on the last Sunday in March and ends on the last Sunday in October. During DST, the clock is set forward by one hour, so that `2:00 AM` becomes `3:00 AM`. This means that there is `one hour less` in the day, which can cause problems with time calculations and time comparisons.
+For example, in Berlin, Germany, DST starts on the last Sunday in March and ends on the last Sunday in October. During DST, the clock is set forward by one hour, so that **2:00 AM** becomes **3:00 AM**. This means that there is **one hour less** in the day, which can cause problems with time calculations and time comparisons.
 
 ### Example: Asking AI to Generate an Array of Hours in the Day
 
@@ -101,11 +101,11 @@ output:
 - Second example: 24 hours in the day, no DST transition.
 - Third example: 23 hours in the day, DST transition at 2:00 AM.
 
-If you have booking website and seeling time slots, you need to be aware of the DST transition and adjust your time slots accordingly. Otherwise, you may end up with `overlapping time slots` or `missing time slots`.
+If you have booking website and seeling time slots, you need to be aware of the DST transition and adjust your time slots accordingly. Otherwise, you may end up with **overlapping time slots** or **missing time slots**.
 
 ## Leap years
 
-Leap years are years that have an extra day added to the end of February in order to keep the calendar year synchronized with the astronomical year. `Leap years occur every four years`, with some exceptions.
+Leap years are years that have an extra day added to the end of February in order to keep the calendar year synchronized with the astronomical year. **Leap years occur every four years**, with some exceptions.
 
 The Gregorian calendar, which is the most widely used calendar in the world, has a leap year rule that states that a year is a leap year if it is divisible by 4, except for years that are divisible by 100 but not by 400. This rule was introduced in 1582 and has been in use ever since.
 
@@ -162,11 +162,11 @@ Output:
 ```
 
 However, this date generated according to the user's local time zone. If the user is in a different time zone, the date might be different. If you don't store the time zone information along with the date, you may end up with incorrect dates when you try to display them to the user.
-Solution is really easy, store date in `UTC` timezone and convert it to the `user's time zone when displaying it`.
+Solution is really easy, store date in **UTC** timezone and convert it to the **user's time zone when displaying it**.
 
 ## Time precision
 
-Precision is the level of detail in a measurement or calculation. In the context of date and time, precision refers to the `smallest unit of time that can be represented or measured`. For example, a timestamp with seconds precision has a resolution of `one second`, while a timestamp with milliseconds precision has a resolution of `one millisecond`.
+Precision is the level of detail in a measurement or calculation. In the context of date and time, precision refers to the **smallest unit of time that can be represented or measured**. For example, a timestamp with seconds precision has a resolution of **one second**, while a timestamp with milliseconds precision has a resolution of **one millisecond**.
 
 Since timestamps are numerical values technically, you can compare them directly to see if they are equal or calculate the duration between them. However, you need to be aware of the precision of the timestamps to avoid unexpected results.
 
@@ -178,9 +178,9 @@ As you can see, the precision of timestamps can vary depending on the context in
 
 ## Conclusion
 
-There are `many more concerns` and `edge cases` that you need to be aware of when working with `dates and times`. I am not going to cover all of them here, but I think you get the idea. If it is date-time related, it is not simple as it seems.
+There are **many more concerns** and **edge cases** that you need to be aware of when working with **dates and times**. I am not going to cover all of them here, but I think you get the idea. If it is date-time related, it is not simple as it seems.
 
-Most of datetime libraries like `date-fns`, `moment.js`, `luxon`, etc. have built-in support for handling these concerns and can help you avoid common pitfalls. But, don't fotget to implement `comprehensive logging` and `monitoring` to catch any issues that may arise.
+Most of datetime libraries like **date-fns**, **moment.js**, **luxon**, etc. have built-in support for handling these concerns and can help you avoid common pitfalls. But, don't fotget to implement **comprehensive logging** and **monitoring** to catch any issues that may arise.
 
 ## References
 

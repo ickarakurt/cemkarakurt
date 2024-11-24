@@ -163,7 +163,7 @@ export default nextConfig;
 
 #### Use Suspense in your dynamic component
 
-`Suspense` is a [**React**](https://cemkarakurt.com/tags/react/ "React") feature that allows you to **wait for a component to load** before rendering it. You can use Suspense to fetch data for your dynamic component and show a loading indicator while the data is being fetched.
+**Suspense** is a [**React**](https://cemkarakurt.com/tags/react/ "React") feature that allows you to **wait for a component to load** before rendering it. You can use Suspense to fetch data for your dynamic component and show a loading indicator while the data is being fetched.
 
 ```tsx
 // page.tsx
