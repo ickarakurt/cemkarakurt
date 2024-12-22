@@ -70,7 +70,9 @@ const nextNote =
       onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
-        <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+        <path
+          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        ></path>
       </svg>
       <span class="text-sm font-medium">Go back</span>
     </button>
@@ -79,8 +81,8 @@ const nextNote =
   <main id="main-content">
     {/* Title and Meta Section */}
     <div class="mb-8">
-      <h1 
-        transition:name={slugifyStr(title)} 
+      <h1
+        transition:name={slugifyStr(title)}
         class="mb-3 text-3xl font-bold text-gray-900 dark:text-gray-100"
       >
         {title}
@@ -94,9 +96,9 @@ const nextNote =
     </div>
 
     {/* Article Content */}
-    <article 
-      id="article" 
-      class="prose prose-gray dark:prose-invert mx-auto max-w-3xl 
+    <article
+      id="article"
+      class="prose prose-gray dark:prose-invert mx-auto max-w-3xl
         prose-headings:scroll-mt-20 prose-headings:font-semibold
         prose-a:text-skin-accent prose-a:decoration-dashed prose-a:underline-offset-4
         prose-img:rounded-lg prose-img:shadow-md
@@ -114,7 +116,9 @@ const nextNote =
 
     {/* Bottom Navigation */}
     <div class="space-y-8">
-      <div class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4">
+      <div
+        class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
+      >
         <button
           id="back-to-top"
           class="flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium
@@ -122,7 +126,9 @@ const nextNote =
             transition-colors duration-200"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 rotate-90">
-            <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
+            <path
+              d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            ></path>
           </svg>
           <span>Back to Top</span>
         </button>
@@ -133,55 +139,67 @@ const nextNote =
 
       {/* Previous/Next Posts */}
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {prevNote && (
-          <a
-            href={`/notes/${prevNote.slug}/`}
-            title={prevNote.title}
-            class="group flex items-center gap-2 rounded-lg border border-gray-200 p-4 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-colors duration-200"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 flex-none text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+        {
+          prevNote && (
+            <a
+              href={`/notes/${prevNote.slug}/`}
+              title={prevNote.title}
+              class="group flex items-center gap-2 rounded-lg border border-gray-200 p-4 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-colors duration-200"
             >
-              <path d="M15 6l-6 6l6 6" />
-            </svg>
-            <div class="flex-1 text-sm">
-              <div class="text-gray-600 dark:text-gray-400 font-medium mb-0.5">Previous Note</div>
-              <div class="text-gray-900 dark:text-gray-100 font-semibold line-clamp-1">{prevNote.title}</div>
-            </div>
-          </a>
-        )}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 flex-none text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 6l-6 6l6 6" />
+              </svg>
+              <div class="flex-1 text-sm">
+                <div class="text-gray-600 dark:text-gray-400 font-medium mb-0.5">
+                  Previous Note
+                </div>
+                <div class="text-gray-900 dark:text-gray-100 font-semibold line-clamp-1">
+                  {prevNote.title}
+                </div>
+              </div>
+            </a>
+          )
+        }
 
-        {nextNote && (
-          <a
-            href={`/notes/${nextNote.slug}/`}
-            title={nextNote.title}
-            class="group flex items-center gap-2 rounded-lg border border-gray-200 p-4 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-colors duration-200 sm:col-start-2"
-          >
-            <div class="flex-1 text-right text-sm">
-              <div class="text-gray-600 dark:text-gray-400 font-medium mb-0.5">Next Note</div>
-              <div class="text-gray-900 dark:text-gray-100 font-semibold line-clamp-1">{nextNote.title}</div>
-            </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 flex-none text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+        {
+          nextNote && (
+            <a
+              href={`/notes/${nextNote.slug}/`}
+              title={nextNote.title}
+              class="group flex items-center gap-2 rounded-lg border border-gray-200 p-4 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-colors duration-200 sm:col-start-2"
             >
-              <path d="M9 6l6 6l-6 6" />
-            </svg>
-          </a>
-        )}
+              <div class="flex-1 text-right text-sm">
+                <div class="text-gray-600 dark:text-gray-400 font-medium mb-0.5">
+                  Next Note
+                </div>
+                <div class="text-gray-900 dark:text-gray-100 font-semibold line-clamp-1">
+                  {nextNote.title}
+                </div>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 flex-none text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 6l6 6l-6 6" />
+              </svg>
+            </a>
+          )
+        }
       </div>
 
       {/* Comments Section */}

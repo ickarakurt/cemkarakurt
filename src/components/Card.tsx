@@ -19,14 +19,16 @@ export default function Card({
 
   return (
     <li className="group relative mt-2">
-      <article className="
+      <article
+        className="
         flex flex-col gap-2 
         p-4 rounded-lg
         border border-gray-200 dark:border-gray-800
         hover:border-gray-300 dark:hover:border-gray-700
         transition-all duration-200
         hover:shadow-sm
-      ">
+      "
+      >
         {/* Title with hover effect */}
         <a href={href} className="relative">
           {secHeading ? (
@@ -121,11 +123,13 @@ export default function Card({
         </div>
 
         {/* Description */}
-        <p className="
+        <p
+          className="
           text-gray-600 dark:text-gray-400 
           text-sm leading-relaxed
           line-clamp-2
-        ">
+        "
+        >
           {description}
         </p>
       </article>

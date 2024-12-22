@@ -4,7 +4,7 @@ pubDatetime: 2024-10-22T20:00:00Z
 modDatetime: 2024-10-22T20:00:00Z
 title: NextJS Server Actions with Zod and React Hook Form
 slug: nextjs-server-actions-zod-react-hook-form
-featured: true
+featured: false
 draft: false
 tags:
   - react
