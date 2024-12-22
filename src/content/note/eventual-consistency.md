@@ -1,7 +1,7 @@
 ---
 author: Cem Karakurt
-pubDatetime: 2024-12-01T08:00:00Z
-modDatetime: 2024-12-01T08:00:00Z
+pubDatetime: 2024-12-22T08:00:00Z
+modDatetime: 2024-12-22T08:00:00Z
 title: Eventual Consistency
 slug: eventual-consistency
 featured: false
