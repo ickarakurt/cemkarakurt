@@ -8,7 +8,7 @@ import Main from "@layouts/Main.astro";
 
 <Layout title={`Stream | ${SITE.title}`}>
   <Header />
-  <script src="https://embed.twitch.tv/embed/v1.js"></script>
+  <script is:inline src="/twitch.js"></script>
   <Main pageTitle="Stream" pageDesc="Learn more about me">
     <article
       id="article"
