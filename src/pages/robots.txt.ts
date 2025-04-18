@@ -4,6 +4,7 @@ import { SITE } from "@config";
 const robots = `
 User-agent: Googlebot
 Disallow: /nogooglebot/
+Disallow: /cdn-cgi/
 
 User-agent: *
 Allow: /
