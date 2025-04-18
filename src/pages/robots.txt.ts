@@ -5,7 +5,7 @@ const robots = `
 User-agent: Googlebot
 Disallow: /nogooglebot/
 Disallow: /cdn-cgi/
-
+Disallow: /~lalebahc/
 User-agent: *
 Allow: /
 
