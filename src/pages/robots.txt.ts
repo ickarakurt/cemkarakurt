@@ -6,6 +6,7 @@ User-agent: Googlebot
 Disallow: /nogooglebot/
 Disallow: /cdn-cgi/
 Disallow: /~lalebahc/
+Disallow: /stream/
 User-agent: *
 Allow: /
 
