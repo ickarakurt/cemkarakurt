@@ -48,4 +48,24 @@ const note = defineCollection({
     }),
 });
 
-export const collections = { blog, note };
+const projects = defineCollection({
+  type: "content_layer",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      subtitle: z.string().optional(),
+      address: z.string().optional(),
+      image: image()
+        .refine(img => img.width >= 400 && img.height >= 300, {
+          message: "Project image must be at least 400 X 300 pixels!",
+        })
+        .or(z.string())
+        .optional(),
+      technologies: z.array(z.string()).default([]),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional(),
+    }),
+});
+
+export const collections = { blog, note, projects };

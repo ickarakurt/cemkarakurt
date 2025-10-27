@@ -1,0 +1,46 @@
+---
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import ProjectCard from "@components/ProjectCard";
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects", ({ data }: { data: any }) => {
+  return !data.draft;
+});
+
+// Sort projects by featured first, then by title
+const sortedProjects = projects.sort((a: any, b: any) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+// Get projects with raw markdown content
+const projectsWithContent = sortedProjects.map((project: any) => {
+  return {
+    ...project,
+    rawContent: project.body,
+  };
+});
+---
+
+<Layout title={`Projects | ${SITE.title}`}>
+  <Header activeNav="projects" />
+  <Main
+    pageTitle="Projects"
+    pageDesc="A showcase of my recent work and side projects."
+  >
+    <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+      {
+        projectsWithContent.map(({ data, rawContent }) => (
+          <ProjectCard frontmatter={data} rawContent={rawContent} />
+        ))
+      }
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>
