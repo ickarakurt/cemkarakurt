@@ -89,10 +89,10 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           <section id="featured">
             <h2>Featured</h2>
             <ul>
-              {featuredPosts.map(({ data, slug, collection }) => (
+              {featuredPosts.map(({ data, id, collection }) => (
                 <Card
                   collection={collection}
-                  href={`/${collection === "blog" ? "blog" : "notes"}/${slug}/`}
+                  href={`/${collection === "blog" ? "blog" : "notes"}/${id}/`}
                   frontmatter={data}
                   secHeading={false}
                 />
@@ -110,10 +110,10 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           <h2>Recent Posts</h2>
           <ul>
             {recentPosts.map(
-              ({ data, slug }, index) =>
+              ({ data, id }, index) =>
                 index < SITE.postPerIndex && (
                   <Card
-                    href={`/blog/${slug}/`}
+                    href={`/blog/${id}/`}
                     frontmatter={data}
                     secHeading={false}
                   />

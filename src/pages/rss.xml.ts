@@ -15,14 +15,14 @@ export async function GET() {
     description: SITE.desc,
     site: SITE.website,
     items: [
-      ...sortedPosts.map(({ data, slug }) => ({
-        link: `blog/${slug}/`,
+      ...sortedPosts.map(({ data, id }) => ({
+        link: `blog/${id}/`,
         title: data.title,
         description: data.description,
         pubDate: new Date(data.modDatetime ?? data.pubDatetime),
       })),
-      ...sortedNotes.map(({ data, slug }) => ({
-        link: `notes/${slug}/`,
+      ...sortedNotes.map(({ data, id }) => ({
+        link: `notes/${id}/`,
         title: data.title,
         description: data.description,
         pubDate: new Date(data.modDatetime ?? data.pubDatetime),

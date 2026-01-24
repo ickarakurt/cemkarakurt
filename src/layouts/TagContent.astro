@@ -28,9 +28,9 @@ const { page, tag, tagName } = Astro.props;
     <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
     <ul>
       {
-        page.data.map(({ data, slug, collection }) => (
+        page.data.map(({ data, id, collection }) => (
           <Card
-            href={`/${collection === "blog" ? "blog" : "notes"}/${slug}/`}
+            href={`/${collection === "blog" ? "blog" : "notes"}/${id}/`}
             collection={collection}
             frontmatter={data}
           />

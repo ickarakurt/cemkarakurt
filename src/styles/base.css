@@ -9,7 +9,8 @@
     --color-text-base: 40, 40, 40; /* Deep gray for better readability */
     --color-accent: 0, 0, 0; /* Pure black accent */
     --color-card: 245, 245, 245; /* Very light gray card */
-    --color-card-muted: 230, 230, 230; /* Slightly darker gray for muted cards */
+    --color-card-muted:
+      230, 230, 230; /* Slightly darker gray for muted cards */
     --color-border: 200, 200, 200; /* Medium gray border */
   }
   html[data-theme="dark"] {

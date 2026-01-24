@@ -16,11 +16,11 @@ const notes = await getCollection("note", ({ data }) => !data.draft);
 const allContent = getSortedContent([...posts, ...notes]);
 
 // List of items to search in
-const searchList = allContent.map(({ data, slug, collection }) => ({
+const searchList = allContent.map(({ data, id, collection }) => ({
   title: data.title,
   description: data.description,
   data,
-  slug,
+  id,
   collection,
 }));
 ---

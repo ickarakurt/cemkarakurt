@@ -12,7 +12,7 @@ export async function getStaticPaths() {
   const notes = await getCollection("note", ({ data }) => !data.draft);
 
   const notesResult = getSortedContent(notes).map(note => ({
-    params: { slug: note.slug },
+    params: { slug: note.id },
     props: { note, notes },
   }));
 

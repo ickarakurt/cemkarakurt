@@ -1,6 +1,6 @@
 import { generateOgImageForNote } from "@utils/generateOgImages";
 import { slugifyStr } from "@utils/slugify";
-import type { APIRoute } from "astro";
+import type { APIContext } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
@@ -14,7 +14,13 @@ export async function getStaticPaths() {
   }));
 }
 
-export const GET: APIRoute = async ({ props }) =>
-  new Response(await generateOgImageForNote(props as CollectionEntry<"note">), {
-    headers: { "Content-Type": "image/png" },
-  });
+export async function GET({ props }: APIContext) {
+  return new Response(
+    new Uint8Array(
+      await generateOgImageForNote(props as CollectionEntry<"note">)
+    ),
+    {
+      headers: { "Content-Type": "image/png" },
+    }
+  );
+}
