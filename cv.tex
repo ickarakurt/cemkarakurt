@@ -1,0 +1,167 @@
+\documentclass[letterpaper,10pt]{article}
+\usepackage[utf8]{inputenc}
+
+%====================
+% STYLE DEFINITIONS
+%====================
+
+% FONT STUFF
+\RequirePackage[T1]{fontenc}
+\RequirePackage[default,semibold]{sourcesanspro}
+\RequirePackage[10pt]{moresize}
+
+
+% MARGINS & SPACING
+\RequirePackage[margin=0.6in, top=0.6in, bottom=0.9in]{geometry}
+\raggedright
+\raggedbottom
+
+% COLOR
+\RequirePackage{xcolor}
+\definecolor{highlight}{RGB}{33, 37, 41} % Deep Charcoal
+
+
+
+% BULLET POINTS
+\RequirePackage[inline]{enumitem}
+\setlength{\tabcolsep}{0in}
+
+% SECTION FORMATTING
+\RequirePackage[nostruts]{titlesec}
+\titlespacing*{\section}{0em}{0.4em}{0.2em}
+% Section format: Blue, Small Caps, Large, No Number (empty label), Horizontal Rule
+\titleformat{\section}{\color{highlight} \scshape \raggedright \large}{}{0em}{}[\vspace{-0.5em}\hrulefill]
+
+% SUBSECTION FORMATTING
+\titlespacing*{\subsection}{0em}{1em}{0.2em}
+\titleformat{\subsection}{\bfseries}{}{0em}{}[]
+
+% CUSTOM COMMANDS
+\newcommand{\skills}[1]{\textbf{#1}}
+
+% NO PAGE NUMBER
+\pagenumbering{gobble}
+
+% LANGUAGE SUPPORT
+\RequirePackage[english]{babel}
+
+% LINKS (Moved to end of preamble)
+\RequirePackage{hyperref}
+\hypersetup{colorlinks=true, urlcolor=highlight}
+
+
+
+%====================
+% CONTACT INFORMATION
+%====================
+\def\name{Cem Karakurt}
+\def\city{Berlin, Germany}
+\def\email{ickarakurt@gmail.com}
+\def\LinkedIn{ickarakurt}
+\def\github{ickarakurt}
+\def\role{Senior Full Stack Engineer}
+
+\begin{document}
+
+%====================
+% HEADER (ATS Friendly: In-flow, no fancyhdr)
+%====================
+\begin{center}
+    {\Huge \skills{\name}} \\[0.2cm]
+    {\color{highlight} \Large{\role}} \\[0.2cm]
+    \city \ $\cdot$ \ \href{mailto:\email}{\email} \ $\cdot$ \ \href{https://cemkarakurt.com}{cemkarakurt.com} \\
+    \href{https://github.com/\github}{github.com/\github} \ $\cdot$ \ \href{https://www.linkedin.com/in/\LinkedIn}{linkedin.com/in/\LinkedIn}
+\end{center}
+
+\vspace{1em}
+
+%====================
+% SUMMARY
+%====================
+\section{Summary}
+
+Senior Full Stack Engineer with 6+ years building scalable web applications using \textbf{React.js}, \textbf{Node.js}, \textbf{Ruby on Rails}, and \textbf{AWS}. Strong experience across the full stack, from database design and cloud infrastructure to frontend development and testing. Proficient in leveraging AI tools to accelerate development and solve complex problems efficiently.
+%====================
+% SKILLS
+%====================
+\section{Skills}
+
+\noindent
+\skills{Languages \& Frameworks}: TypeScript, Node.js (Express.js), React.js, Ruby on Rails, PHP, Next.js \\
+\skills{Databases}: DynamoDB, PostgreSQL, MySQL, Couchbase, Redis \\
+\skills{Cloud \& DevOps}: AWS (Lambda, Kinesis, S3, API Gateway), Terraform, Docker, NGINX, CI/CD pipelines \\
+\skills{Frontend Technologies}: React.js, Redux, Tailwind CSS, shadcn/ui, Storybook, WebRTC \\
+\skills{Testing}: Playwright, Jest, React Testing Library \\
+\skills{Development Practices}: Agile (Scrum, Kanban), Microservices, Microfrontends, Monorepos, RBAC \\
+\skills{Communication}: English (fluent), Turkish (native), German (learning)
+
+%====================
+% EXPERIENCE
+%====================
+\section{Experience}
+
+\textbf{Babbel GmbH} \hfill Berlin, Germany \\
+\textit{Senior Full Stack Engineer (Promoted April 2024)} \hfill March 2022 --- June 2025
+\begin{itemize}[leftmargin=1.5em, label=\textbullet, noitemsep, topsep=2pt]
+    \item Built Full Stack features for the live-lesson platform (AWS Lambda, Step Functions, React.js), provisioning required infrastructure via Terraform.
+    \item Led the SmartCat localization discovery (shared company-wide) and documented the department's \skills{Microfrontend} architecture.
+    \item Improved the Microfrontend deployment system to support multi-version rendering on a single page, enabling independent branch deployments.
+    \item Reduced frontend bundle size by 40\% by optimizing third-party dependencies to enable efficient tree-shaking.
+    \item Led technical discovery for E2E frameworks (Playwright vs. Cypress) and implemented initial test suites for booking and subscription flows.
+    \item Ran agile ceremonies (standups, refinements), handled production on-call support, and focused on continuous refactoring and dependency updates.
+\end{itemize}
+\textbf{Tech Stack:} Node.js, TypeScript, React.js, Redux Toolkit, AWS (Lambda, EventBridge, DynamoDB), Terraform, Playwright, Storybook, Microfrontends, Vite
+
+\medskip
+
+\textbf{11Sight LLC} \hfill Remote \\
+\textit{Software Engineer} \hfill August 2020 --- December 2021
+\begin{itemize}[leftmargin=1.5em, label=\textbullet, noitemsep, topsep=2pt]
+    \item Implemented a centralized SSO provider using \skills{Doorkeeper} to sync authentication across multiple products, enabling a unified login experience.
+    \item Built a reporting system for group meetings by creating custom \skills{Prosody} modules that integrated Jitsi events with Ruby on Rails APIs and dashboards.
+    \item Created a feature-management system for organizations to toggle platform services (e.g., recording, transcription) through the main dashboard and Jitsi UI.
+    \item Managed \skills{AWS EC2 Auto Scaling} for recording services and handled deployments and server maintenance for Jitsi-based products.
+    \item Developed RESTful APIs and background jobs with \skills{Sidekiq}, maintaining test coverage and automated Swagger documentation via \skills{RSpec}.
+\end{itemize}
+\textbf{Tech Stack:} Ruby on Rails, React.js, PostgreSQL, Jitsi, WebRTC, Prosody (XMPP), OAuth 2.0, Redis, Sidekiq, WebSocket, NGINX, AWS EC2, RSpec
+
+\medskip
+
+\textbf{Countly} \hfill Izmir, Turkey \\
+\textit{Software Engineer} \hfill December 2019 --- June 2020
+\begin{itemize}[leftmargin=1.5em, label=\textbullet, noitemsep, topsep=2pt]
+    \item Built demo SPAs (React.js) and a mobile app (Swift) showcasing analytics features like session tracking, funnels, and user segmentation.
+    \item Provided technical support to enterprise customers integrating Countly SDK into their applications.
+\end{itemize}
+\textbf{Tech Stack:} Node.js, Next.js, i18Next, Tailwind CSS, Swift
+
+\medskip
+
+\textbf{Gatemarine} \hfill Izmir, Turkey \\
+\textit{Software Engineer} \hfill May 2019 --- November 2019
+\begin{itemize}[leftmargin=1.5em, label=\textbullet, noitemsep, topsep=2pt]
+    \item Built real-time tracking platform for Raspberry Pi sensor network with local and centralized dashboards.
+    \item Used Couchbase replication to maintain data consistency between edge devices and central server.
+    \item Developed an internal inventory management tool using CodeIgniter (PHP) and Bootstrap.
+    \item Managed Linux servers, configured NGINX, and handled deployment pipelines.
+\end{itemize}
+\textbf{Tech Stack:} Node.js, Couchbase, React.js, Redux, NGINX, WebSocket, PHP, MySQL
+
+%====================
+% CERTIFICATIONS
+%====================
+\section{Certifications}
+
+\begin{itemize}[leftmargin=1.5em, label=\textbullet, noitemsep]
+  \item AWS Certified Developer – Associate (Amazon Web Services, Issued: April 02, 2024)
+\end{itemize}
+
+%====================
+% EDUCATION
+%====================
+\section{Education}
+
+\noindent \skills{Bachelor of Science in Computer Engineering}, \textit{Izmir Institute of Technology} \hfill 2016 --- 2021 \\
+\skills{Associate of Science in Business Management}, \textit{Anadolu University} \hfill 2018 --- 2020
+
+\end{document}

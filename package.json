@@ -11,7 +11,8 @@
     "format:check": "prettier --check . --plugin=prettier-plugin-astro",
     "format": "prettier --write . --plugin=prettier-plugin-astro",
     "lint": "eslint .",
-    "mermaid": "mmdc -i src/mermaids/$npm_config_filename.mmd -o public/assets/$npm_config_filename.svg"
+    "mermaid": "mmdc -i src/mermaids/$npm_config_filename.mmd -o public/assets/$npm_config_filename.svg",
+    "cv:pdf": "tectonic -o public/ cv.tex"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
