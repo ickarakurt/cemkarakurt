@@ -14,8 +14,19 @@ module.exports = {
   theme: {
     screens: {
       sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
     },
     extend: {
+      fontFamily: {
+        sans: ["'Space Grotesk'", "system-ui", "sans-serif"],
+        mono: ["'JetBrains Mono'", "monospace"],
+        display: ["'Space Grotesk'", "system-ui", "sans-serif"],
+      },
+      fontSize: {
+        'xxs': '0.625rem',
+      },
       textColor: {
         skin: {
           base: withOpacity("--color-text-base"),
@@ -30,6 +41,7 @@ module.exports = {
           inverted: withOpacity("--color-text-base"),
           card: withOpacity("--color-card"),
           "card-muted": withOpacity("--color-card-muted"),
+          border: withOpacity("--color-border"),
         },
       },
       outlineColor: {
@@ -40,8 +52,19 @@ module.exports = {
       borderColor: {
         skin: {
           line: withOpacity("--color-border"),
+          border: withOpacity("--color-border"),
           fill: withOpacity("--color-text-base"),
           accent: withOpacity("--color-accent"),
+        },
+      },
+      ringColor: {
+        skin: {
+          accent: withOpacity("--color-accent"),
+        },
+      },
+      ringOffsetColor: {
+        skin: {
+          fill: withOpacity("--color-fill"),
         },
       },
       fill: {
@@ -50,6 +73,10 @@ module.exports = {
           accent: withOpacity("--color-accent"),
         },
         transparent: "transparent",
+      },
+      transitionTimingFunction: {
+        'bounce-out': 'cubic-bezier(0.23, 1, 0.32, 1)',
+        'sharp': 'cubic-bezier(0.23, 1, 0.68, 1)',
       },
       typography: {
         DEFAULT: {

@@ -33,13 +33,15 @@ const projectsWithContent = sortedProjects.map((project: any) => {
     pageTitle="Projects"
     pageDesc="A showcase of my recent work and side projects."
   >
-    <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+    <ul class="grid grid-cols-1 md:grid-cols-1 gap-6">
       {
         projectsWithContent.map(({ data, rawContent }) => (
-          <ProjectCard frontmatter={data} rawContent={rawContent} />
+          <li>
+            <ProjectCard frontmatter={data} rawContent={rawContent} />
+          </li>
         ))
       }
-    </div>
+    </ul>
   </Main>
 
   <Footer />

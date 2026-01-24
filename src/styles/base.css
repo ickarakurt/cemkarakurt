@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,21 +7,23 @@
 @layer base {
   :root,
   html[data-theme="light"] {
-    --color-fill: 255, 255, 255;
-    --color-text-base: 40, 40, 40; /* Deep gray for better readability */
-    --color-accent: 0, 0, 0; /* Pure black accent */
-    --color-card: 245, 245, 245; /* Very light gray card */
-    --color-card-muted:
-      230, 230, 230; /* Slightly darker gray for muted cards */
-    --color-border: 200, 200, 200; /* Medium gray border */
+    --color-fill: 250, 250, 249;
+    --color-text-base: 10, 10, 10;
+    --color-accent: 245, 158, 11;
+    --color-card: 255, 255, 255;
+    --color-card-muted: 245, 245, 244;
+    --color-border: 230, 230, 230;
+    --color-grid: 230, 230, 230;
   }
+
   html[data-theme="dark"] {
-    --color-fill: 12, 10, 9;
-    --color-text-base: 230, 230, 230; /* Light gray text for softer contrast */
-    --color-accent: 255, 255, 255; /* Pure white accent */
-    --color-card: 30, 30, 30; /* Dark gray card */
-    --color-card-muted: 45, 45, 45; /* Slightly lighter gray for muted cards */
-    --color-border: 70, 70, 70; /* Darker gray border */
+    --color-fill: 10, 10, 10;
+    --color-text-base: 250, 250, 249;
+    --color-accent: 245, 158, 11;
+    --color-card: 20, 20, 20;
+    --color-card-muted: 30, 30, 30;
+    --color-border: 40, 40, 40;
+    --color-grid: 25, 25, 25;
   }
 
   #sun-svg,
@@ -30,75 +34,84 @@
   html[data-theme="dark"] #sun-svg {
     display: block;
   }
+
   body {
-    @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
+    @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base antialiased;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    overflow-x: hidden;
   }
+
+  /* Animated Grid Background */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      linear-gradient(rgba(var(--color-grid), 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(var(--color-grid), 0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+    animation: gridPulse 8s ease-in-out infinite;
+  }
+
+  @keyframes gridPulse {
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+
   section,
   footer {
-    @apply mx-auto max-w-3xl px-4;
+    @apply mx-auto max-w-6xl px-6 relative z-10;
   }
+
   a {
-    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
+    @apply transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-skin-accent/40 rounded;
   }
+
   svg {
-    @apply inline-block h-6 w-6 fill-skin-base group-hover:fill-skin-accent;
+    @apply inline-block h-6 w-6 fill-none stroke-current stroke-2 transition-colors;
   }
-  svg.icon-tabler {
-    @apply inline-block h-6 w-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110;
-  }
+
   .prose {
-    @apply prose-headings:!mb-3 prose-headings:!text-skin-base prose-h3:italic prose-p:!text-skin-base prose-a:!text-skin-base prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-skin-accent prose-blockquote:!border-l-skin-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-skin-base prose-figcaption:opacity-70 prose-strong:!text-skin-base prose-code:rounded prose-code:bg-skin-card/75 prose-code:p-1 prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-skin-base prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-li:marker:!text-skin-accent prose-table:text-skin-base prose-th:border prose-th:border-skin-line prose-td:border prose-td:border-skin-line prose-img:!my-2 prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line prose-hr:!border-skin-line;
-  }
-  .prose a {
-    @apply break-words hover:!text-skin-accent;
-  }
-  .prose thead th:first-child,
-  tbody td:first-child,
-  tfoot td:first-child {
-    padding-left: 0.5714286em;
-  }
-  .prose h2#table-of-contents {
-    @apply mb-2;
-  }
-  .prose details {
-    @apply inline-block cursor-pointer select-none text-skin-base;
-  }
-  .prose summary {
-    @apply focus-outline;
-  }
-  .prose h2#table-of-contents + p {
-    @apply hidden;
+    @apply prose-zinc dark:prose-invert max-w-none;
+    @apply prose-headings:font-display prose-headings:tracking-tight;
+    @apply prose-a:font-medium prose-a:no-underline prose-a:border-b prose-a:border-skin-accent/30 hover:prose-a:border-skin-accent;
+    @apply prose-code:rounded-md prose-code:bg-skin-card-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-code:font-mono prose-code:text-sm;
   }
 
   /* ===== scrollbar ===== */
   html {
     overflow-y: scroll;
+    scrollbar-gutter: stable;
   }
 
-  /* width */
   ::-webkit-scrollbar {
-    @apply w-3;
+    @apply w-2;
   }
 
-  /* Track */
   ::-webkit-scrollbar-track {
-    @apply bg-skin-fill;
+    @apply bg-transparent;
   }
 
-  /* Handle */
   ::-webkit-scrollbar-thumb {
-    @apply bg-skin-card;
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-skin-card-muted;
+    @apply bg-skin-accent/30 rounded-full hover:bg-skin-accent/50 transition-colors;
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
   pre:has(code) {
-    @apply border border-skin-line;
+    @apply rounded-lg border border-skin-border bg-skin-card-muted overflow-hidden;
   }
+
   code,
   blockquote {
     word-wrap: break-word;
@@ -106,16 +119,19 @@
 
   pre > code {
     white-space: pre;
+    @apply block p-5 text-sm leading-relaxed font-mono;
   }
 
-  /* Apply Dark Theme (if multi-theme specified) */
   html[data-theme="dark"] pre:has(code),
   html[data-theme="dark"] pre:has(code) span {
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
-    font-style: var(--shiki-dark-font-style) !important;
-    font-weight: var(--shiki-dark-font-weight) !important;
-    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+
+  /* ===== Selection Styling ===== */
+  ::selection {
+    background-color: rgba(var(--color-accent), 0.3);
+    color: rgb(var(--color-text-base));
   }
 }
 
@@ -123,7 +139,59 @@
   .display-none {
     @apply hidden;
   }
+
   .focus-outline {
-    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-skin-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-skin-fill;
+  }
+
+  /* Monospace accent utility */
+  .mono-accent {
+    @apply font-mono text-xs uppercase tracking-widest text-skin-accent;
+  }
+
+  /* Magnetic hover effect container */
+  .magnetic-hover {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* Stagger animation utilities */
+  .stagger-in {
+    animation: staggerIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    opacity: 0;
+  }
+
+  @keyframes staggerIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Data attribute badge */
+  .data-badge {
+    @apply font-mono text-[10px] px-2 py-0.5 rounded bg-skin-card-muted text-skin-base/50 border border-skin-border/50;
+  }
+
+  /* Technical line decoration */
+  .tech-line {
+    position: relative;
+  }
+
+  .tech-line::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(var(--color-accent), 0.6),
+      transparent
+    );
   }
 }
