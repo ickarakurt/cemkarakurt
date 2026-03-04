@@ -20,9 +20,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["'Space Grotesk'", "system-ui", "sans-serif"],
-        mono: ["'JetBrains Mono'", "monospace"],
-        display: ["'Space Grotesk'", "system-ui", "sans-serif"],
+        sans: ["'Sora'", "system-ui", "sans-serif"],
+        mono: ["'IBM Plex Mono'", "ui-monospace", "monospace"],
+        display: ["'Sora'", "system-ui", "sans-serif"],
       },
       fontSize: {
         'xxs': '0.625rem',
