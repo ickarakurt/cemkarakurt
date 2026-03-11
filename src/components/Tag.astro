@@ -1,25 +1,25 @@
 ---
 export interface Props {
   tag: string;
+  tagName?: string;
   size?: "sm" | "lg";
 }
 
-const { tag, size = "sm" } = Astro.props;
+const { tag, tagName, size = "sm" } = Astro.props;
 ---
 
 <li class="inline-block mx-1.5 my-1">
   <a
     href={`/tags/${tag}/`}
-    title={tag}
+    title={tagName ?? tag}
     transition:name={tag}
     class={`
       inline-flex items-center gap-1.5
       ${size === "sm" ? "text-xs" : "text-sm"} font-medium
       px-2 py-1 rounded-md
-      border border-gray-200 dark:border-gray-700
-      bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200
-      hover:bg-black hover:text-white hover:border-black
-      dark:hover:bg-white dark:hover:text-black dark:hover:border-white
+      border border-skin-border/60
+      bg-skin-card-muted text-skin-base/70
+      hover:bg-skin-accent/10 hover:text-skin-accent hover:border-skin-accent/30
       transition-all duration-200
     `}
   >
@@ -38,7 +38,7 @@ const { tag, size = "sm" } = Astro.props;
         d="M7 20.235V7a4 4 0 0 1 4-4h2.161c1.14 0 2.233.45 3.039 1.255l4.545 4.545a4 4 0 0 1 1.255 3.039V17a4 4 0 0 1-4 4h-7a4 4 0 0 1-4-4"
       ></path>
     </svg>
-    <span>{tag}</span>
+    <span>{tagName ?? tag}</span>
   </a>
 </li>
 

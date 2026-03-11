@@ -33,7 +33,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
 <Layout>
   <Header />
 
-  <div class="mx-auto max-w-7xl px-4 lg:px-8">
+  <div class="site-container-wide">
     <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 py-8 lg:py-12">
       {/* Sidebar - Technical aesthetic */}
       <aside
@@ -133,14 +133,14 @@ const socialCount = SOCIALS.filter(social => social.active).length;
                   class="stagger-in"
                   style={`animation-delay: ${index * 0.05}s`}
                 >
-                  <Tag tag={tag.tagName} size="sm" />
+                  <Tag tag={tag.tag} tagName={tag.tagName} size="sm" />
                 </li>
               ))
             }
           </ul>
           <div class="pt-1 pl-6">
             <a
-              href="/tags"
+              href="/tags/"
               class="text-xs text-skin-base/60 hover:text-skin-accent transition-colors inline-flex items-center gap-1"
             >
               <span>View all</span>
@@ -189,56 +189,6 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           )
         }
 
-        {
-          digestrProject && (
-            <section class="space-y-5">
-              <div class="flex items-center gap-3 border-b border-skin-border/40 pb-2.5">
-                <span class="mono-accent text-xs opacity-50">latest</span>
-                <h2 class="font-display text-lg font-semibold text-skin-base tracking-tight">
-                  Check My Latest Project
-                </h2>
-              </div>
-
-              <article class="rounded-2xl border border-skin-accent/30 bg-skin-card p-5 sm:p-6">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div class="space-y-2">
-                    <p class="font-mono text-xs uppercase tracking-wider text-skin-accent">
-                      Spotlight
-                    </p>
-                    <h3 class="font-display text-2xl font-bold tracking-tight text-skin-base">
-                      {digestrProject.data.title}
-                    </h3>
-                    {digestrProject.data.subtitle && (
-                      <p class="text-sm text-skin-base/70 leading-relaxed max-w-2xl">
-                        {digestrProject.data.subtitle}
-                      </p>
-                    )}
-                  </div>
-
-                  <div class="flex flex-wrap gap-2">
-                    <a
-                      href="/projects/"
-                      class="inline-flex items-center gap-1.5 rounded-lg border border-skin-border px-3 py-2 text-xs font-mono uppercase tracking-wider text-skin-base/70 hover:text-skin-accent hover:border-skin-accent/40 transition-colors"
-                    >
-                      Project details
-                    </a>
-                    {digestrProject.data.address && (
-                      <a
-                        href={digestrProject.data.address}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-1.5 rounded-lg border border-skin-accent/40 bg-skin-accent/10 px-3 py-2 text-xs font-mono uppercase tracking-wider text-skin-accent hover:bg-skin-accent/20 transition-colors"
-                      >
-                        Visit Digestr
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            </section>
-          )
-        }
-
         {/* Recent Posts Section */}
         {
           recentPosts.length > 0 && (
@@ -277,26 +227,85 @@ const socialCount = SOCIALS.filter(social => social.active).length;
                       >
                         <a
                           href={`/blog/${id}/`}
-                          class="flex items-center gap-4 p-3 rounded-lg bg-skin-card border border-skin-border/40 hover:border-skin-accent/30 hover:bg-skin-card-muted transition-all duration-300 magnetic-hover"
+                          class="block p-4 rounded-xl bg-skin-card border border-skin-border/50 hover:border-skin-accent/30 hover:bg-skin-card-muted transition-all duration-300 magnetic-hover"
                         >
-                          <span class="font-mono text-xs text-skin-base/30 shrink-0 tabular-nums">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <span class="flex-1 text-sm font-medium text-skin-base group-hover:text-skin-accent transition-colors">
-                            {data.title}
-                          </span>
-                          <span class="text-xs text-skin-base/40 font-mono shrink-0 tabular-nums">
-                            {data.pubDatetime.toLocaleDateString("en-US", {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            })}
-                          </span>
+                          <div class="flex items-start justify-between gap-4">
+                            <div class="min-w-0 space-y-1">
+                              <div class="flex items-center gap-2">
+                                <span class="font-mono text-xs text-skin-base/25 shrink-0 tabular-nums">
+                                  {String(index + 1).padStart(2, "0")}
+                                </span>
+                                <h3 class="text-sm sm:text-base font-display font-semibold tracking-tight text-skin-base group-hover:text-skin-accent transition-colors line-clamp-2">
+                                  {data.title}
+                                </h3>
+                              </div>
+                              <p class="text-sm text-skin-base/60 leading-relaxed line-clamp-2 pl-6">
+                                {data.description}
+                              </p>
+                            </div>
+                            <span class="text-xs text-skin-base/40 font-mono shrink-0 tabular-nums pt-0.5">
+                              {data.pubDatetime.toLocaleDateString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              })}
+                            </span>
+                          </div>
                         </a>
                       </li>
                     )
                 )}
               </ul>
+            </section>
+          )
+        }
+
+        {
+          digestrProject && (
+            <section class="space-y-5">
+              <div class="flex items-center gap-3 border-b border-skin-border/40 pb-2.5">
+                <span class="mono-accent text-xs opacity-50">project</span>
+                <h2 class="font-display text-lg font-semibold text-skin-base tracking-tight">
+                  Latest Project
+                </h2>
+              </div>
+
+              <article class="rounded-2xl border border-skin-accent/30 bg-skin-card p-5 sm:p-6">
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div class="space-y-2">
+                    <p class="font-mono text-xs uppercase tracking-wider text-skin-accent">
+                      Spotlight
+                    </p>
+                    <h3 class="font-display text-2xl font-bold tracking-tight text-skin-base">
+                      {digestrProject.data.title}
+                    </h3>
+                    {digestrProject.data.subtitle && (
+                      <p class="text-sm text-skin-base/70 leading-relaxed max-w-2xl">
+                        {digestrProject.data.subtitle}
+                      </p>
+                    )}
+                  </div>
+
+                  <div class="flex flex-wrap gap-2">
+                    <a
+                      href="/projects/"
+                      class="inline-flex items-center gap-1.5 rounded-lg border border-skin-border px-3 py-2 text-xs font-mono uppercase tracking-wider text-skin-base/70 hover:text-skin-accent hover:border-skin-accent/40 transition-colors"
+                    >
+                      Project details
+                    </a>
+                    {digestrProject.data.address && (
+                      <a
+                        href={digestrProject.data.address}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-1.5 rounded-lg border border-skin-accent/40 bg-skin-accent/10 px-3 py-2 text-xs font-mono uppercase tracking-wider text-skin-accent hover:bg-skin-accent/20 transition-colors"
+                      >
+                        Visit {digestrProject.data.title}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
             </section>
           )
         }

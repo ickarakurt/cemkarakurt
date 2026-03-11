@@ -1,5 +1,5 @@
 ---
-import { LOGO_IMAGE, SITE } from "@config";
+import { SITE } from "@config";
 import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
 
@@ -12,7 +12,7 @@ const { activeNav } = Astro.props;
 
 <header>
   <a id="skip-to-content" href="#main-content">Skip to content</a>
-  <div class="nav-container">
+  <div class="nav-container site-container-wide">
     <div class="top-nav-wrap">
       <a href="/" class="logo">
         <span class="font-display font-semibold tracking-tight">
@@ -128,7 +128,7 @@ const { activeNav } = Astro.props;
         </ul>
       </nav>
     </div>
-    <Hr />
+  <Hr />
   </div>
 
   <style>
@@ -136,13 +136,16 @@ const { activeNav } = Astro.props;
       @apply absolute -top-full left-16 z-50 bg-skin-accent px-3 py-2 text-skin-inverted transition-all focus:top-4 font-mono text-xs rounded;
     }
     .nav-container {
-      @apply mx-auto max-w-7xl px-4 sm:px-6;
+      @apply relative;
     }
     .top-nav-wrap {
       @apply relative flex w-full items-center justify-between py-5 sm:py-6;
     }
     .logo {
       @apply text-lg font-display font-semibold tracking-tight text-skin-base transition-colors hover:text-skin-accent whitespace-nowrap;
+    }
+    header {
+      @apply sticky top-0 z-50 bg-skin-fill/80 backdrop-blur-md;
     }
     .hamburger-menu {
       @apply p-2 sm:hidden rounded-md hover:bg-skin-card-muted/50 transition-colors;
@@ -202,27 +205,57 @@ const { activeNav } = Astro.props;
   </style>
 
   <script>
-    function toggleNav() {
-      // Toggle menu
-      const menuBtn = document.querySelector(".hamburger-menu");
-      const menuIcon = document.querySelector(".menu-icon");
-      const menuItems = document.querySelector("#menu-items");
+    function setupNav() {
+      const menuBtn =
+        document.querySelector<HTMLButtonElement>(".hamburger-menu");
+      const menuIcon = document.querySelector<SVGElement>(".menu-icon");
+      const menuItems =
+        document.querySelector<HTMLUListElement>("#menu-items");
 
-      menuBtn?.addEventListener("click", () => {
-        const menuExpanded = menuBtn.getAttribute("aria-expanded") === "true";
-        menuIcon?.classList.toggle("is-active");
-        menuBtn.setAttribute("aria-expanded", menuExpanded ? "false" : "true");
-        menuBtn.setAttribute(
+      if (!menuBtn || !menuItems) return;
+      const button = menuBtn;
+      const items = menuItems;
+
+      if (button.dataset.bound === "true") return;
+      button.dataset.bound = "true";
+
+      function setOpen(isOpen: boolean) {
+        menuIcon?.classList.toggle("is-active", isOpen);
+        button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        button.setAttribute(
           "aria-label",
-          menuExpanded ? "Open Menu" : "Close Menu"
+          isOpen ? "Close Menu" : "Open Menu"
         );
-        menuItems?.classList.toggle("display-none");
+        items.classList.toggle("display-none", !isOpen);
+
+        // lock scroll on small screens only
+        if (window.matchMedia("(max-width: 639px)").matches) {
+          document.body.style.overflow = isOpen ? "hidden" : "";
+        }
+      }
+
+      function toggle() {
+        const expanded = button.getAttribute("aria-expanded") === "true";
+        setOpen(!expanded);
+      }
+
+      button.addEventListener("click", toggle);
+
+      // Close after navigation
+      items.addEventListener("click", event => {
+        const target = event.target;
+        if (target instanceof Element && target.closest("a")) setOpen(false);
+      });
+
+      // Close on escape
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape") setOpen(false);
       });
     }
 
-    toggleNav();
+    setupNav();
 
     // Runs on view transitions navigation
-    document.addEventListener("astro:after-swap", toggleNav);
+    document.addEventListener("astro:after-swap", setupNav);
   </script>
 </header>
