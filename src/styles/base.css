@@ -87,12 +87,7 @@
     @apply inline-block h-6 w-6 fill-none stroke-current stroke-2 transition-colors;
   }
 
-  .prose {
-    @apply prose-zinc dark:prose-invert max-w-none;
-    @apply prose-headings:font-display prose-headings:tracking-tight;
-    @apply prose-a:font-medium prose-a:no-underline prose-a:border-b prose-a:border-skin-accent/30 hover:prose-a:border-skin-accent;
-    @apply prose-code:rounded-md prose-code:bg-skin-card-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-code:font-mono prose-code:text-sm;
-  }
+
 
   /* ===== scrollbar ===== */
   html {
@@ -141,6 +136,14 @@
 }
 
 @layer components {
+  .prose {
+    @apply prose-zinc dark:prose-invert max-w-none;
+    @apply text-skin-base prose-headings:text-skin-base prose-p:text-skin-base prose-strong:text-skin-base prose-ul:text-skin-base prose-ol:text-skin-base;
+    @apply prose-headings:font-display prose-headings:tracking-tight;
+    @apply prose-a:font-medium prose-a:no-underline prose-a:border-b prose-a:border-skin-accent/30 hover:prose-a:border-skin-accent hover:prose-a:text-skin-accent;
+    @apply prose-code:text-skin-base prose-code:rounded-md prose-code:bg-skin-card-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-code:font-mono prose-code:text-sm;
+  }
+
   .site-container {
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
   }
