@@ -261,7 +261,6 @@ const nextNote =
 
   /** Attaches copy buttons and UI controls to code blocks. */
   function attachCodeBlockEnhancements() {
-    const copyButtonLabel = "Copy";
     const codeBlocks = Array.from(document.querySelectorAll("pre"));
 
     for (const codeBlock of codeBlocks) {
@@ -314,8 +313,7 @@ const nextNote =
       copyButton.className =
         "copy-code flex items-center gap-1 rounded-md px-1.5 py-1 text-[11px] font-medium text-skin-base/60 hover:text-skin-accent hover:bg-skin-accent/5 transition-all duration-200 outline-none focus-visible:ring-1 focus-visible:ring-skin-accent/30";
       copyButton.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-        <span>${copyButtonLabel}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
       `;
 
       info.appendChild(copyButton);
@@ -351,7 +349,6 @@ const nextNote =
       button.classList.add("text-skin-accent");
 
       setTimeout(() => {
-        if (span) span.innerText = copyButtonLabel;
         if (svg)
           svg.innerHTML = `<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>`;
         button.classList.remove("text-skin-accent");
