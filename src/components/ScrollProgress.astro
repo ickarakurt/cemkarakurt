@@ -1,0 +1,26 @@
+---
+---
+<div id="scroll-progress-container" class="fixed top-0 left-0 w-full h-[3px] z-[100] pointer-events-none select-none">
+  <div 
+    id="scroll-progress-bar" 
+    class="h-full bg-gradient-to-r from-skin-accent/40 via-skin-accent to-skin-accent w-0 transition-[width] duration-150 ease-out"
+  ></div>
+</div>
+
+<script is:inline>
+  function setupScrollProgress() {
+    const progressBar = document.getElementById("scroll-progress-bar");
+    if (!progressBar) return;
+
+    window.addEventListener("scroll", () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      progressBar.style.width = scrolled + "%";
+    });
+  }
+
+  // Run on load and after swap
+  setupScrollProgress();
+  document.addEventListener("astro:after-swap", setupScrollProgress);
+</script>

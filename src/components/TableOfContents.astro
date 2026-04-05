@@ -1,0 +1,78 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+
+// Filter out h1 (standard title) and limit depth if needed
+const filteredHeadings = headings.filter(h => h.depth > 1 && h.depth < 4);
+---
+
+{filteredHeadings.length > 0 && (
+  <nav class="toc-container hidden lg:block sticky top-28 z-20 h-fit max-h-[calc(100vh-10rem)] w-64 overflow-y-auto px-4 py-1 select-none">
+    <div class="flex items-center gap-2 mb-6 text-skin-base/30 uppercase tracking-[0.2em] font-bold text-[10px]">
+      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="8" y1="6" x2="21" y2="6"></line>
+        <line x1="8" y1="12" x2="21" y2="12"></line>
+        <line x1="8" y1="18" x2="21" y2="18"></line>
+        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+      </svg>
+      Table of Contents
+    </div>
+    
+    <ul class="space-y-4 border-l border-skin-border/20">
+      {filteredHeadings.map(heading => (
+        <li class={`heading-link-item ${heading.depth === 3 ? "pl-4" : "pl-0"}`}>
+          <a
+            href={`#${heading.slug}`}
+            class={`block text-sm transition-all duration-300 border-l-2 -ml-[1px] pl-4 py-0.5 hover:text-skin-accent
+              ${heading.depth === 2 ? "font-semibold text-skin-base/60" : "text-xs text-skin-base/40"}
+              border-transparent toc-link`}
+            data-slug={heading.slug}
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  .toc-link.active {
+    @apply border-skin-accent text-skin-accent bg-skin-accent/[0.03];
+  }
+</style>
+
+<script is:inline>
+  function setupTOC() {
+    const observerOptions = {
+      rootMargin: "-100px 0% -80%",
+      threshold: 1.0,
+    };
+
+    const links = document.querySelectorAll(".toc-link");
+    const headings = Array.from(links).map(link => 
+      document.getElementById(link.getAttribute("data-slug"))
+    ).filter(Boolean);
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(link => {
+            link.classList.toggle("active", link.getAttribute("data-slug") === entry.target.id);
+          });
+        }
+      });
+    }, observerOptions);
+
+    headings.forEach(heading => observer.observe(heading));
+  }
+
+  // Run on load and after swap
+  setupTOC();
+  document.addEventListener("astro:after-swap", setupTOC);
+</script>
