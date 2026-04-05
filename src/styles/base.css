@@ -80,14 +80,12 @@
   }
 
   a {
-    @apply transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-skin-accent/40 rounded;
+    @apply rounded outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-skin-accent/40;
   }
 
   svg {
     @apply inline-block h-6 w-6 fill-none stroke-current stroke-2 transition-colors;
   }
-
-
 
   /* ===== scrollbar ===== */
   html {
@@ -104,28 +102,92 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-skin-accent/30 rounded-full hover:bg-skin-accent/50 transition-colors;
+    @apply rounded-full bg-skin-accent/30 transition-colors hover:bg-skin-accent/50;
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
+  .code-block-wrapper {
+    @apply relative my-8 overflow-hidden rounded-xl border border-skin-border/50 shadow-sm transition-all duration-300;
+    background-color: oklch(0.98 0.01 248) !important;
+  }
+
+  html[data-theme="dark"] .code-block-wrapper {
+    background-color: #0d1117 !important; /* Authentic GitHub Dark background */
+    @apply border-skin-border/40 shadow-2xl shadow-black/40;
+  }
+
+  /* Ensure internal elements don't add extra backgrounds */
+  pre,
+  pre > code,
   pre:has(code) {
-    @apply rounded-lg border border-skin-border bg-skin-card-muted overflow-hidden;
+    background-color: transparent !important;
+    margin: 0 !important;
+    border: none !important;
+  }
+
+  pre > code {
+    @apply block overflow-x-auto p-5 font-mono text-[13.5px] leading-[1.6] antialiased;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--color-accent), 0.2) transparent;
+  }
+
+  /* ===== Syntax Highlighting Variables (GitHub Inspired) ===== */
+  :root {
+    --astro-code-color-text: #24292e;
+    --astro-code-token-constant: #005cc5;
+    --astro-code-token-string: #032f62;
+    --astro-code-token-comment: #6a737d;
+    --astro-code-token-keyword: #d73a49;
+    --astro-code-token-parameter: #e36209;
+    --astro-code-token-function: #6f42c1;
+    --astro-code-token-string-expression: #22863a;
+    --astro-code-token-punctuation: #24292e;
+    --astro-code-token-link: #032f62;
+  }
+
+  html[data-theme="dark"] {
+    --astro-code-color-text: #c9d1d9;
+    --astro-code-token-constant: #79c0ff;
+    --astro-code-token-string: #a5d6ff;
+    --astro-code-token-comment: #8b949e;
+    --astro-code-token-keyword: #ff7b72;
+    --astro-code-token-parameter: #ffa657;
+    --astro-code-token-function: #d2a8ff;
+    --astro-code-token-string-expression: #7ee787;
+    --astro-code-token-punctuation: #c9d1d9;
+    --astro-code-token-link: #a5d6ff;
+  }
+
+  /* Force these variables onto Shiki tokens */
+  .astro-code,
+  .astro-code span {
+    color: var(--astro-code-color-text) !important;
+    background-color: transparent !important;
+    font-style: inherit !important;
+  }
+
+  .astro-code .ct-keyword, .astro-code span[style*="color: #d73a49"], .astro-code span[style*="color: #ff7b72"] { color: var(--astro-code-token-keyword) !important; }
+  .astro-code .ct-string, .astro-code span[style*="color: #032f62"], .astro-code span[style*="color: #a5d6ff"] { color: var(--astro-code-token-string) !important; }
+  .astro-code .ct-function, .astro-code span[style*="color: #6f42c1"], .astro-code span[style*="color: #d2a8ff"] { color: var(--astro-code-token-function) !important; }
+  .astro-code .ct-comment, .astro-code span[style*="color: #6a737d"], .astro-code span[style*="color: #8b949e"] { color: var(--astro-code-token-comment) !important; }
+  .astro-code .ct-constant, .astro-code span[style*="color: #005cc5"], .astro-code span[style*="color: #79c0ff"] { color: var(--astro-code-token-constant) !important; }
+
+  /* Code Block Scrollbar Styling */
+  pre > code::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  pre > code::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  pre > code::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-skin-accent/20 transition-colors hover:bg-skin-accent/40;
   }
 
   code,
   blockquote {
     word-wrap: break-word;
-  }
-
-  pre > code {
-    white-space: pre;
-    @apply block p-5 text-sm leading-relaxed font-mono;
-  }
-
-  html[data-theme="dark"] pre:has(code),
-  html[data-theme="dark"] pre:has(code) span {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
   }
 
   /* ===== Selection Styling ===== */
@@ -137,11 +199,11 @@
 
 @layer components {
   .prose {
-    @apply prose-zinc dark:prose-invert max-w-none;
-    @apply text-skin-base prose-headings:text-skin-base prose-p:text-skin-base prose-strong:text-skin-base prose-ul:text-skin-base prose-ol:text-skin-base;
+    @apply prose-zinc max-w-none dark:prose-invert;
+    @apply text-skin-base prose-headings:text-skin-base prose-p:text-skin-base prose-strong:text-skin-base prose-ol:text-skin-base prose-ul:text-skin-base;
     @apply prose-headings:font-display prose-headings:tracking-tight;
-    @apply prose-a:font-medium prose-a:no-underline prose-a:border-b prose-a:border-skin-accent/30 hover:prose-a:border-skin-accent hover:prose-a:text-skin-accent;
-    @apply prose-code:text-skin-base prose-code:rounded-md prose-code:bg-skin-card-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none prose-code:font-mono prose-code:text-sm;
+    @apply prose-a:border-b prose-a:border-skin-accent/30 prose-a:font-medium prose-a:no-underline hover:prose-a:border-skin-accent hover:prose-a:text-skin-accent;
+    @apply prose-code:rounded-md prose-code:bg-skin-card-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:text-skin-base prose-code:before:content-none prose-code:after:content-none;
   }
 
   .site-container {
@@ -193,7 +255,7 @@
 
   /* Data attribute badge */
   .data-badge {
-    @apply font-mono text-[10px] px-2 py-0.5 rounded bg-skin-card-muted text-skin-base/50 border border-skin-border/50;
+    @apply rounded border border-skin-border/50 bg-skin-card-muted px-2 py-0.5 font-mono text-[10px] text-skin-base/50;
   }
 
   /* Technical line decoration */

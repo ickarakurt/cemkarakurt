@@ -27,8 +27,7 @@ export default defineConfig({
       ],
     ],
     shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
-      themes: { light: "slack-ochin", dark: "slack-dark" },
+      theme: "css-variables",
       wrap: true,
     },
   },

@@ -270,26 +270,73 @@ const nextNote =
   }
   addHeadingLinks();
 
-  /** Attaches copy buttons to code blocks in the document,
-   * allowing users to copy code easily. */
-  function attachCopyButtons() {
+  /** Attaches copy buttons and UI controls to code blocks. */
+  function attachCodeBlockEnhancements() {
     const copyButtonLabel = "Copy";
     const codeBlocks = Array.from(document.querySelectorAll("pre"));
 
     for (const codeBlock of codeBlocks) {
+      if (codeBlock.closest(".code-block-wrapper")) continue;
+
+      // Extract language if available
+      const codeElement = codeBlock.querySelector("code");
+      let language = "";
+      if (codeElement) {
+        const langClass = Array.from(codeElement.classList).find(c => c.startsWith("language-"));
+        if (langClass) {
+          language = langClass.replace("language-", "").toLowerCase();
+        }
+      }
+
+      // Create main wrapper
       const wrapper = document.createElement("div");
-      wrapper.style.position = "relative";
+      wrapper.className = "code-block-wrapper relative my-8 overflow-hidden rounded-xl border border-skin-border/50 bg-skin-card shadow-sm transition-all duration-300 hover:shadow-md dark:shadow-2xl dark:shadow-black/20";
+
+      // Create header
+      const header = document.createElement("div");
+      header.className = "flex items-center justify-between px-4 py-2 bg-skin-card-muted/30 border-b border-skin-border/40 select-none backdrop-blur-sm";
+
+      // Mac buttons
+      const buttons = document.createElement("div");
+      buttons.className = "flex gap-1.5";
+      ["bg-[#ff5f57]", "bg-[#febc2e]", "bg-[#28c840]"].forEach(colorClass => {
+        const dot = document.createElement("div");
+        dot.className = `w-2.5 h-2.5 rounded-full ${colorClass} opacity-80`;
+        buttons.appendChild(dot);
+      });
+
+      // Info section (Language)
+      const info = document.createElement("div");
+      info.className = "flex items-center gap-3";
+
+      if (language) {
+        const langLabel = document.createElement("span");
+        langLabel.className = "text-[10px] font-mono uppercase tracking-widest text-skin-base/40 font-bold";
+        langLabel.innerText = language;
+        info.appendChild(langLabel);
+      }
 
       const copyButton = document.createElement("button");
-      copyButton.className =
-        "copy-code absolute right-3 -top-3 rounded bg-skin-card px-2 py-1 text-xs leading-4 text-skin-base font-medium";
-      copyButton.innerHTML = copyButtonLabel;
-      codeBlock.setAttribute("tabindex", "0");
-      codeBlock.appendChild(copyButton);
+      copyButton.className = "copy-code flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] font-medium text-skin-base/60 hover:text-skin-accent hover:bg-skin-accent/5 transition-all duration-200 outline-none focus-visible:ring-1 focus-visible:ring-skin-accent/30";
+      copyButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        <span>${copyButtonLabel}</span>
+      `;
 
-      // wrap codebock with relative parent element
-      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      info.appendChild(copyButton);
+      header.appendChild(buttons);
+      header.appendChild(info);
+
+      // Move code block into wrapper
+      codeBlock.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(header);
       wrapper.appendChild(codeBlock);
+
+      // Reset pre styles that are now handled by wrapper
+      codeBlock.style.margin = "0";
+      codeBlock.style.borderRadius = "0";
+      codeBlock.style.border = "none";
+      codeBlock.style.boxShadow = "none";
 
       copyButton.addEventListener("click", async () => {
         await copyCode(codeBlock, copyButton);
@@ -299,18 +346,26 @@ const nextNote =
     async function copyCode(block, button) {
       const code = block.querySelector("code");
       const text = code?.innerText;
+      const span = button.querySelector("span");
+      const svg = button.querySelector("svg");
 
       await navigator.clipboard.writeText(text ?? "");
 
-      // visual feedback that task is completed
-      button.innerText = "Copied";
+      if (span) span.innerText = "Copied";
+      if (svg) svg.innerHTML = `<polyline points="20 6 9 17 4 12"></polyline>`;
+      button.classList.add("text-skin-accent");
 
       setTimeout(() => {
-        button.innerText = copyButtonLabel;
-      }, 700);
+        if (span) span.innerText = copyButtonLabel;
+        if (svg) svg.innerHTML = `<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>`;
+        button.classList.remove("text-skin-accent");
+      }, 1500);
     }
   }
-  attachCopyButtons();
+  attachCodeBlockEnhancements();
+
+  // Re-run on view transitions
+  document.addEventListener("astro:after-swap", attachCodeBlockEnhancements);
 
   /** Scrolls the document to the top when
    * the "Back to Top" button is clicked. */
