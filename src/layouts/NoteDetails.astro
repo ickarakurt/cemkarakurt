@@ -431,6 +431,18 @@ const nextNote =
       link.addEventListener("mouseleave", hideTooltip);
     });
 
+    // --- Safety & Cleanup Listeners ---
+    // Hide on any scroll (fixes the "sticky" bug)
+    window.addEventListener("scroll", hideTooltip, { passive: true });
+
+    // Hide on Escape key
+    window.addEventListener("keydown", e => {
+      if (e.key === "Escape") hideTooltip();
+    });
+
+    // Safety: Hide if mouse leaves the main document area
+    document.addEventListener("mouseleave", hideTooltip);
+
     function showTooltip(e, html, type) {
       if (!tooltip) return;
       tooltip.innerHTML = html;
