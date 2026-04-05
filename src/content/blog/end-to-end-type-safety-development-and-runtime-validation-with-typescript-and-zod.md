@@ -16,7 +16,7 @@ description:
   with runtime validation using Zod.
 ---
 
-[**Typescript**](https://cemkarakurt.com/tags/typescript/ "Typescript") has revolutionized **type validation** in development, functioning primarily as a sophisticated linter to ensure type safety during this phase. However, TypeScript's capabilities don't extend to runtime. To bridge this gap, runtime validators like **yup**, **io-ts**, and **zod** come into play. This guide delves into leveraging these tools for a comprehensive validation strategy.
+[**Typescript**](https://cemkarakurt.com/tags/typescript/ "Typescript") has revolutionized **type validation** in development, functioning primarily as a sophisticated linter to ensure type safety during this phase. [^1] However, TypeScript's capabilities don't extend to runtime. To bridge this gap, runtime validators like **yup**, **io-ts**, and **zod** come into play. This guide delves into leveraging these tools for a comprehensive validation strategy.
 
 ### Advanced Type Definition for a Todo Item
 
@@ -123,4 +123,6 @@ const validateResponse = TodoItemGetByIdResponseValidator.safeParse(response);
 
 ### In-Depth Conclusion
 
-We began with the creation of a comprehensive entity validator, a critical step in our type safety journey. Building upon this, we specified request and response validators, each with their distinct types derived from Zod schemas. This approach not only guarantees consistency between TypeScript's compile-time checks and Zod's runtime validation but also ensures a robust, error-resistant application. By meticulously implementing these strategies, developers can achieve unparalleled levels of type safety and data integrity in both [**frontend**](https://cemkarakurt.com/tags/frontend/ "frontend") and [**backend**](https://cemkarakurt.com/tags/backend/ "backend") environments.
+We began with the creation of a comprehensive entity validator, a critical step in our type safety journey. Building upon this, we specified request and response validators, each with their distinct types derived from Zod schemas. This approach not only guarantees consistency between TypeScript's compile-time checks and Zod's runtime validation but also ensures a robust, error-resistant application. By meticulously implementing these strategies, developers can achieve unparalleled levels of type safety and data integrity in both [**frontend**](https://cemkarakurt.com/tags/frontend/ "frontend") and [**backend**](https://cemkarakurt.com/tags/backend/ "backend") environments. For a related deep dive into other types of development complexity, check out our piece on [**Date-Time Complexities**](/blog/date-time-software-development-complexities-concerns/).
+
+[^1]: Zod is specifically designed to be as developer-friendly as possible, with a focus on type inference and elimination of redundant type definitions.

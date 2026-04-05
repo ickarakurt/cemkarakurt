@@ -1,0 +1,215 @@
+---
+
+---
+
+<div
+  id="command-palette"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="palette-input"
+>
+  <div class="palette-container">
+    <div class="palette-search-wrapper">
+      <svg
+        class="w-5 h-5 mr-4 text-skin-base/30"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        id="palette-input"
+        class="palette-input"
+        placeholder="Type to search posts, notes, or tags..."
+        autocomplete="off"
+      />
+      <div class="flex items-center gap-1 ml-4">
+        <kbd class="palette-kbd">ESC</kbd>
+      </div>
+    </div>
+
+    <div id="palette-results" class="palette-results">
+      <div class="px-4 py-8 text-center text-skin-base/30 text-sm">
+        Start typing to search...
+      </div>
+    </div>
+
+    <div class="palette-footer">
+      <div class="flex items-center gap-4">
+        <span><kbd class="palette-kbd">↑↓</kbd> Navigate</span>
+        <span><kbd class="palette-kbd">ENTER</kbd> Select</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-1 h-1 rounded-full bg-skin-accent"></span>
+        <span>${Astro.url.hostname}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let isOpen = false;
+  let items = [];
+  let filteredItems = [];
+  let selectedIndex = 0;
+
+  const palette = document.getElementById("command-palette");
+  const input = document.getElementById("palette-input") as HTMLInputElement;
+  const resultsContainer = document.getElementById("palette-results");
+
+  function openPalette() {
+    isOpen = true;
+    palette?.classList.add("visible");
+    input?.focus();
+    if (items.length === 0) fetchItems();
+  }
+
+  function closePalette() {
+    isOpen = false;
+    palette?.classList.remove("visible");
+    if (input) input.value = "";
+    filteredItems = [];
+    renderResults();
+  }
+
+  async function fetchItems() {
+    try {
+      const res = await fetch("/content-index.json");
+      items = await res.json();
+    } catch (e) {
+      console.error("Failed to fetch search index", e);
+    }
+  }
+
+  function renderResults() {
+    if (!resultsContainer) return;
+
+    if (input.value.length === 0) {
+      resultsContainer.innerHTML = `<div class="px-4 py-8 text-center text-skin-base/30 text-sm">Start typing to search...</div>`;
+      return;
+    }
+
+    if (filteredItems.length === 0) {
+      resultsContainer.innerHTML = `<div class="px-4 py-8 text-center text-skin-base/30 text-sm">No results found for "${input.value}"</div>`;
+      return;
+    }
+
+    resultsContainer.innerHTML = filteredItems
+      .map(
+        (item, index) => `
+      <div class="palette-item ${index === selectedIndex ? "active" : ""}" data-index="${index}">
+        <div class="palette-item-content">
+          <div class="palette-item-icon">
+            ${
+              item.collection === "blog"
+                ? `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>`
+                : `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15.5 2H8.6c-.4 0-.8.2-1.1.5-.3.3-.5.7-.5 1.1v12.8c0 .4.2.8.5 1.1.3.3.7.5 1.1.5h8.8c.4 0 .8-.2 1.1-.5.3-.3.5-.7.5-1.1V4.6c0-.4-.2-.8-.5-1.1-.3-.3-.7-.5-1.1-.5z"></path><path d="M8 10h10"></path><path d="M8 14h10"></path><path d="M8 18h10"></path></svg>`
+            }
+          </div>
+          <div class="palette-item-info">
+            <span class="palette-item-title">${item.title}</span>
+            <span class="palette-item-meta">${item.collection} • ${item.readingTime}</span>
+          </div>
+        </div>
+        <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </div>
+    `
+      )
+      .join("");
+
+    // Add click listeners to items
+    const renderedItems = resultsContainer.querySelectorAll(".palette-item");
+    renderedItems.forEach(el => {
+      el.addEventListener("click", () => {
+        const idx = parseInt(el.getAttribute("data-index") || "0");
+        navigate(filteredItems[idx]);
+      });
+    });
+  }
+
+  function navigate(item) {
+    if (!item) return;
+    const url = `/${item.collection === "blog" ? "blog" : "notes"}/${item.id || item.slug}/`;
+    window.location.href = url;
+    closePalette();
+  }
+
+  // Global Event Listener for Header/Buttons
+  window.addEventListener("toggle-palette", () => {
+    isOpen ? closePalette() : openPalette();
+  });
+
+  // Keyboard Shortcuts
+  window.addEventListener("keydown", e => {
+    // Toggle
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      isOpen ? closePalette() : openPalette();
+    }
+
+    // Close on ESC
+    if (e.key === "Escape" && isOpen) {
+      closePalette();
+    }
+
+    if (!isOpen) return;
+
+    // Navigation
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      selectedIndex = (selectedIndex + 1) % filteredItems.length;
+      renderResults();
+    }
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      selectedIndex =
+        (selectedIndex - 1 + filteredItems.length) % filteredItems.length;
+      renderResults();
+    }
+    if (e.key === "Enter") {
+      e.preventDefault();
+      navigate(filteredItems[selectedIndex]);
+    }
+  });
+
+  // Search Logic
+  input?.addEventListener("input", e => {
+    const query = (e.target as HTMLInputElement).value.toLowerCase();
+    if (query.length < 2) {
+      filteredItems = [];
+      selectedIndex = 0;
+      renderResults();
+      return;
+    }
+
+    filteredItems = items
+      .filter(
+        item =>
+          item.title.toLowerCase().includes(query) ||
+          item.description.toLowerCase().includes(query) ||
+          (item.tags &&
+            item.tags.some(tag => tag.toLowerCase().includes(query)))
+      )
+      .slice(0, 8);
+
+    selectedIndex = 0;
+    renderResults();
+  });
+
+  // Click outside to close
+  palette?.addEventListener("click", e => {
+    if (e.target === palette) closePalette();
+  });
+
+  // Handle Astro View Transitions
+  document.addEventListener("astro:after-swap", () => {
+    // Close on page change
+    closePalette();
+  });
+</script>

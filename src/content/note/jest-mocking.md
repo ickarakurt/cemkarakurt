@@ -112,7 +112,7 @@ description: A cheat sheet for different ways to mock with Jest.
    spy.mockRestore(); // Restore original method
    ```
 
-**Important:** Always call `mockRestore` after tests to ensure you restore the original implementation.
+**Important:** Always call `mockRestore` after tests to ensure you restore the original implementation. [^1]
 
 2. **Spying on a module's method:**
 
@@ -222,6 +222,10 @@ description: A cheat sheet for different ways to mock with Jest.
 - **mockClear()**: Clear mock function calls.
 - **mockReset()**: Reset the mock function implementation.
 - **mockRestore()**: Restore the original function implementation.
+
+For a deeper look at how to ensure your mocked data structures match your runtime expectations, see our guide on [**End-to-End Type Safety with Zod**](/blog/end-to-end-type-safety-development-and-runtime-validation-with-typescript-and-zod/).
+
+[^1]: `mockRestore` only works with mocks created via `jest.spyOn`. If you manually replace a function with `jest.fn()`, you must restore it manually.
 
 ## References
 

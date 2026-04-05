@@ -169,11 +169,31 @@
     font-style: inherit !important;
   }
 
-  .astro-code .ct-keyword, .astro-code span[style*="color: #d73a49"], .astro-code span[style*="color: #ff7b72"] { color: var(--astro-code-token-keyword) !important; }
-  .astro-code .ct-string, .astro-code span[style*="color: #032f62"], .astro-code span[style*="color: #a5d6ff"] { color: var(--astro-code-token-string) !important; }
-  .astro-code .ct-function, .astro-code span[style*="color: #6f42c1"], .astro-code span[style*="color: #d2a8ff"] { color: var(--astro-code-token-function) !important; }
-  .astro-code .ct-comment, .astro-code span[style*="color: #6a737d"], .astro-code span[style*="color: #8b949e"] { color: var(--astro-code-token-comment) !important; }
-  .astro-code .ct-constant, .astro-code span[style*="color: #005cc5"], .astro-code span[style*="color: #79c0ff"] { color: var(--astro-code-token-constant) !important; }
+  .astro-code .ct-keyword,
+  .astro-code span[style*="color: #d73a49"],
+  .astro-code span[style*="color: #ff7b72"] {
+    color: var(--astro-code-token-keyword) !important;
+  }
+  .astro-code .ct-string,
+  .astro-code span[style*="color: #032f62"],
+  .astro-code span[style*="color: #a5d6ff"] {
+    color: var(--astro-code-token-string) !important;
+  }
+  .astro-code .ct-function,
+  .astro-code span[style*="color: #6f42c1"],
+  .astro-code span[style*="color: #d2a8ff"] {
+    color: var(--astro-code-token-function) !important;
+  }
+  .astro-code .ct-comment,
+  .astro-code span[style*="color: #6a737d"],
+  .astro-code span[style*="color: #8b949e"] {
+    color: var(--astro-code-token-comment) !important;
+  }
+  .astro-code .ct-constant,
+  .astro-code span[style*="color: #005cc5"],
+  .astro-code span[style*="color: #79c0ff"] {
+    color: var(--astro-code-token-constant) !important;
+  }
 
   /* Code Block Scrollbar Styling */
   pre > code::-webkit-scrollbar {
@@ -292,17 +312,26 @@ article blockquote p {
 }
 
 /* Note Callout (Green) */
-article blockquote:has(strong:first-child:is(:contains("Note"), :contains("NOTE"))) {
+article
+  blockquote:has(strong:first-child:is(:contains("Note"), :contains("NOTE"))) {
   @apply border-emerald-500/60 bg-emerald-500/[0.03] dark:bg-emerald-500/[0.05];
 }
 
 /* Warning Callout (Amber) */
-article blockquote:has(strong:first-child:is(:contains("Warning"), :contains("WARNING"), :contains("Important"))) {
+article
+  blockquote:has(
+    strong:first-child:is(
+        :contains("Warning"),
+        :contains("WARNING"),
+        :contains("Important")
+      )
+  ) {
   @apply border-amber-500/60 bg-amber-500/[0.03] dark:bg-amber-500/[0.05];
 }
 
 /* Tip Callout (Indigo) */
-article blockquote:has(strong:first-child:is(:contains("Tip"), :contains("TIP"))) {
+article
+  blockquote:has(strong:first-child:is(:contains("Tip"), :contains("TIP"))) {
   @apply border-indigo-500/60 bg-indigo-500/[0.03] dark:bg-indigo-500/[0.05];
 }
 
@@ -322,4 +351,142 @@ article blockquote strong:first-child {
 
 .prose :is(h2, h3):hover::before {
   @apply opacity-40 translate-x-0;
+}
+
+/* Footnotes Section styling */
+.prose section[data-footnotes] {
+  @apply mt-20 border-t border-skin-border/40 pt-8 opacity-60 transition-opacity hover:opacity-100;
+}
+
+.prose section[data-footnotes] h2 {
+  @apply text-xs uppercase tracking-widest text-skin-base/40 mb-6;
+}
+
+/* Mobile/General Footnotes */
+.prose section[data-footnotes] ol {
+  @apply space-y-3 text-sm;
+}
+
+.prose section[data-footnotes] li {
+  @apply border-l border-skin-border/20 pl-4 py-1 hover:border-skin-accent/40 transition-colors;
+}
+
+/* Link Previews Prep */
+.prose a[href^="/blog/"],
+.prose a[href^="/notes/"] {
+  @apply border-b border-skin-accent/20 transition-all hover:border-skin-accent hover:bg-skin-accent/5;
+}
+
+/* Tooltip/Popover styles for footnotes and previews */
+.reading-tooltip {
+  @apply absolute z-[70] p-4 rounded-xl bg-skin-card border border-skin-border/60 shadow-2xl backdrop-blur-md max-w-xs pointer-events-none opacity-0 select-none transition-opacity duration-300;
+}
+
+.reading-tooltip.visible {
+  @apply opacity-100 pointer-events-auto;
+  animation: tooltip-in 0.3s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+}
+
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== Command Palette (Cmd+K) ===== */
+#command-palette {
+  @apply fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4 opacity-0 pointer-events-none transition-all duration-300;
+  backdrop-filter: blur(8px);
+  background-color: rgba(var(--color-fill), 0.7);
+}
+
+#command-palette.visible {
+  @apply opacity-100 pointer-events-auto;
+}
+
+.palette-container {
+  @apply w-full max-w-2xl overflow-hidden rounded-2xl border border-skin-border/60 bg-skin-card shadow-2xl transition-all duration-300 transform scale-95 opacity-0;
+  box-shadow:
+    0 0 0 1px rgba(var(--color-border), 0.5),
+    0 20px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+#command-palette.visible .palette-container {
+  @apply scale-100 opacity-100;
+}
+
+.palette-search-wrapper {
+  @apply relative flex items-center border-b border-skin-border/40 px-6 py-4;
+}
+
+.palette-input {
+  @apply w-full bg-transparent text-lg font-medium text-skin-base outline-none placeholder:text-skin-base/30;
+}
+
+.palette-results {
+  @apply max-h-[50vh] overflow-y-auto px-2 py-2;
+  scrollbar-width: thin;
+}
+
+.palette-item {
+  @apply flex cursor-pointer items-center justify-between rounded-xl px-4 py-3 text-sm transition-all duration-200;
+}
+
+.palette-item.active {
+  @apply bg-skin-accent/10 text-skin-accent ring-1 ring-skin-accent/20;
+}
+
+.palette-item-content {
+  @apply flex items-center gap-3;
+}
+
+.palette-item-icon {
+  @apply flex h-8 w-8 items-center justify-center rounded-lg bg-skin-card-muted/50 text-skin-base/60 transition-colors;
+}
+
+.palette-item.active .palette-item-icon {
+  @apply bg-skin-accent/20 text-skin-accent;
+}
+
+.palette-item-info {
+  @apply flex flex-col;
+}
+
+.palette-item-title {
+  @apply font-semibold;
+}
+
+.palette-item-meta {
+  @apply text-[10px] uppercase tracking-wider text-skin-base/40 font-mono;
+}
+
+.palette-footer {
+  @apply flex items-center justify-between border-t border-skin-border/40 bg-skin-card-muted/30 px-6 py-3 text-[10px] font-mono text-skin-base/40;
+}
+
+.palette-kbd {
+  @apply inline-flex h-5 items-center justify-center rounded border border-skin-border/60 bg-skin-card px-1.5 font-sans font-bold shadow-sm;
+}
+
+/* --- Footnote Scroll & Jump Fix --- */
+[data-footnote-ref],
+[id^="user-content-fnref-"] {
+  scroll-margin-top: 9rem; /* Accounts for header + breathing room at high-res */
+  transition:
+    background-color 0.4s ease,
+    outline 0.4s ease;
+}
+
+[data-footnote-ref]:target,
+[id^="user-content-fnref-"]:target {
+  background-color: rgb(var(--color-accent) / 0.15);
+  outline: 2px solid rgb(var(--color-accent) / 0.3);
+  outline-offset: 4px;
+  border-radius: 4px;
+  padding: 0 4px;
 }

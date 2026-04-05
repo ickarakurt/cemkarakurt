@@ -71,13 +71,11 @@ const { activeNav } = Astro.props;
           </li>
           <li class="divider"></li>
           <li class="icon-group">
-            <LinkButton
-              href="/search/"
-              className={`focus-outline icon-btn ${
-                activeNav === "search" ? "active" : ""
-              }`}
-              ariaLabel="search"
-              title="Search"
+            <button
+              class={`focus-outline icon-btn`}
+              aria-label="search"
+              title="Search (Cmd+K)"
+              onclick="window.dispatchEvent(new CustomEvent('toggle-palette'))"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +89,7 @@ const { activeNav } = Astro.props;
                 ></path>
               </svg>
               <span class="sr-only">Search</span>
-            </LinkButton>
+            </button>
             <button
               id="theme-btn"
               class="focus-outline icon-btn"
@@ -128,7 +126,7 @@ const { activeNav } = Astro.props;
         </ul>
       </nav>
     </div>
-  <Hr />
+    <Hr />
   </div>
 
   <style>
@@ -209,8 +207,7 @@ const { activeNav } = Astro.props;
       const menuBtn =
         document.querySelector<HTMLButtonElement>(".hamburger-menu");
       const menuIcon = document.querySelector<SVGElement>(".menu-icon");
-      const menuItems =
-        document.querySelector<HTMLUListElement>("#menu-items");
+      const menuItems = document.querySelector<HTMLUListElement>("#menu-items");
 
       if (!menuBtn || !menuItems) return;
       const button = menuBtn;
@@ -222,10 +219,7 @@ const { activeNav } = Astro.props;
       function setOpen(isOpen: boolean) {
         menuIcon?.classList.toggle("is-active", isOpen);
         button.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        button.setAttribute(
-          "aria-label",
-          isOpen ? "Close Menu" : "Open Menu"
-        );
+        button.setAttribute("aria-label", isOpen ? "Close Menu" : "Open Menu");
         items.classList.toggle("display-none", !isOpen);
 
         // lock scroll on small screens only
