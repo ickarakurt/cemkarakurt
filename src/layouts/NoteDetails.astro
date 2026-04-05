@@ -74,7 +74,7 @@ const nextNote =
   <div id="reading-tooltip" class="reading-tooltip"></div>
 
   <main id="main-content" class="pb-12">
-    <div class="site-container-wide">
+    <div class="site-container">
       <div class="pt-8">
         <button
           class="focus-outline inline-flex items-center gap-1 text-skin-base/60 hover:text-skin-accent transition-colors duration-200"
@@ -123,7 +123,7 @@ const nextNote =
 
       {/* Layout Grid - Unified Narrative Column + Sidebar */}
       <div
-        class="relative grid grid-cols-1 lg:grid-cols-[1fr,250px] gap-12 mt-12 items-start"
+        class="relative grid grid-cols-1 lg:grid-cols-[minmax(0,48rem),250px] gap-12 mt-12 items-start lg:justify-center"
       >
         {/* Main Content Column (Article + Pagination + Comments) */}
         <div class="site-prose lg:mx-0">
