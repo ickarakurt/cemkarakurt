@@ -155,19 +155,21 @@ export default function Card({
         </div>
 
         {/* Arrow indicator */}
-        <svg
-          className="w-3.5 h-3.5 text-skin-base/25 group-hover:text-skin-accent transition-colors duration-200 transform group-hover:translate-x-0.5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={1.5}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"
-          />
-        </svg>
+        <a href={href} className="flex items-center">
+          <svg
+            className="w-3.5 h-3.5 text-skin-base/25 group-hover:text-skin-accent transition-colors duration-200 transform group-hover:translate-x-0.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={1.5}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </a>
       </div>
     </article>
   );

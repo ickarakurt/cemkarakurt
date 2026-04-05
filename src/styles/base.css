@@ -7,7 +7,7 @@
   html[data-theme="light"] {
     --color-fill: 250, 250, 249;
     --color-text-base: 10, 10, 10;
-    --color-accent: 245, 158, 11;
+    --color-accent: 6, 95, 70;
     --color-card: 255, 255, 255;
     --color-card-muted: 245, 245, 244;
     --color-border: 230, 230, 230;
@@ -17,7 +17,7 @@
   html[data-theme="dark"] {
     --color-fill: 10, 10, 10;
     --color-text-base: 250, 250, 249;
-    --color-accent: 245, 158, 11;
+    --color-accent: 5, 150, 105;
     --color-card: 20, 20, 20;
     --color-card-muted: 30, 30, 30;
     --color-border: 40, 40, 40;
@@ -303,12 +303,12 @@
 
 /* ===== Callouts / Admonitions ===== */
 article blockquote {
-  @apply my-8 rounded-r-2xl border-l-[6px] bg-skin-card-muted/40 py-5 pl-8 pr-6 transition-all duration-300 italic;
+  @apply my-6 rounded-r-xl border-l-[4px] bg-skin-card-muted/40 py-3 pl-6 pr-5 transition-all duration-300 italic;
   font-style: normal !important; /* Force reset */
 }
 
 article blockquote p {
-  @apply m-0 text-skin-base/90 leading-relaxed;
+  @apply m-0 text-skin-base/90 text-sm leading-relaxed;
 }
 
 /* Note Callout (Green) */
@@ -355,20 +355,20 @@ article blockquote strong:first-child {
 
 /* Footnotes Section styling */
 .prose section[data-footnotes] {
-  @apply mt-20 border-t border-skin-border/40 pt-8 opacity-60 transition-opacity hover:opacity-100;
+  @apply mt-4 border-t border-skin-border/20 pt-4 opacity-60 transition-opacity hover:opacity-100;
 }
 
 .prose section[data-footnotes] h2 {
-  @apply text-xs uppercase tracking-widest text-skin-base/40 mb-6;
+  @apply text-xs uppercase tracking-widest text-skin-base/40 mb-3;
 }
 
 /* Mobile/General Footnotes */
 .prose section[data-footnotes] ol {
-  @apply space-y-3 text-sm;
+  @apply space-y-1.5 text-sm pl-4;
 }
 
 .prose section[data-footnotes] li {
-  @apply border-l border-skin-border/20 pl-4 py-1 hover:border-skin-accent/40 transition-colors;
+  @apply border-l border-skin-border/20 pl-3 py-0.5 hover:border-skin-accent/40 transition-colors prose-p:my-1;
 }
 
 /* Link Previews Prep */

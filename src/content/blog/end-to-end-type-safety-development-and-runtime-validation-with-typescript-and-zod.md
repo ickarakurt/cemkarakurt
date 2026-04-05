@@ -44,7 +44,7 @@ const TodoItemValidator = z.object({
 });
 ```
 
-Here, Zod's schema mirrors the TypeScript type, ensuring congruence between compile-time and runtime validations.
+Here, Zod's schema mirrors the TypeScript type, ensuring congruence between compile-time [^2] and runtime validations.
 
 ### Comprehensive Strategy for Validation
 
@@ -108,7 +108,7 @@ axios
 
 #### 5\. Apply Validators in Form Submissions and Backend API
 
-For [**frontend**](https://cemkarakurt.com/tags/frontend/ "frontend") form submissions and backend API interactions, employ the validators to ensure data integrity.
+For [**frontend**](https://cemkarakurt.com/tags/frontend/ "frontend") form submissions and backend API interactions, employ the validators to ensure data integrity [^3].
 
 ```ts
 // Validate incoming request payload
@@ -126,3 +126,5 @@ const validateResponse = TodoItemGetByIdResponseValidator.safeParse(response);
 We began with the creation of a comprehensive entity validator, a critical step in our type safety journey. Building upon this, we specified request and response validators, each with their distinct types derived from Zod schemas. This approach not only guarantees consistency between TypeScript's compile-time checks and Zod's runtime validation but also ensures a robust, error-resistant application. By meticulously implementing these strategies, developers can achieve unparalleled levels of type safety and data integrity in both [**frontend**](https://cemkarakurt.com/tags/frontend/ "frontend") and [**backend**](https://cemkarakurt.com/tags/backend/ "backend") environments. For a related deep dive into other types of development complexity, check out our piece on [**Date-Time Complexities**](/blog/date-time-software-development-complexities-concerns/).
 
 [^1]: Zod is specifically designed to be as developer-friendly as possible, with a focus on type inference and elimination of redundant type definitions.
+[^2]: Compile-time validation helps catch errors before the code is even run, saving significant debugging time.
+[^3]: Data integrity is the maintenance of, and the assurance of the accuracy and consistency of, data over its entire life-cycle.
