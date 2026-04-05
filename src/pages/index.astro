@@ -9,6 +9,7 @@ import { SITE, SOCIALS } from "@config";
 import Layout from "@layouts/Layout.astro";
 import getSortedContent from "@utils/getSortedContent";
 import getUniqueTags from "@utils/getUniqueTags";
+import getReadingTime from "@utils/getReadingTime";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");
@@ -181,6 +182,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
                       href={`/${post.collection === "blog" ? "blog" : "notes"}/${post.id}/`}
                       frontmatter={post.data}
                       secHeading={false}
+                      readingTime={getReadingTime(post.body || "")}
                     />
                   </li>
                 ))}
@@ -243,12 +245,17 @@ const socialCount = SOCIALS.filter(social => social.active).length;
                                 {data.description}
                               </p>
                             </div>
-                            <span class="text-xs text-skin-base/40 font-mono shrink-0 tabular-nums pt-0.5">
-                              {data.pubDatetime.toLocaleDateString("en-US", {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                              })}
+                            <span class="text-xs text-skin-base/40 font-mono shrink-0 tabular-nums pt-0.5 flex flex-col items-end gap-1">
+                              <span>
+                                {data.pubDatetime.toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                })}
+                              </span>
+                              <span class="opacity-60 text-[10px] uppercase tracking-wider">
+                                {getReadingTime(recentPosts[index].body || "")}
+                              </span>
                             </span>
                           </div>
                         </a>

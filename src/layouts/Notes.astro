@@ -8,6 +8,7 @@ import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
+import getReadingTime from "@utils/getReadingTime";
 
 export interface Props {
   page: Page<CollectionEntry<"note">>;
@@ -24,9 +25,14 @@ const { page } = Astro.props;
   >
     <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {
-        page.data.map(({ data, id }) => (
+        page.data.map((entry) => (
           <li>
-            <Card href={`/notes/${id}/`} frontmatter={data} collection="note" />
+            <Card 
+              href={`/notes/${entry.id}/`} 
+              frontmatter={entry.data} 
+              collection="note" 
+              readingTime={getReadingTime(entry.body || "")}
+            />
           </li>
         ))
       }

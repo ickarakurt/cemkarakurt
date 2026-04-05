@@ -35,7 +35,7 @@
 
   body {
     @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
     position: relative;
   }
 
@@ -107,13 +107,16 @@
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
   .code-block-wrapper {
-    @apply relative my-8 overflow-hidden rounded-xl border border-skin-border/50 shadow-sm transition-all duration-300;
-    background-color: oklch(0.98 0.01 248) !important;
+    @apply relative my-8 overflow-hidden rounded-xl border border-skin-border/60 bg-skin-card shadow-sm transition-all duration-300;
+  }
+
+  /* Light mode subtle refinement */
+  html:not([data-theme="dark"]) .code-block-wrapper {
+    @apply bg-skin-card-muted/10 border-skin-border/20;
   }
 
   html[data-theme="dark"] .code-block-wrapper {
-    background-color: #0d1117 !important; /* Authentic GitHub Dark background */
-    @apply border-skin-border/40 shadow-2xl shadow-black/40;
+    @apply border-skin-border/40 shadow-2xl shadow-black/40 bg-skin-card;
   }
 
   /* Ensure internal elements don't add extra backgrounds */
@@ -276,4 +279,47 @@
       transparent
     );
   }
+}
+
+/* ===== Callouts / Admonitions ===== */
+article blockquote {
+  @apply my-8 rounded-r-2xl border-l-[6px] bg-skin-card-muted/40 py-5 pl-8 pr-6 transition-all duration-300 italic;
+  font-style: normal !important; /* Force reset */
+}
+
+article blockquote p {
+  @apply m-0 text-skin-base/90 leading-relaxed;
+}
+
+/* Note Callout (Green) */
+article blockquote:has(strong:first-child:is(:contains("Note"), :contains("NOTE"))) {
+  @apply border-emerald-500/60 bg-emerald-500/[0.03] dark:bg-emerald-500/[0.05];
+}
+
+/* Warning Callout (Amber) */
+article blockquote:has(strong:first-child:is(:contains("Warning"), :contains("WARNING"), :contains("Important"))) {
+  @apply border-amber-500/60 bg-amber-500/[0.03] dark:bg-amber-500/[0.05];
+}
+
+/* Tip Callout (Indigo) */
+article blockquote:has(strong:first-child:is(:contains("Tip"), :contains("TIP"))) {
+  @apply border-indigo-500/60 bg-indigo-500/[0.03] dark:bg-indigo-500/[0.05];
+}
+
+article blockquote strong:first-child {
+  @apply block mb-1 text-xs uppercase tracking-wider font-bold not-italic font-mono text-skin-base/60;
+}
+
+/* ===== Anchored Headings ===== */
+.prose :is(h2, h3) {
+  @apply relative cursor-pointer;
+}
+
+.prose :is(h2, h3)::before {
+  content: "#";
+  @apply absolute -left-6 top-1 text-skin-accent transition-all duration-300 opacity-0 transform -translate-x-1;
+}
+
+.prose :is(h2, h3):hover::before {
+  @apply opacity-40 translate-x-0;
 }

@@ -7,6 +7,7 @@ export interface Props {
   frontmatter: CollectionEntry<"blog">["data"];
   secHeading?: boolean;
   collection?: string;
+  readingTime?: string;
 }
 
 export default function Card({
@@ -14,6 +15,7 @@ export default function Card({
   frontmatter,
   secHeading = true,
   collection,
+  readingTime,
 }: Props) {
   const { title, pubDatetime, modDatetime, description } = frontmatter;
 
@@ -130,8 +132,25 @@ export default function Card({
             </span>
           )}
 
-          <div className="text-skin-base/40 text-xs font-mono">
+          <div className="flex items-center gap-3 text-skin-base/40 text-xs font-mono">
             <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
+            {readingTime && (
+              <span className="flex items-center gap-1.5 opacity-80 border-l border-skin-border/40 pl-3">
+                <svg
+                  className="w-3 h-3"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                {readingTime}
+              </span>
+            )}
           </div>
         </div>
 

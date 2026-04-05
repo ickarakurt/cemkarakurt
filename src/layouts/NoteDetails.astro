@@ -4,11 +4,14 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
+import getReadingTime from "@utils/getReadingTime";
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.astro";
 import Comments from "@components/Comments";
+import TableOfContents from "@components/TableOfContents.astro";
+import ScrollProgress from "@components/ScrollProgress.astro";
 
 export interface Props {
   note: CollectionEntry<"note">;
@@ -28,7 +31,8 @@ const {
   tags,
 } = note.data;
 
-const { Content } = await render(note);
+const { Content, headings } = await render(note);
+const readingTime = getReadingTime(note.body || "");
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
@@ -66,9 +70,10 @@ const nextNote =
 
 <Layout {...layoutProps}>
   <Header />
+  <ScrollProgress />
 
   <main id="main-content" class="pb-12">
-    <div class="site-prose">
+    <div class="site-container-wide">
       <div class="pt-8">
         <button
           class="focus-outline inline-flex items-center gap-1 text-skin-base/60 hover:text-skin-accent transition-colors duration-200"
@@ -91,46 +96,62 @@ const nextNote =
         >
           {title}
         </h1>
-        <div class="mt-3 text-sm text-skin-base/50">
+        <div class="mt-3 flex items-center gap-4 text-sm text-skin-base/50">
           <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} size="lg" />
+          <span class="flex items-center gap-1.5 text-xs font-mono">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            {readingTime}
+          </span>
         </div>
       </header>
 
-      {/* Article Content */}
-      <article
-        id="article"
-        class="prose prose-headings:scroll-mt-24 prose-headings:font-semibold"
-      >
-        <Content />
-      </article>
-
-      {/* Tags Section */}
-      <div class="mt-12">
-        <ul class="flex flex-wrap gap-2">
-          {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
-        </ul>
-      </div>
-
-      {/* Bottom Navigation */}
-      <div class="mt-12 space-y-8">
-        <div
-          class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
-        >
-          <button
-            id="back-to-top"
-            class="inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium text-skin-base/60 hover:text-skin-accent hover:bg-skin-card-muted/40 transition-colors duration-200"
+      {/* Layout Grid */}
+      <div class="relative grid grid-cols-1 lg:grid-cols-[1fr,250px] gap-12 mt-12 items-start">
+        {/* Article Column */}
+        <div class="site-prose lg:mx-0">
+          <article
+            id="article"
+            class="prose prose-headings:scroll-mt-24 prose-headings:font-semibold"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 rotate-90">
-              <path
-                d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-              ></path>
-            </svg>
-            <span>Back to Top</span>
-          </button>
-          <ShareLinks />
+            <Content />
+          </article>
+
+          {/* Tags Section */}
+          <div class="mt-12">
+            <ul class="flex flex-wrap gap-2">
+              {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
+            </ul>
+          </div>
+
+          {/* Bottom Navigation */}
+          <div class="mt-12 space-y-8">
+            <div
+              class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
+            >
+              <button
+                id="back-to-top"
+                class="inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium text-skin-base/60 hover:text-skin-accent hover:bg-skin-card-muted/40 transition-colors duration-200"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 rotate-90">
+                  <path
+                    d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                  ></path>
+                </svg>
+                <span>Back to Top</span>
+              </button>
+              <ShareLinks />
+            </div>
+
+            <hr class="border-skin-border/60" />
+          </div>
         </div>
 
-        <hr class="border-skin-border/60" />
+        {/* Sidebar TOC Column */}
+        <TableOfContents headings={headings} />
+      </div>
 
         {/* Previous/Next Notes */}
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -209,66 +230,16 @@ const nextNote =
 </Layout>
 
 <script is:inline>
-  /** Create a progress indicator
-   *  at the top */
-  function createProgressBar() {
-    // Create the main container div
-    const progressContainer = document.createElement("div");
-    progressContainer.className =
-      "progress-container fixed top-0 z-[60] h-1 w-full bg-skin-fill";
-
-    // Create the progress bar div
-    const progressBar = document.createElement("div");
-    progressBar.className = "progress-bar h-1 w-0 bg-skin-accent";
-    progressBar.id = "myBar";
-
-    // Append the progress bar to the progress container
-    progressContainer.appendChild(progressBar);
-
-    // Append the progress container to the document body or any other desired parent element
-    document.body.appendChild(progressContainer);
-  }
-  createProgressBar();
-
-  /** Update the progress bar
-   *  when user scrolls */
-  function updateScrollProgress() {
-    const winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop;
-    const height =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    if (document) {
-      const myBar = document.getElementById("myBar");
-      if (myBar) {
-        myBar.style.width = scrolled + "%";
-      }
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function setupBackToTop() {
+    const backToTopBtn = document.querySelector("#back-to-top");
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
     }
   }
-  document.addEventListener("scroll", updateScrollProgress);
-
-  /** Attaches links to headings in the document,
-   *  allowing sharing of sections easily */
-  function addHeadingLinks() {
-    const headings = Array.from(
-      document.querySelectorAll("h2, h3, h4, h5, h6")
-    );
-    for (const heading of headings) {
-      heading.classList.add("group");
-      const link = document.createElement("a");
-      link.className =
-        "heading-link ml-2 opacity-0 group-hover:opacity-100 focus:opacity-100";
-      link.href = "#" + heading.id;
-
-      const span = document.createElement("span");
-      span.ariaHidden = "true";
-      span.innerText = "#";
-      link.appendChild(span);
-      heading.appendChild(link);
-    }
-  }
-  addHeadingLinks();
 
   /** Attaches copy buttons and UI controls to code blocks. */
   function attachCodeBlockEnhancements() {
@@ -290,7 +261,7 @@ const nextNote =
 
       // Create main wrapper
       const wrapper = document.createElement("div");
-      wrapper.className = "code-block-wrapper relative my-8 overflow-hidden rounded-xl border border-skin-border/50 bg-skin-card shadow-sm transition-all duration-300 hover:shadow-md dark:shadow-2xl dark:shadow-black/20";
+      wrapper.className = "code-block-wrapper relative my-8 overflow-hidden rounded-xl border border-skin-border/50 bg-skin-card shadow-sm transition-all duration-300 hover:shadow-md dark:shadow-2xl dark:shadow-black/20 font-mono";
 
       // Create header
       const header = document.createElement("div");
@@ -311,7 +282,7 @@ const nextNote =
 
       if (language) {
         const langLabel = document.createElement("span");
-        langLabel.className = "text-[10px] font-mono uppercase tracking-widest text-skin-base/40 font-bold";
+        langLabel.className = "text-[10px] uppercase tracking-widest text-skin-base/40 font-bold";
         langLabel.innerText = language;
         info.appendChild(langLabel);
       }
@@ -332,7 +303,7 @@ const nextNote =
       wrapper.appendChild(header);
       wrapper.appendChild(codeBlock);
 
-      // Reset pre styles that are now handled by wrapper
+      // Reset pre styles
       codeBlock.style.margin = "0";
       codeBlock.style.borderRadius = "0";
       codeBlock.style.border = "none";
@@ -362,18 +333,31 @@ const nextNote =
       }, 1500);
     }
   }
-  attachCodeBlockEnhancements();
 
-  // Re-run on view transitions
-  document.addEventListener("astro:after-swap", attachCodeBlockEnhancements);
-
-  /** Scrolls the document to the top when
-   * the "Back to Top" button is clicked. */
-  function backToTop() {
-    document.querySelector("#back-to-top")?.addEventListener("click", () => {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  /** Deep link headings */
+  function setupAnchoredHeadings() {
+    const headings = document.querySelectorAll(".prose h2, .prose h3");
+    headings.forEach(heading => {
+      heading.addEventListener("click", () => {
+        const id = heading.id;
+        if (!id) return;
+        const url = new URL(window.location.href);
+        url.hash = id;
+        navigator.clipboard.writeText(url.toString());
+        window.history.pushState({}, "", url);
+      });
     });
   }
-  backToTop();
+
+  // Initial runs
+  setupBackToTop();
+  attachCodeBlockEnhancements();
+  setupAnchoredHeadings();
+
+  // Re-run on view transitions
+  document.addEventListener("astro:after-swap", () => {
+    setupBackToTop();
+    attachCodeBlockEnhancements();
+    setupAnchoredHeadings();
+  });
 </script>
