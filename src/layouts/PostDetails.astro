@@ -394,7 +394,7 @@ const nextPost =
 
     // --- Insight Link Previews ---
     const internalLinks = document.querySelectorAll(
-      '.prose a[href^="/blog/"], .prose a[href^="/notes/"]'
+      '.prose a[href*="/blog/"], .prose a[href*="/notes/"], a[href*="/tags/"]'
     );
 
     internalLinks.forEach(link => {
@@ -439,7 +439,7 @@ const nextPost =
       tooltip.innerHTML = html;
       tooltip.classList.add("visible");
 
-      const rect = e.target.getBoundingClientRect();
+      const rect = e.currentTarget.getBoundingClientRect();
       const x = Math.min(window.innerWidth - 300, Math.max(20, rect.left));
       const y = rect.top + window.scrollY - tooltip.offsetHeight - 15;
 
