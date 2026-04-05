@@ -21,7 +21,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["'Sora'", "system-ui", "sans-serif"],
-        mono: ["'IBM Plex Mono'", "ui-monospace", "monospace"],
+        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
         display: ["'Sora'", "system-ui", "sans-serif"],
       },
       fontSize: {
