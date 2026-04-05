@@ -30,7 +30,7 @@ const filteredHeadings = headings.filter(h => h.depth > 1 && h.depth < 4);
         Table of Contents
       </div>
 
-      <ul class="space-y-4 border-l border-skin-border/20">
+      <ul class="space-y-4 border-l border-skin-border/50">
         {filteredHeadings.map(heading => (
           <li
             class={`heading-link-item ${heading.depth === 3 ? "pl-4" : "pl-0"}`}
@@ -38,7 +38,7 @@ const filteredHeadings = headings.filter(h => h.depth > 1 && h.depth < 4);
             <a
               href={`#${heading.slug}`}
               class={`block text-sm transition-all duration-300 border-l-2 -ml-[1px] pl-4 py-0.5 hover:text-skin-accent
-              ${heading.depth === 2 ? "font-semibold text-skin-base/60" : "text-xs text-skin-base/40"}
+              ${heading.depth === 2 ? "font-semibold text-skin-base/80" : "text-xs text-skin-base/60"}
               border-transparent toc-link`}
               data-slug={heading.slug}
             >

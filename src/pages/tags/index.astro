@@ -16,10 +16,22 @@ const tags = getUniqueTags([...posts, ...notes]);
 
 <Layout title={`Tags | ${SITE.title}`}>
   <Header activeNav="tags" />
-  <Main pageTitle="Tags" pageDesc="All the tags used in posts and notes">
-    <ul>
-      {tags.map(({ tag }) => <Tag {tag} size="lg" />)}
-    </ul>
+  <Main pageTitle="Tags" pageDesc="Quickly browse articles and notes by topic.">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+      {tags.map(({ tag, tagName, count }) => (
+        <a
+          href={`/tags/${tag}/`}
+          class="group flex items-center justify-between p-3 px-4 rounded-xl border border-skin-border/60 bg-skin-card transition-all duration-200 hover:border-skin-accent/40 hover:bg-skin-accent/[0.02]"
+        >
+          <span class="text-sm font-semibold text-skin-base group-hover:text-skin-accent transition-colors truncate pr-2">
+            #{tagName}
+          </span>
+          <span class="text-[10px] font-bold font-mono text-skin-base/30 group-hover:text-skin-accent transition-colors">
+            {count}
+          </span>
+        </a>
+      ))}
+    </div>
   </Main>
   <Footer />
 </Layout>
