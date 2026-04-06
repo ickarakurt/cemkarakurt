@@ -365,9 +365,12 @@ const nextPost =
     });
   }
 
+  if (typeof window.contentIndex === "undefined") {
+    window.contentIndex = null;
+  }
+
   async function setupAdvancedReadingFeatures() {
     const tooltip = document.getElementById("reading-tooltip");
-    let contentIndex = null;
 
     // --- Side-Notes & Footnotes ---
     const footnotes = document.querySelector("section[data-footnotes]");
@@ -399,15 +402,19 @@ const nextPost =
 
     internalLinks.forEach(link => {
       link.addEventListener("mouseenter", async e => {
+        const currentLink = e.currentTarget;
         try {
-          if (!contentIndex) {
+          if (!window.contentIndex) {
             const res = await fetch("/content-index.json");
-            contentIndex = await res.json();
+            window.contentIndex = await res.json();
           }
 
-          const href = link.getAttribute("href");
+          // Safety: Don't show if mouse left during the fetch
+          if (!currentLink.matches(":hover")) return;
+
+          const href = currentLink.getAttribute("href");
           const slug = href.split("/").filter(Boolean).pop();
-          const entry = contentIndex.find(
+          const entry = window.contentIndex.find(
             p => p.id === slug || p.slug === slug
           );
 
@@ -449,14 +456,17 @@ const nextPost =
     function showTooltip(e, html, type) {
       if (!tooltip) return;
       tooltip.innerHTML = html;
-      tooltip.classList.add("visible");
 
+      // Position logic: Set values BEFORE making visible to avoid "top-left" jump
       const rect = e.currentTarget.getBoundingClientRect();
       const x = Math.min(window.innerWidth - 300, Math.max(20, rect.left));
-      const y = rect.top + window.scrollY - tooltip.offsetHeight - 15;
-
       tooltip.style.left = `${x}px`;
+
+      // Measure height after setting innerHTML but before adding "visible" animation
+      const y = rect.top + window.scrollY - tooltip.offsetHeight - 15;
       tooltip.style.top = `${y}px`;
+
+      tooltip.classList.add("visible");
 
       if (type === "footnote") {
         const closeHandler = () => {
@@ -477,6 +487,14 @@ const nextPost =
   attachCodeBlockEnhancements();
   setupAnchoredHeadings();
   setupAdvancedReadingFeatures();
+
+  // Pre-fetch content index for faster previews
+  if (!window.contentIndex) {
+    fetch("/content-index.json")
+      .then(res => res.json())
+      .then(data => (window.contentIndex = data))
+      .catch(err => console.error("Failed to pre-fetch content index:", err));
+  }
 
   // Re-run on view transitions
   document.addEventListener("astro:after-swap", () => {

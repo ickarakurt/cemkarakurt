@@ -62,6 +62,12 @@
     readingTime: string;
   }
 
+  declare global {
+    interface Window {
+      contentIndex: SearchItem[] | null;
+    }
+  }
+
   let isOpen = false;
   let items: SearchItem[] = [];
   let filteredItems: SearchItem[] = [];
@@ -87,13 +93,22 @@
   }
 
   async function fetchItems() {
+    if (window.contentIndex) {
+      items = window.contentIndex;
+      return;
+    }
     try {
       const res = await fetch("/content-index.json");
-      items = await res.json();
+      const data = await res.json();
+      window.contentIndex = data;
+      items = data || [];
     } catch (e) {
       console.error("Failed to fetch search index", e);
     }
   }
+
+  // Pre-fetch
+  fetchItems();
 
   function renderResults() {
     if (!resultsContainer) return;
