@@ -146,6 +146,39 @@ const structuredData = {
   <body class="flex min-h-screen flex-col selection:bg-skin-accent/10">
     <slot />
     <CommandPalette />
+    <script is:inline>
+      // Fix for async hydration layout shifts and hash scrolling
+      function setupHashScrollCorrection() {
+        const hash = window.location.hash;
+        if (!hash) return;
+        
+        const target = document.querySelector(hash);
+        if (!target) return;
 
+        // Ensure we scroll to the target immediately
+        target.scrollIntoView();
+
+        // If the page height changes (e.g., Mermaid diagrams hydrating), 
+        // the browser's scroll position might be thrown off. 
+        // We observe the body height for a few seconds to correct it.
+        let lastHeight = document.body.scrollHeight;
+        const observer = new ResizeObserver(() => {
+          const newHeight = document.body.scrollHeight;
+          if (newHeight !== lastHeight) {
+            lastHeight = newHeight;
+            target.scrollIntoView();
+          }
+        });
+
+        observer.observe(document.body);
+
+        // Disconnect after 3 seconds (when all async hydration is usually done)
+        setTimeout(() => observer.disconnect(), 3000);
+      }
+
+      // Run on initial load and Astro page transitions
+      window.addEventListener("load", setupHashScrollCorrection);
+      document.addEventListener("astro:page-load", setupHashScrollCorrection);
+    </script>
   </body>
 </html>
