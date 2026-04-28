@@ -73,11 +73,15 @@
   let filteredItems: SearchItem[] = [];
   let selectedIndex = 0;
 
-  const palette = document.getElementById("command-palette");
-  const input = document.getElementById("palette-input") as HTMLInputElement;
-  const resultsContainer = document.getElementById("palette-results");
+  // These will be refreshed on every use or navigation
+  const getPalette = () => document.getElementById("command-palette");
+  const getInput = () => document.getElementById("palette-input") as HTMLInputElement;
+  const getResultsContainer = () => document.getElementById("palette-results");
 
   function openPalette() {
+    const palette = getPalette();
+    const input = getInput();
+    
     isOpen = true;
     palette?.classList.add("visible");
     input?.focus();
@@ -85,6 +89,9 @@
   }
 
   function closePalette() {
+    const palette = getPalette();
+    const input = getInput();
+
     isOpen = false;
     palette?.classList.remove("visible");
     if (input) input.value = "";
@@ -111,7 +118,9 @@
   fetchItems();
 
   function renderResults() {
-    if (!resultsContainer) return;
+    const resultsContainer = getResultsContainer();
+    const input = getInput();
+    if (!resultsContainer || !input) return;
 
     if (input.value.length === 0) {
       resultsContainer.innerHTML = `<div class="px-4 py-8 text-center text-skin-base/30 text-sm">Start typing to search...</div>`;
@@ -165,76 +174,87 @@
     closePalette();
   }
 
-  // Global Event Listener for Header/Buttons
-  window.addEventListener("toggle-palette", () => {
-    isOpen ? closePalette() : openPalette();
-  });
+  function setupEventListeners() {
+    const input = getInput();
+    const palette = getPalette();
 
-  // Keyboard Shortcuts
-  window.addEventListener("keydown", e => {
-    // Toggle
-    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-      e.preventDefault();
-      isOpen ? closePalette() : openPalette();
-    }
+    // These listeners are on the elements themselves, so they need to be re-attached
+    // every time the page swaps because the elements are new.
+    input?.addEventListener("input", e => {
+      const query = (e.target as HTMLInputElement).value.toLowerCase();
+      if (query.length < 2) {
+        filteredItems = [];
+        selectedIndex = 0;
+        renderResults();
+        return;
+      }
 
-    // Close on ESC
-    if (e.key === "Escape" && isOpen) {
-      closePalette();
-    }
+      filteredItems = items
+        .filter(
+          (item: SearchItem) =>
+            item.title.toLowerCase().includes(query) ||
+            item.description.toLowerCase().includes(query) ||
+            (item.tags &&
+              item.tags.some((tag: string) => tag.toLowerCase().includes(query)))
+        )
+        .slice(0, 8);
 
-    if (!isOpen) return;
-
-    // Navigation
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      selectedIndex = (selectedIndex + 1) % filteredItems.length;
-      renderResults();
-    }
-    if (e.key === "ArrowUp") {
-      e.preventDefault();
-      selectedIndex =
-        (selectedIndex - 1 + filteredItems.length) % filteredItems.length;
-      renderResults();
-    }
-    if (e.key === "Enter") {
-      e.preventDefault();
-      navigate(filteredItems[selectedIndex]);
-    }
-  });
-
-  // Search Logic
-  input?.addEventListener("input", e => {
-    const query = (e.target as HTMLInputElement).value.toLowerCase();
-    if (query.length < 2) {
-      filteredItems = [];
       selectedIndex = 0;
       renderResults();
-      return;
-    }
+    });
 
-    filteredItems = items
-      .filter(
-        (item: SearchItem) =>
-          item.title.toLowerCase().includes(query) ||
-          item.description.toLowerCase().includes(query) ||
-          (item.tags &&
-            item.tags.some((tag: string) => tag.toLowerCase().includes(query)))
-      )
-      .slice(0, 8);
+    palette?.addEventListener("click", e => {
+      if (e.target === palette) closePalette();
+    });
+  }
 
+  // Global Window Event Listeners (added only once)
+  if (!window.hasOwnProperty('commandPaletteInitialized')) {
+    window.addEventListener("toggle-palette", () => {
+      isOpen ? closePalette() : openPalette();
+    });
+
+    window.addEventListener("keydown", e => {
+      // Toggle
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        isOpen ? closePalette() : openPalette();
+      }
+
+      // Close on ESC
+      if (e.key === "Escape" && isOpen) {
+        closePalette();
+      }
+
+      if (!isOpen) return;
+
+      // Navigation
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        selectedIndex = (selectedIndex + 1) % filteredItems.length;
+        renderResults();
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        selectedIndex =
+          (selectedIndex - 1 + filteredItems.length) % filteredItems.length;
+        renderResults();
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        navigate(filteredItems[selectedIndex]);
+      }
+    });
+
+    // @ts-ignore
+    window.commandPaletteInitialized = true;
+  }
+
+  // Run on initial load and after view transitions
+  document.addEventListener("astro:page-load", () => {
+    isOpen = false; // Reset state on navigation
+    filteredItems = [];
     selectedIndex = 0;
-    renderResults();
-  });
-
-  // Click outside to close
-  palette?.addEventListener("click", e => {
-    if (e.target === palette) closePalette();
-  });
-
-  // Handle Astro View Transitions
-  document.addEventListener("astro:after-swap", () => {
-    // Close on page change
-    closePalette();
+    setupEventListeners();
   });
 </script>
