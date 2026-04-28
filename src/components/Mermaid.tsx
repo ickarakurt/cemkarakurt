@@ -51,17 +51,18 @@ export default function Mermaid({ code }: MermaidProps) {
         });
 
         // Generate a unique ID for this render to avoid cache bleeding
-        const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
+        const id = `mermaid-${Math.random().toString(36).slice(2, 11)}`;
         const { svg: renderedSvg } = await mermaid.render(id, code);
         
         if (isMounted) {
           setSvg(renderedSvg);
           setError('');
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (isMounted) {
           console.error("Mermaid Render Error:", err);
-          setError(err?.message || 'Failed to render Mermaid diagram');
+          const errorMessage = err instanceof Error ? err.message : 'Failed to render Mermaid diagram';
+          setError(errorMessage);
         }
       }
     };

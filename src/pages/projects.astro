@@ -7,19 +7,19 @@ import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import { getCollection } from "astro:content";
 
-const projects = await getCollection("projects", ({ data }: { data: any }) => {
+const projects = await getCollection("projects", ({ data }) => {
   return !data.draft;
 });
 
 // Sort projects by featured first, then by title
-const sortedProjects = projects.sort((a: any, b: any) => {
+const sortedProjects = projects.sort((a, b) => {
   if (a.data.featured && !b.data.featured) return -1;
   if (!a.data.featured && b.data.featured) return 1;
   return a.data.title.localeCompare(b.data.title);
 });
 
 // Get projects with raw markdown content
-const projectsWithContent = sortedProjects.map((project: any) => {
+const projectsWithContent = sortedProjects.map(project => {
   return {
     ...project,
     rawContent: project.body,
@@ -37,7 +37,7 @@ const projectsWithContent = sortedProjects.map((project: any) => {
       {
         projectsWithContent.map(({ data, rawContent }) => (
           <li>
-            <ProjectCard frontmatter={data} rawContent={rawContent} />
+            <ProjectCard frontmatter={data} rawContent={rawContent || ""} />
           </li>
         ))
       }
