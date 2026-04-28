@@ -19,6 +19,8 @@ tags:
 description: Learn about React rendering techniques and how NextJS Partial Prerendering combines static content with dynamic content to improve SEO and user experience.
 ---
 
+import Mermaid from '@components/Mermaid';
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -40,7 +42,18 @@ description: Learn about React rendering techniques and how NextJS Partial Prere
 - The page is initially _empty_ and then filled with content after the JavaScript is loaded.
 - **Good for interactivity** but _bad for SEO and initial load time_.
 
-![Client-Side Rendering](/assets/csr.svg)
+<Mermaid client:visible code={`
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Client->>Server: Request page
+    Server-->>Client: Send minimal HTML and JavaScript
+    Note over Client: Load JavaScript
+    Note over Client: Render page content
+    Note over Client: Fetch data if needed
+    Note over Client: Update DOM
+`} />
 
 #### Server-Side Rendering (SSR)
 
@@ -48,7 +61,21 @@ description: Learn about React rendering techniques and how NextJS Partial Prere
 - The page is _fully loaded_ when the user first accesses it.
 - **Good for SEO and initial load time** but _bad for interactivity_.
 
-![Server-Side Rendering](/assets/ssr.svg)
+<Mermaid client:visible code={`
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+
+    Client->>Server: Request page
+    Server->>Database: Fetch data
+    Database-->>Server: Return data
+    Note over Server: Generate HTML
+    Server-->>Client: Send complete HTML
+    Note over Client: Render page
+    Note over Client: Load JavaScript
+    Note over Client: Hydrate for interactivity
+`} />
 
 #### Static Site Generation (SSG)
 
@@ -56,7 +83,20 @@ description: Learn about React rendering techniques and how NextJS Partial Prere
 - The page is _fully loaded_ when the user first accesses it.
 - **Good for SEO and initial load time** but _bad for dynamic content_.
 
-![Static Site Generation](/assets/ssg.svg)
+<Mermaid client:visible code={`
+sequenceDiagram
+    participant Client
+    participant Server
+    participant BuildProcess
+
+    Note over BuildProcess: Generate static HTML at build time
+    BuildProcess->>Server: Deploy static files
+    Client->>Server: Request page
+    Server-->>Client: Send pre-rendered HTML
+    Note over Client: Render page
+    Note over Client: Load JavaScript
+    Note over Client: Hydrate for interactivity
+`} />
 
 #### Streaming
 
@@ -64,7 +104,25 @@ description: Learn about React rendering techniques and how NextJS Partial Prere
 - The page is _partially loaded_ when the user first accesses it.
 - **Good for SEO, initial load time, and dynamic content**.
 
-![Streaming](/assets/streaming.svg)
+<Mermaid client:visible code={`
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+
+    Client->>Server: Request page
+    Server-->>Client: Send initial HTML shell
+    Note over Client: Begin rendering
+    Server->>Database: Fetch data for component 1
+    Database-->>Server: Return data for component 1
+    Server-->>Client: Stream component 1
+    Note over Client: Render component 1
+    Server->>Database: Fetch data for component 2
+    Database-->>Server: Return data for component 2
+    Server-->>Client: Stream component 2
+    Note over Client: Render component 2
+    Note over Client: Continue for remaining components...
+`} />
 
 #### Partial Prerendering (PPR)
 
@@ -72,7 +130,34 @@ description: Learn about React rendering techniques and how NextJS Partial Prere
 - The page is _partially loaded_ when the user first accesses it.
 - **Good for SEO, initial load time, and dynamic content**.
 
-![Partial Prerendering](/assets/ppr.svg)
+<Mermaid client:visible code={`
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Backend
+    participant BuildProcess
+
+    Note over BuildProcess: Prerender static content
+    BuildProcess->>Server: Deploy static and dynamic routes
+
+    Client->>Server: Single HTTP Request
+    Note over Server: Determine route type
+
+    alt Static Route
+        Server->>Client: Send prerendered content
+    else Dynamic Route
+        par Parallel processing
+            Server->>Client: Stream prerendered static shell
+            Server->>Backend: Fetch data for dynamic components
+            Backend-->>Server: Stream data for dynamic components
+            Note over Server: Process with React Server Components
+            Server->>Client: Stream dynamic components
+        end
+    end
+
+    Note over Client: Render static content
+    Note over Client: Progressively render dynamic components
+`} />
 
 ### Deep Dive: What is Partial Prerendering?
 

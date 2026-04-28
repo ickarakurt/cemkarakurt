@@ -5,7 +5,7 @@ import { z } from "astro/zod";
 
 const blog = defineCollection({
   type: "content_layer",
-  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: ({ image }) =>
     z.object({
       author: z.string().default(SITE.author),
@@ -28,7 +28,7 @@ const blog = defineCollection({
 
 const note = defineCollection({
   type: "content_layer",
-  loader: glob({ pattern: "**/*.md", base: "./src/content/note" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/note" }),
   schema: ({ image }) =>
     z.object({
       author: z.string().default(SITE.author),
@@ -51,7 +51,7 @@ const note = defineCollection({
 
 const projects = defineCollection({
   type: "content_layer",
-  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),

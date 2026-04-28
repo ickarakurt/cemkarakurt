@@ -490,3 +490,14 @@ article blockquote strong:first-child {
   border-radius: 4px;
   padding: 0 4px;
 }
+
+/* ===== Mermaid Diagrams ===== */
+.mermaid {
+  @apply my-8 flex w-full justify-center overflow-x-auto rounded-xl border border-skin-border/40 bg-skin-card-muted/20 p-6 transition-all duration-300;
+}
+
+.mermaid svg {
+  @apply h-auto max-w-full;
+  width: 100% !important;
+  max-width: 850px !important;
+}

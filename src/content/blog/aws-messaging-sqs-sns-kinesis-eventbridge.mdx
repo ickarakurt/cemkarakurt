@@ -18,6 +18,8 @@ description:
   learn how to choose the right one for your distributed system.
 ---
 
+import Mermaid from '@components/Mermaid';
+
 - [Introduction](#introduction)
 - [Simple Queue Service (SQS)](#simple-queue-service-sqs)
 - [Simple Notification Service (SNS)](#simple-notification-service-sns)
@@ -62,7 +64,14 @@ Combining SNS with SQS in a fanout pattern ensures message durability while leve
 
 SNS publishes messages to SQS queues, which are then consumed by subscribers. This approach ensures that messages are not lost even if subscribers are offline.
 
-![System Architecture](/assets/blog6_diagram2.png)
+<Mermaid client:visible code={`
+flowchart LR
+    Pub[Publisher] --> SNS{SNS Topic}
+    SNS -->|Fanout| SQS1[SQS Queue 1]
+    SNS -->|Fanout| SQS2[SQS Queue 2]
+    SQS1 --> Sub1[Subscriber 1]
+    SQS2 --> Sub2[Subscriber 2]
+`} />
 
 ## Kinesis
 
@@ -115,7 +124,40 @@ Consider a hypothetical e-commerce application integrating these [**AWS**](https
 
 ### Diagram
 
-![System Architecture](/assets/blog6_diagram.png)
+<Mermaid client:visible code={`
+flowchart TD
+    Web[Web Application Servers]
+    DB[(Database)]
+    
+    subgraph Services
+        OrderSvc[Order Processing Service]
+        InvSvc[Inventory Management Service]
+        NotifSvc[Notification Service]
+        AnalyticsSvc[Analytics Service]
+    end
+
+    subgraph AWS_Messaging[AWS Messaging Services]
+        SQS[SQS Queue]
+        SNS{SNS Topic}
+        Kinesis[Kinesis Stream]
+        EB{EventBridge}
+    end
+
+    Web -->|Place Order| SQS
+    SQS --> OrderSvc
+    OrderSvc -->|Save Order| DB
+    
+    OrderSvc -->|Publish Event| SNS
+    SNS -->|Fanout| NotifSvc
+    SNS -->|Fanout| InvSvc
+    
+    Web -->|Stream Activity| Kinesis
+    Kinesis --> AnalyticsSvc
+    
+    OrderSvc -->|State Change| EB
+    EB -->|Orchestrate| InvSvc
+    EB -->|Trigger| NotifSvc
+`} />
 
 ## Conclusion
 
