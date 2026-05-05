@@ -4,9 +4,8 @@ import { slugifyStr } from "../utils/slugify";
 
 export async function GET() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
-  const notes = await getCollection("note", ({ data }) => !data.draft);
 
-  const entries = [...posts, ...notes].map(entry => ({
+  const entries = posts.map(entry => ({
     id: entry.id,
     collection: entry.collection,
     title: entry.data.title,
@@ -20,7 +19,7 @@ export async function GET() {
   }));
 
   // Add tags to the index
-  const allTags = [...posts, ...notes].flatMap(entry => entry.data.tags || []);
+  const allTags = posts.flatMap(entry => entry.data.tags || []);
   const uniqueTags = [...new Set(allTags)];
   const tagEntries = uniqueTags.map(tag => {
     const slug = slugifyStr(tag);

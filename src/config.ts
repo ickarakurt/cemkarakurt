@@ -12,7 +12,6 @@ export const SITE: Site = {
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 6,
-  notePerPage: 6,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
 };
 

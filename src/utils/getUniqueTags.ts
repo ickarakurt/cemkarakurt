@@ -8,7 +8,7 @@ interface Tag {
   count: number;
 }
 
-const getUniqueTags = (posts: CollectionEntry<"blog" | "note">[]) => {
+const getUniqueTags = (posts: CollectionEntry<"blog">[]) => {
   const allTags = posts.filter(contentFilter).flatMap(post => post.data.tags);
   const tagCounts = allTags.reduce((acc, tag) => {
     const slug = slugifyStr(tag);

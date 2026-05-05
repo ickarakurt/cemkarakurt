@@ -2,7 +2,7 @@ import type { CollectionEntry } from "astro:content";
 import contentFilter from "./contentFilter";
 
 const getSortedContent = <
-  T extends CollectionEntry<"blog"> | CollectionEntry<"note">,
+  T extends CollectionEntry<"blog">,
 >(
   content: T[]
 ) => {

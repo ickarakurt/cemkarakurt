@@ -20,9 +20,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["'Sora'", "system-ui", "sans-serif"],
-        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
-        display: ["'Sora'", "system-ui", "sans-serif"],
+        sans: ["'Inter'", "system-ui", "sans-serif"],
+        mono: ["'Geist Mono'", "ui-monospace", "monospace"],
+        display: ["'Outfit'", "system-ui", "sans-serif"],
       },
       fontSize: {
         'xxs': '0.625rem',

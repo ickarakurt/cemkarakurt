@@ -26,29 +26,6 @@ const blog = defineCollection({
     }),
 });
 
-const note = defineCollection({
-  type: "content_layer",
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/note" }),
-  schema: ({ image }) =>
-    z.object({
-      author: z.string().default(SITE.author),
-      pubDatetime: z.date(),
-      modDatetime: z.date().optional().nullable(),
-      title: z.string(),
-      featured: z.boolean().optional(),
-      draft: z.boolean().optional(),
-      tags: z.array(z.string()).default(["others"]),
-      ogImage: image()
-        .refine(img => img.width >= 1200 && img.height >= 630, {
-          message: "OpenGraph image must be at least 1200 X 630 pixels!",
-        })
-        .or(z.string())
-        .optional(),
-      description: z.string(),
-      canonicalURL: z.string().optional(),
-    }),
-});
-
 const projects = defineCollection({
   type: "content_layer",
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
@@ -69,4 +46,15 @@ const projects = defineCollection({
     }),
 });
 
-export const collections = { blog, note, projects };
+const tags = defineCollection({
+  type: "content_layer",
+  loader: glob({ pattern: "**/*.json", base: "./src/content/tags" }),
+  schema: z.object({
+    title: z.string(),
+    isTop: z.boolean().default(false),
+    icon: z.string().optional(),
+    order: z.number().optional(),
+  }),
+});
+
+export const collections = { blog, projects, tags };
