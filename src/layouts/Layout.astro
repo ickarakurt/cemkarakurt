@@ -125,6 +125,13 @@ const structuredData = {
 
     <meta name="theme-color" content="" />
 
+    <script is:inline>
+      (function() {
+        var t = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+
     {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
       // include google-site-verification tag in the heading
