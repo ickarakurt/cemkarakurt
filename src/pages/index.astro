@@ -1,6 +1,7 @@
 ---
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
+import ExploreTabs from "@components/ExploreTabs.tsx";
 import LinkButton from "@components/LinkButton.astro";
 import Socials from "@components/Socials.astro";
 import Tag from "@components/Tag.astro";
@@ -184,8 +185,8 @@ const socialCount = SOCIALS.filter(social => social.active).length;
                       {post.data.title}
                     </span>
                     <span class="flex items-center gap-2 ml-auto shrink-0 text-[11px] font-mono text-skin-base/30 tabular-nums">
-                      <span>{getReadingTime(post.body || "")}</span>
-                      <span class="w-px h-3 bg-skin-border/30"></span>
+                      <span class="hidden sm:inline">{getReadingTime(post.body || "")}</span>
+                      <span class="hidden sm:inline w-px h-3 bg-skin-border/30"></span>
                       <span>
                         {post.data.pubDatetime.toLocaleDateString("en-US", {
                           month: "short",
@@ -223,60 +224,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
             </h2>
           </div>
 
-          {/* Tab Navigation */}
-          <nav class="flex flex-wrap gap-1 p-1 bg-skin-card-muted/30 rounded-xl border border-skin-border/40">
-            {
-              tagSections.map((section, index) => (
-                <button
-                  class={`tab-btn px-4 py-2 rounded-lg text-xs font-mono uppercase tracking-wider transition-all duration-200 ${index === 0 ? "active bg-skin-card text-skin-accent shadow-sm border border-skin-border/50" : "text-skin-base/50 hover:text-skin-base hover:bg-skin-card-muted/50"}`}
-                  data-tab={section.id}
-                >
-                  {section.data.title}
-                </button>
-              ))
-            }
-          </nav>
-
-          {/* Tab Panels */}
-          <div class="relative min-h-[200px]">
-            {
-              tagSections.map((section, sectionIndex) => (
-                <div
-                  class={`tab-panel space-y-4 ${sectionIndex === 0 ? "block" : "hidden"}`}
-                  id={`panel-${section.id}`}
-                >
-
-                  <ul class="space-y-1">
-                    {section.posts.slice(0, 4).map((post, index) => (
-                      <li class="stagger-in" style={`animation-delay: ${index * 0.04}s`}>
-                        <a
-                          href={`/blog/${post.id}/`}
-                          class="group flex items-center gap-3 py-2.5 px-3 -mx-3 rounded-lg hover:bg-skin-card-muted/50 transition-all duration-200"
-                        >
-                          <span class="font-mono text-[10px] text-skin-base/20 shrink-0 tabular-nums w-5 text-right">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <span class="text-sm font-medium text-skin-base group-hover:text-skin-accent transition-colors truncate">
-                            {post.data.title}
-                          </span>
-                          <span class="flex items-center gap-2 ml-auto shrink-0 text-[11px] font-mono text-skin-base/30 tabular-nums">
-                            <span>{getReadingTime(post.body || "")}</span>
-                            <span class="w-px h-3 bg-skin-border/30"></span>
-                            <span>
-                              {post.data.pubDatetime.toLocaleDateString("en-US", {
-                                month: "short",
-                                year: "2-digit",
-                              })}
-                            </span>
-                          </span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))
-            }
-          </div>
+          <ExploreTabs sections={tagSections} client:load />
         </section>
 
         {/* Latest Project */}
@@ -351,37 +299,6 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   </div>
 
   <Footer />
-
-  <script>
-    function setupTabs() {
-      const tabBtns = document.querySelectorAll(".tab-btn");
-      const tabPanels = document.querySelectorAll(".tab-panel");
-
-      tabBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const tabId = btn.getAttribute("data-tab");
-
-          // Update buttons
-          tabBtns.forEach(b => {
-            b.classList.remove("active", "bg-skin-card", "text-skin-accent", "shadow-sm", "border", "border-skin-border/50");
-            b.classList.add("text-skin-base/50");
-          });
-          btn.classList.add("active", "bg-skin-card", "text-skin-accent", "shadow-sm", "border", "border-skin-border/50");
-          btn.classList.remove("text-skin-base/50");
-
-          // Update panels
-          tabPanels.forEach(p => p.classList.add("hidden"));
-          const activePanel = document.getElementById(`panel-${tabId}`);
-          if (activePanel) activePanel.classList.remove("hidden");
-        });
-      });
-    }
-
-    // Run on initial load
-    setupTabs();
-    // Run on view transitions
-    document.addEventListener("astro:after-swap", setupTabs);
-  </script>
 
   <style>
     /* Custom scrollbar for sidebar */
