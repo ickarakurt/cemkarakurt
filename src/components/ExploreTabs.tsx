@@ -64,6 +64,7 @@ export default function ExploreTabs({ sections }: ExploreTabsProps) {
               {section.posts.slice(0, 4).map((post, index) => (
                 <li
                   key={post.id}
+                  className="stagger-in"
                   style={{ animationDelay: `${index * 0.04}s` }}
                 >
                   <a
