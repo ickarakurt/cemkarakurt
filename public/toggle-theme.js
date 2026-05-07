@@ -49,23 +49,25 @@ function reflectPreference() {
 // set early so no page flashes / CSS is made aware
 reflectPreference();
 
+function setThemeFeature() {
+  reflectPreference();
+  document.querySelector("#theme-btn")?.addEventListener("click", () => {
+    themeValue = themeValue === "light" ? "dark" : "light";
+    setPreference();
+  });
+}
+
 window.onload = () => {
-  function setThemeFeature() {
-    // set on load so screen readers can get the latest value on the button
-    reflectPreference();
-
-    // now this script can find and listen for clicks on the control
-    document.querySelector("#theme-btn")?.addEventListener("click", () => {
-      themeValue = themeValue === "light" ? "dark" : "light";
-      setPreference();
-    });
-  }
-
   setThemeFeature();
-
-  // Runs on view transitions navigation
-  document.addEventListener("astro:after-swap", setThemeFeature);
 };
+
+document.addEventListener("astro:before-swap", (event) => {
+  // Set theme on the incoming document before the swap
+  const incomingDoc = event.newDocument;
+  incomingDoc.documentElement.setAttribute("data-theme", themeValue);
+});
+
+document.addEventListener("astro:after-swap", setThemeFeature);
 
 // sync with system changes
 window
